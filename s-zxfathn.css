@@ -1,4 +1,4 @@
-/* ===== RESET ===== */
+/* refresh */
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@ body {
   position: relative;
 }
 
-/* ===== OVERLAY ===== */
+/* overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -24,7 +24,7 @@ body {
   z-index: -1;
 }
 
-/* ===== HEADER ===== */
+/* head */
 header {
   text-align: center;
   padding: 80px 20px 60px;
@@ -56,7 +56,7 @@ header h3 {
   color: #cbd5e1;
 }
 
-/* ===== CARD ===== */
+/* card */
 .card {
   max-width: 850px;
   margin: 30px auto;
@@ -85,7 +85,7 @@ header h3 {
   color: #f3f4f6;
 }
 
-/* ===== SKILL TAGS ===== */
+/* tag skil */
 .skills {
   display: flex;
   flex-wrap: wrap;
@@ -106,7 +106,7 @@ header h3 {
   transform: scale(1.05);
 }
 
-/* ===== TOMBOL KONTAK ===== */
+/* buttons kontak */
 .contact-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +129,6 @@ header h3 {
   box-shadow: 0 0 25px rgba(255,255,255,0.3);
 }
 
-/* Warna spesifik tombol */
 .btn.email {
   background: rgba(37, 99, 235, 0.8);
   color: white;
@@ -150,23 +149,13 @@ header h3 {
   color: white;
 }
 
-/* Tombol untuk link archive (eksternal) */
 .btn.archive {
   background: linear-gradient(90deg, rgba(239,68,68,0.9), rgba(249,115,22,0.9));
   color: white;
   border: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Catatan kecil di bawah kontak */
-.note {
-  margin-top: 12px;
-  text-align: center;
-  color: #f3f4f6;
-  opacity: 0.85;
-  font-size: 0.9em;
-}
-
-/* ===== FOOTER ===== */
+/* footer */
 footer {
   text-align: center;
   padding: 30px;
@@ -176,7 +165,7 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ===== RESPONSIVE ===== */
+/* responsive */
 @media (max-width: 600px) {
   header h1 {
     font-size: 1.8em;
