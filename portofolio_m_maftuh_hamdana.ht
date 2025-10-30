@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio M Maftuh Hamdanaa</title>
+  <link rel="stylesheet" href="ham.css">
+</head>
+<body>
+  <header>
+    <img src="1000629918.jpg" alt="Foto Profil">
+    <h1>M Maftuh Hamdanaa</h1>
+    <p>Mahasiswa & Programmer</p>
+  </header>
+
+  <main>
+    <section id="profil">
+      <h2>Profil Singkat</h2>
+      <p>
+        Saya adalah seorang mahasiswa semester 5 dengan jurusan Teknik Informatika. 
+        Saya mempunyai kepribadian yang sangat bagus dalam hal public speaking dan marketing. 
+        Saya juga terus berusaha mengembangkan kemampuan di bidang teknologi dan komunikasi.
+      </p>
+    </section>
+
+    <section id="pendidikan">
+      <h2>Pendidikan</h2>
+      <ul>
+        <li>2016 - 2018 | MTS Al Iman Bulus Gebang Purworejo</li>
+        <li>2019 - 2021 | SMA Al Iman Bulus Gebang Purworejo - IPA</li>
+      </ul>
+    </section>
+
+    <section id="pengalaman">
+      <h2>Pengalaman Kerja / Proyek</h2>
+      <ul>
+        <li><strong>Account Executive (FTTH)</strong> - Perusahaan Provider Internet Wifi Rumahan  
+          Jobdesk: Marketing canvasing door to door.</li>
+        <li><strong>Crew Store</strong> - Perusahaan Retail Orang Tua (OT)  
+          Jobdesk: Cek & tata barang, merapikan, melakukan grooming, dan melayani pelanggan.</li>
+        <li><strong>PIC Recruitment</strong> - Perusahaan Outsourcing  
+          Jobdesk: Interview, background check, dan memberikan wawasan kepada calon kandidat.</li>
+      </ul>
+    </section>
+
+    <section id="keahlian">
+      <h2>Keahlian</h2>
+      <ul>
+        <li>Public Speaking & Marketing</li>
+        <li>Figma (Sedang Dipelajari)</li>
+        <li>Negosiasi (Dalam Proses Pengembangan)</li>
+      </ul>
+    </section>
+
+    <section id="sertifikasi">
+      <h2>Sertifikasi</h2>
+      <p>Belum ada sertifikasi formal saat ini.</p>
+    </section>
+
+    <section id="kontak">
+      <h2>Kontak</h2>
+      <p>Email: <a href="mailto:maftuhhamdanaa@gmail.com">maftuhhamdanaa@gmail.com</a></p>
+      <p>Telepon / WhatsApp: <a href="tel:082377955788">082377955788</a></p>
+      <p>Lokasi: Jakarta Selatan</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 M Maftuh Hamdanaa — Portofolio Pribadi</p>
+  </footer>
+</body>
+</html>
