@@ -1,0 +1,227 @@
+:root {
+  --bg-dark: rgba(6,18,33,0.65);
+  --glass-bg: rgba(255,255,255,0.08);
+  --accent: rgba(24,144,255,0.95);
+  --card-radius: 14px;
+  --text: #f2f6ff;
+}
+
+/* Reset dasar */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: "Poppins", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text);
+  background: #081124;
+  scroll-behavior: smooth;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Background dan overlay */
+body {
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow-y: auto;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(8,17,36,0.45);
+  z-index: 0;
+}
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2,10,25,0.55), rgba(2,10,25,0.6));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Pusatkan container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Kartu utama */
+.profile-card {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  position: relative;
+}
+
+/* Foto profil bulat di tengah atas */
+.avatar-wrap {
+  position: absolute;
+  top: -75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  padding: 6px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(2,10,25,0.6);
+  border: 2px solid rgba(255,255,255,0.08);
+  z-index: 2;
+}
+
+/* Gambar profil */
+.avatar {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 25px rgba(24,144,255,0.25);
+}
+
+/* Kartu kaca */
+.glass {
+  position: relative;
+  margin-top: 90px;
+  background: var(--glass-bg);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(0, 20, 60, 0.4);
+  transition: transform .6s cubic-bezier(.2,.9,.3,1), opacity .6s;
+  opacity: 0;
+  transform: translateY(18px);
+}
+.glass.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Nama dan jabatan */
+.name {
+  margin-top: 80px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-shadow: 0 3px 18px rgba(2,10,25,0.6);
+}
+.role {
+  margin-top: 6px;
+  font-size: 14px;
+  color: rgba(230,240,255,0.85);
+}
+
+/* Blok isi */
+.block {
+  text-align: left;
+  margin-bottom: 18px;
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.block-title {
+  font-size: 15px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+  border-left: 3px solid rgba(255,255,255,0.03);
+  padding-left: 10px;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+ul { margin: 8px 0 0 18px; padding: 0; }
+li { margin-bottom: 6px; font-size: 14px; color: #e6eefc; }
+
+/* Skills */
+.skills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.chip {
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Kontak */
+.contacts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 120px;
+  transition: transform .18s ease, box-shadow .18s ease;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(2,10,25,0.45);
+}
+.contact-btn.wa {
+  background: linear-gradient(90deg,#00c853,#00b848);
+  box-shadow: 0 8px 24px rgba(0,184,72,0.16);
+}
+.contact-btn.mail {
+  background: linear-gradient(90deg,#2b7cff,#1b6bff);
+  box-shadow: 0 8px 24px rgba(27,107,255,0.16);
+}
+.contact-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(2,10,25,0.6);
+}
+
+/* Footer */
+.small-note {
+  margin-top: 8px;
+  font-size: 13px;
+  color: rgba(230,240,255,0.65);
+  text-align: center;
+}
+
+/* Animasi masuk */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsif */
+@media (max-width:880px) {
+  .two-col { grid-template-columns: 1fr; }
+  .avatar-wrap { width: 130px; height: 130px; top: -65px; }
+  .avatar { width: 115px; height: 115px; }
+  .name { font-size: 20px; }
+  .glass { padding: 18px; }
+}
+@media (max-width:420px) {
+  .container { padding: 28px 12px; }
+  .profile-card { max-width: 380px; margin: 0 auto; }
+  .avatar-wrap { top: -60px; }
+}
