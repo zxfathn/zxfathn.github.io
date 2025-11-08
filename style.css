@@ -1,245 +1,219 @@
-body { 
-  font-family: "Poppins", Arial, sans-serif; 
-  background: url("ba.jpg") no-repeat center center fixed; 
-  background-size: cover;
-  padding: 20px; 
+/* 🌈 Latar Belakang & Dasar */
+body {
+  font-family: "Poppins", Arial, sans-serif;
   margin: 0;
-  color: #333;
-  overflow-x: hidden;
+  padding: 20px;
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 30%, #fbc2eb 70%, #a6c1ee 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.container { 
-  max-width: 950px; 
-  margin: auto; 
-  background: rgba(255,255,255,0.92);
-  padding: 25px; 
-  border-radius: 12px; 
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25); 
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.7s ease;
+/* 🧩 Container */
+.container {
+  width: 95%;
+  max-width: 950px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.6s ease;
 }
 
-h2 { 
-  text-align: center; 
+/* 🧾 Judul */
+h2 {
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #1e293b;
-  margin-bottom: 15px;
+  color: #1f2937;
   font-weight: 600;
 }
 
-form input, form button { 
-  padding: 8px; 
-  margin: 5px; 
-  border: 1px solid #bbb; 
-  border-radius: 6px; 
+/* 🧍 Form Input */
+form input,
+form button {
+  padding: 8px;
+  margin: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.3s;
 }
 
 form input {
   width: calc(20% - 10px);
-  transition: all 0.3s ease;
 }
 
 form input:focus {
-  border-color: #3a8ef6;
-  box-shadow: 0 0 6px #3a8ef6;
+  border-color: #6a11cb;
+  box-shadow: 0 0 6px #6a11cb;
   outline: none;
 }
 
-form button { 
+form button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
   cursor: pointer;
-  background: #3a8ef6; 
-  color: white; 
-  border: none; 
   font-weight: 500;
 }
 
-form button:hover { 
-  background: #2563eb; 
+form button:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
 }
 
+/* 🔍 Pencarian */
 #searchInput {
   width: 100%;
   padding: 8px;
   margin: 12px 0;
-  box-sizing: border-box;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
 }
 
+/* 🔘 Tombol Atas */
 .top-buttons {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 10px;
 }
 
 .top-buttons button {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: none;
-  background: #4a90e2;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: 0.3s;
 }
 
 .top-buttons button:hover {
-  background: #357abd;
+  transform: scale(1.05);
 }
 
-table { 
-  width: 100%; 
-  border-collapse: collapse; 
-  margin-top: 10px; 
-  background: white;
+/* 📋 Tabel */
+table {
+  width: 100%;
+  border-collapse: collapse;
   border-radius: 8px;
   overflow: hidden;
+  background: white;
 }
 
-th, td { 
-  border: 1px solid #ccc; 
-  padding: 10px; 
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
   max-width: 180px;
   word-wrap: break-word;
 }
 
-th { 
-  background: #3a8ef6; 
+th {
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   text-transform: uppercase;
 }
 
-td { 
+td {
   text-transform: uppercase;
   text-align: center;
-  animation: fadeUp 0.4s ease forwards;
-  opacity: 0;
+  transition: background 0.3s;
 }
 
 td.email {
   text-transform: lowercase !important;
 }
 
-td:first-child, 
-td:nth-child(2),
-th:first-child, 
-th:nth-child(2) {
-  text-align: left !important;
+td:first-child, td:nth-child(2),
+th:first-child, th:nth-child(2) {
+  text-align: left;
 }
 
 tr {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: rowFadeIn 0.4s ease forwards;
+  transition: all 0.2s ease;
 }
 
 tr:hover {
-  background: #e6f0ff;
+  background: #eef2ff;
+  transform: scale(1.005);
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-button.action { 
-  padding: 4px 8px; 
-  margin: 2px; 
-  cursor: pointer; 
-  border: none;
-  border-radius: 4px;
-  background: #f0f0f0;
-  transition: 0.3s;
-}
-
-button.action:hover {
-  background: #ddd;
-}
-
-/* === MODAL === */
+/* 🪄 Modal Detail */
 .modal {
   display: none;
   position: fixed;
   z-index: 1000;
   left: 0; top: 0;
   width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  animation: fadeIn 0.3s ease;
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
   margin: 10% auto;
   width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  max-width: 420px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.4);
   animation: slideUp 0.4s ease;
-  text-align: left;
 }
 
 .modal-content h3 {
   text-align: center;
-  margin-bottom: 15px;
-  color: #2563eb;
+  color: #4c51bf;
+  margin-bottom: 10px;
 }
 
 #modalBody {
-  line-height: 1.8;
-  font-size: 15px;
+  line-height: 1.6;
 }
 
 .close {
   float: right;
   font-size: 22px;
-  color: #999;
+  color: #777;
   cursor: pointer;
 }
 
 .close:hover {
-  color: #333;
+  color: #111;
 }
 
 .close-btn {
-  margin-top: 15px;
   width: 100%;
   padding: 8px;
-  border: none;
-  background: #2563eb;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  font-weight: bold;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 15px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .close-btn:hover {
-  background: #1e40af;
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
 }
 
-/* === ANIMASI === */
+/* 🌟 Animasi */
 @keyframes fadeIn {
-  from { opacity: 0; } 
+  from { opacity: 0; }
   to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
+  from { transform: translateY(40px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes rowFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: none; }
-}
-
-/* === RESPONSIVE === */
+/* 📱 Responsif */
 @media (max-width: 768px) {
   form input { width: 100%; margin-bottom: 8px; }
-  form button { width: 48%; }
   table, th, td { font-size: 14px; }
-  .top-buttons { flex-direction: column; align-items: flex-start; }
+  .top-buttons { flex-direction: column; align-items: stretch; }
 }
