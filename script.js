@@ -1,4 +1,4 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbxOrDU5Yx5PYGVr_Afpm3r1l1_A1nItOhqvS5vvBh_CXTWqIIAdYXHYeNIy9Mnag9-cUA/exec"; // Ganti dengan URL Web App
+const sheetURL = "https://script.google.com/macros/s/AKfycbxdfJH7BtJHo0Osm3tBs6IYdH55F-2KWVegilOxJ9XbJAbMJbB_xMldD6iW2qccYiluEA/exec"; // Ganti dengan URL Web App
 
 let selectAll = false;
 
