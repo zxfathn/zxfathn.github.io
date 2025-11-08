@@ -7,30 +7,34 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Daftar Kontak Pelanggan</h1>
+  <main>
+    <h1>Daftar Kontak Pelanggan</h1>
 
-  <form id="contactForm">
-    <input type="text" name="Nama" placeholder="Nama" required>
-    <input type="email" name="Email" placeholder="Email" required>
-    <input type="text" name="Telepon" placeholder="Telepon" required>
-    <input type="text" name="Perusahaan" placeholder="Perusahaan">
-    <textarea name="Catatan" placeholder="Catatan"></textarea>
-    <button type="submit">Tambah Kontak</button>
-  </form>
+    <form id="contactForm">
+      <input type="text" name="Nama" placeholder="Nama" required>
+      <input type="email" name="Email" placeholder="Email" required>
+      <input type="text" name="Telepon" placeholder="Telepon" required>
+      <input type="text" name="Perusahaan" placeholder="Perusahaan">
+      <textarea name="Catatan" placeholder="Catatan"></textarea>
+      <button type="submit">Tambah Kontak</button>
+    </form>
 
-  <table id="contactTable">
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Telepon</th>
-        <th>Perusahaan</th>
-        <th>Catatan</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  
+    <section>
+      <table id="contactTable">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Telepon</th>
+            <th>Perusahaan</th>
+            <th>Catatan</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
