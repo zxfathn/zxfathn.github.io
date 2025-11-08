@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoMy4OkdZHIYTBTpLj24zlYG20XRwBzoJQ-aBdGLUAAsaFTY_bo0ryQBRPviBGelZ9/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFtYSDMWHRxx7mblymIHbGAxUwnXko5AbGSz81E3KqYLHK0Tfj7rqalyqjYWWRG7Sy/exec";
 
 async function loadContacts() {
   try {
