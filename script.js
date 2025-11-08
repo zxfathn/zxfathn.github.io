@@ -1,70 +1,69 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIm1TEaxg6P11w7h2xW0wAtNUupf6r_BgWpHi_aLyPApCh3A94Zvl2c1O0V-NC2w_9/exec";
+const sheetURL = "https://script.google.com/macros/s/AKfycbxIm1TEaxg6P11w7h2xW0wAtNUupf6r_BgWpHi_aLyPApCh3A94Zvl2c1O0V-NC2w_9/exec";
 
 async function loadContacts() {
   try {
-    const res = await fetch(SCRIPT_URL);
+    const res = await fetch(sheetURL);
     const data = await res.json();
     const tbody = document.querySelector("#contactTable tbody");
     tbody.innerHTML = "";
+
     data.forEach(c => {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${c.Nama}</td>
-        <td>${c.Email}</td>
-        <td>${c.Telepon}</td>
-        <td>${c.Perusahaan}</td>
-        <td>${c.Catatan}</td>
+        <td>${c.Nama || ""}</td>
+        <td>${c.Email || ""}</td>
+        <td>${c.Telepon || ""}</td>
+        <td>${c.Perusahaan || ""}</td>
+        <td>${c.Catatan || ""}</td>
         <td>
-          <button onclick='editContact(${c.id})'>Edit</button>
-          <button onclick='deleteContact(${c.id})'>Hapus</button>
+          <button class="action-btn" onclick="editContact(${c.id}, '${c.Nama}', '${c.Email}', '${c.Telepon}', '${c.Perusahaan}', '${c.Catatan}')">Edit</button> |
+          <button class="action-btn" onclick="deleteContact(${c.id})">Hapus</button>
         </td>
       `;
       tbody.appendChild(row);
     });
   } catch (err) {
-    alert("Gagal memuat data!");
+    console.error("Gagal memuat data:", err);
   }
-}
-
-async function addContact(formData) {
-  await fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify(formData)
-  });
-  loadContacts();
-}
-
-async function editContact(id) {
-  const res = await fetch(SCRIPT_URL);
-  const data = await res.json();
-  const contact = data.find(c => c.id === id);
-  if (!contact) return;
-  document.querySelector("#id").value = id;
-  for (let key in contact) {
-    const field = document.querySelector(`[name="${key}"]`);
-    if (field) field.value = contact[key];
-  }
-}
-
-async function deleteContact(id) {
-  if (!confirm("Yakin ingin menghapus?")) return;
-  await fetch(`${SCRIPT_URL}?id=${id}`, { method: "DELETE" });
-  loadContacts();
 }
 
 document.querySelector("#contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const formData = Object.fromEntries(new FormData(e.target));
+  const form = e.target;
+  const formData = Object.fromEntries(new FormData(form));
+
   if (formData.id) {
-    await fetch(SCRIPT_URL, {
+    // Update data
+    await fetch(sheetURL, {
       method: "PUT",
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
   } else {
-    await addContact(formData);
+    // Tambah data baru
+    await fetch(sheetURL, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
   }
-  e.target.reset();
+
+  form.reset();
+  document.getElementById("contactId").value = "";
   loadContacts();
 });
+
+async function deleteContact(id) {
+  if (!confirm("Yakin ingin menghapus kontak ini?")) return;
+  await fetch(`${sheetURL}?id=${id}`, { method: "DELETE" });
+  loadContacts();
+}
+
+function editContact(id, nama, email, telepon, perusahaan, catatan) {
+  document.getElementById("contactId").value = id;
+  document.querySelector('[name="Nama"]').value = nama;
+  document.querySelector('[name="Email"]').value = email;
+  document.querySelector('[name="Telepon"]').value = telepon;
+  document.querySelector('[name="Perusahaan"]').value = perusahaan;
+  document.querySelector('[name="Catatan"]').value = catatan;
+}
 
 loadContacts();
