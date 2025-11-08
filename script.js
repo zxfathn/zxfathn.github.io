@@ -1,82 +1,127 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbxdfJH7BtJHo0Osm3tBs6IYdH55F-2KWVegilOxJ9XbJAbMJbB_xMldD6iW2qccYiluEA/exec"; // Ganti dengan URL Web App
+const API_URL = "https://script.google.com/macros/s/AKfycbxmbLVrLtpehWdQAD6Yc3ARPQK5jEt8YwVhQMWp2lRFIfdIW7Vrbvum7Grv2q6Lb4nuZA/exec";
+let contactsData = []; // Simpan semua data
 
-let selectAll = false;
-
-// ==== Load semua kontak ====
-async function loadContacts() {
-  const tbody = document.querySelector("#contactTable tbody");
-  tbody.innerHTML = "";
-  try {
-    const res = await fetch(sheetURL);
-    const data = await res.json();
-    data.forEach(c => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td><input type="checkbox" class="rowCheckbox" data-id="${c.id}"></td>
-        <td>${c.Nama || ""}</td>
-        <td>${c.Email || ""}</td>
-        <td>${c.Telepon || ""}</td>
-        <td>${c.Perusahaan || ""}</td>
-        <td>${c.Catatan || ""}</td>
-        <td>
-          <button class="edit" onclick="editContact(${c.id}, '${c.Nama}', '${c.Email}', '${c.Telepon}', '${c.Perusahaan}', '${c.Catatan}')">Edit</button>
-          <button class="delete" onclick="deleteContact(${c.id})">Hapus</button>
-        </td>
-      `;
-      tbody.appendChild(row);
+// Load semua kontak
+function loadContacts(){
+  fetch(API_URL + "?action=readAll")
+    .then(res => res.json())
+    .then(data => {
+      contactsData = data;
+      renderTable(data);
     });
-  } catch(err) { console.error("Gagal memuat data:", err); }
 }
 
-// ==== Simpan / Edit Kontak ====
-document.querySelector("#contactForm").addEventListener("submit", async e => {
+// Render tabel
+function renderTable(data){
+  const tbody = document.getElementById("contactsTable");
+  tbody.innerHTML = "";
+  data.forEach((c,i) => {
+    tbody.innerHTML += `<tr>
+      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
+      <td>${i+1}</td>
+      <td>${c.nama}</td>
+      <td>${c.telepon}</td>
+      <td>${c.email}</td>
+      <td>${c.perusahaan}</td>
+      <td>${c.catatan}</td>
+      <td>
+        <button class="action" onclick='editContact(${JSON.stringify(c)})'>Edit</button>
+        <button class="action" onclick='deleteContact(${c.id})'>Hapus</button>
+      </td>
+    </tr>`;
+  });
+}
+
+// Submit form
+document.getElementById("contactForm").addEventListener("submit", function(e){
   e.preventDefault();
-  const form = e.target;
-  const formData = Object.fromEntries(new FormData(form));
-  try {
-    await fetch(sheetURL, { method: "POST", body: JSON.stringify(formData) });
-    form.reset();
-    document.getElementById("contactId").value = "";
-    loadContacts();
-  } catch(err){ console.error("Simpan error:", err); }
+  saveContact();
 });
 
-// ==== Hapus Kontak ====
-async function deleteContact(id){
-  if(!confirm("Yakin ingin menghapus kontak ini?")) return;
-  try{
-    await fetch(`${sheetURL}?id=${id}`, { method: "DELETE" });
-    loadContacts();
-  } catch(err){ console.error("Delete error:", err); }
-}
+// Simpan / update kontak
+function saveContact(){
+  const id = document.getElementById("contactId").value;
+  const params = new URLSearchParams({
+    nama: document.getElementById("nama").value,
+    telepon: document.getElementById("telepon").value,
+    email: document.getElementById("email").value,
+    perusahaan: document.getElementById("perusahaan").value,
+    catatan: document.getElementById("catatan").value
+  });
 
-// ==== Edit Kontak ====
-function editContact(id,nama,email,telepon,perusahaan,catatan){
-  document.getElementById("contactId").value = id;
-  document.querySelector('[name="Nama"]').value = nama;
-  document.querySelector('[name="Email"]').value = email;
-  document.querySelector('[name="Telepon"]').value = telepon;
-  document.querySelector('[name="Perusahaan"]').value = perusahaan;
-  document.querySelector('[name="Catatan"]').value = catatan;
-}
-
-// ==== Select All / Unselect All ====
-document.getElementById("selectAllBtn").addEventListener("click", ()=>{
-  selectAll = !selectAll;
-  document.querySelectorAll(".rowCheckbox").forEach(cb => cb.checked = selectAll);
-});
-
-// ==== Delete Selected ====
-document.getElementById("deleteSelectedBtn").addEventListener("click", async ()=>{
-  const checkedBoxes = document.querySelectorAll(".rowCheckbox:checked");
-  if(!checkedBoxes.length){ alert("Pilih kontak dulu!"); return; }
-  if(!confirm(`Hapus ${checkedBoxes.length} kontak?`)) return;
-  for(const cb of checkedBoxes){
-    const id = cb.dataset.id;
-    await fetch(`${sheetURL}?id=${id}`, { method:"DELETE" });
+  if(id){
+    params.append("action","update");
+    params.append("id", id);
+  } else {
+    params.append("action","create");
   }
-  loadContacts();
-});
 
-// ==== Load saat halaman dibuka ====
+  fetch(API_URL, { method:"POST", body: params })
+    .then(()=> { clearForm(); loadContacts(); });
+}
+
+// Edit kontak
+function editContact(contact){
+  document.getElementById("contactId").value = contact.id;
+  document.getElementById("nama").value = contact.nama;
+  document.getElementById("telepon").value = contact.telepon;
+  document.getElementById("email").value = contact.email;
+  document.getElementById("perusahaan").value = contact.perusahaan;
+  document.getElementById("catatan").value = contact.catatan;
+}
+
+// Hapus kontak tunggal
+function deleteContact(id){
+  if(confirm("Hapus kontak ini?")){
+    const params = new URLSearchParams({ action:"delete", id:id });
+    fetch(API_URL, { method:"POST", body: params })
+      .then(()=> loadContacts());
+  }
+}
+
+// Hapus kontak terpilih (multi-delete)
+function deleteSelected(){
+  if(confirm("Hapus semua kontak yang dipilih?")){
+    const selected = Array.from(document.querySelectorAll(".selectBox:checked"));
+    selected.forEach(box => {
+      const params = new URLSearchParams({ action:"delete", id:box.dataset.id });
+      fetch(API_URL, { method:"POST", body: params });
+    });
+    setTimeout(loadContacts, 500); // Tunggu sebentar untuk update
+  }
+}
+
+// Pilih semua checkbox
+function toggleSelectAll(checkbox){
+  const boxes = document.querySelectorAll(".selectBox");
+  boxes.forEach(b => b.checked = checkbox.checked);
+  toggleDeleteBtn();
+}
+
+// Tampilkan tombol delete multi jika ada yang dipilih
+function toggleDeleteBtn(){
+  const selected = document.querySelectorAll(".selectBox:checked").length;
+  document.getElementById("deleteSelectedBtn").style.display = selected>0?"inline-block":"none";
+}
+
+// Bersihkan form
+function clearForm(){
+  document.getElementById("contactId").value = "";
+  document.getElementById("contactForm").reset();
+}
+
+// Search/filter
+function filterContacts(){
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = contactsData.filter(c => 
+    c.nama.toLowerCase().includes(keyword) ||
+    c.telepon.toLowerCase().includes(keyword) ||
+    c.email.toLowerCase().includes(keyword) ||
+    c.perusahaan.toLowerCase().includes(keyword) ||
+    c.catatan.toLowerCase().includes(keyword)
+  );
+  renderTable(filtered);
+}
+
+// Load awal
 loadContacts();
