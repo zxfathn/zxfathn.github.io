@@ -8,9 +8,10 @@
 </head>
 <body>
 <div class="container">
-<h2>Pengelola Kontak Client</h2>
+<h2>📇 Pengelola Kontak Client</h2>
 
-<!-- Form tambah/edit -->
+<p id="sheetLink">Sumber database: <a href="#" target="_blank">Google Sheet</a></p>
+
 <form id="contactForm">
   <input type="hidden" id="contactId">
   <input type="text" id="nama" placeholder="Nama" required>
@@ -18,15 +19,13 @@
   <input type="email" id="email" placeholder="Email" required>
   <input type="text" id="perusahaan" placeholder="Perusahaan">
   <input type="text" id="catatan" placeholder="Catatan">
-  <button type="submit">Simpan</button>
-  <button type="button" onclick="clearForm()">Batal</button>
+  <button type="submit">💾 Simpan</button>
+  <button type="button" onclick="clearForm()">❌ Batal</button>
 </form>
 
-<!-- Search -->
-<input type="text" id="searchInput" placeholder="Cari kontak..." onkeyup="filterContacts()">
+<input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
 
-<!-- Tombol delete banyak -->
-<button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">Hapus yang dipilih</button>
+<button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang dipilih</button>
 
 <table>
   <thead>
