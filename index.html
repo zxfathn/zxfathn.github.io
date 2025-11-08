@@ -7,14 +7,14 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
+<div class="container fade-in">
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
   <form id="contactForm">
     <input type="hidden" id="contactId">
     <input type="text" id="nama" placeholder="Nama" required maxlength="20">
     <input type="text" id="telepon" placeholder="Telepon" required>
-    <input type="email" id="email" placeholder="Email" required maxlength="20">
+    <input type="email" id="email" placeholder="Email" required maxlength="30">
     <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
     <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
     <button type="submit" class="btn-save">💾 Simpan</button>
@@ -23,10 +23,10 @@
 
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
 
-  <div class="top-buttons">
+  <div class="actions">
     <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
-    <button onclick="copyTable()">📋 Salin Semua</button>
-    <button onclick="exportCSV()">📤 Ekspor CSV</button>
+    <button onclick="exportCSV()">⬇️ Ekspor CSV</button>
+    <button onclick="copyAll()">📋 Salin Semua</button>
   </div>
 
   <table>
@@ -51,8 +51,7 @@
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
     <h3>Detail Kontak</h3>
-    <div id="modalBody"></div>
-    <button class="close-btn" onclick="closeModal()">Tutup</button>
+    <p id="detailText"></p>
   </div>
 </div>
 
