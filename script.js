@@ -86,5 +86,5 @@ function filterContacts(){
   });
 }
 
-// Load awal
+// Load awa
 // data akan otomatis muncul saat halaman reload
