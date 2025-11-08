@@ -1,57 +1,203 @@
-body { 
-  font-family: Arial; 
-  background:#f0f2f5; 
-  padding:20px; 
+/* === GLOBAL STYLE === */
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: url("https://i.pximg.net/img-master/img/2023/06/24/02/59/20/109286012_p0_master1200.jpg") 
+              no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
 }
 
-.container { 
-  max-width:900px; 
-  margin:auto; 
-  background:white; 
-  padding:20px; 
-  border-radius:8px; 
-  box-shadow:0 0 10px #ccc; 
+/* === CONTAINER === */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
-h2 { text-align:center; }
-
-form input { 
-  padding:6px; 
-  margin:4px; 
-  width:calc(20% - 10px); 
+/* === TITLE === */
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 25px;
 }
 
-form button { 
-  padding:6px 12px; 
-  margin:4px; 
-  cursor:pointer;
+/* === FORM === */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
+form input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  width: calc(20% - 10px);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+form input::placeholder {
+  color: #ddd;
+}
+
+form input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* === BUTTON === */
+form button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: linear-gradient(135deg, #0077b6, #023e8a);
+}
+
+/* === SEARCH BAR === */
 #searchInput {
-  width:100%;
-  padding:6px;
-  margin:10px 0;
-  box-sizing:border-box;
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-table { 
-  width:100%; 
-  border-collapse:collapse; 
-  margin-top:10px; 
+#searchInput::placeholder {
+  color: #ddd;
 }
 
-th, td { 
-  border:1px solid #ccc; 
-  padding:8px; 
-  text-align:left; 
+/* === DELETE BUTTON === */
+#deleteSelectedBtn {
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-th { 
-  background:#eee; 
+#deleteSelectedBtn:hover {
+  background: #c9184a;
 }
 
-button.action { 
-  padding:4px 8px; 
-  margin:2px; 
-  cursor:pointer; 
+/* === TABLE === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 8px;
+  text-align: left;
+}
+
+th {
+  background: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+/* === KOLOM NAMA (Huruf besar & muat 20 karakter) === */
+td:nth-child(3), th:nth-child(3) {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #00b4d8;
+  max-width: 200px;
+  min-width: 180px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* === TABLE EFFECTS === */
+tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease;
+}
+
+/* === BUTTON AKSI === */
+button.action {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  margin: 2px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+button.action:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  form input {
+    width: 100%;
+  }
+
+  form button {
+    width: 48%;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #90e0ef;
+  }
 }
