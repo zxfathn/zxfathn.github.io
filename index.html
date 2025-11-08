@@ -32,8 +32,8 @@
   <table>
     <thead>
       <tr>
-        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-        <th>No</th>
+        <th style="text-align:left;"><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+        <th style="text-align:left;">No</th>
         <th>Nama</th>
         <th>Telepon</th>
         <th>Email</th>
@@ -45,6 +45,17 @@
     <tbody id="contactsTable"></tbody>
   </table>
 </div>
+
+<!-- === MODAL DETAIL === -->
+<div id="detailModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>📋 Detail Kontak</h3>
+    <div id="modalBody"></div>
+    <button class="close-btn" onclick="closeModal()">❌ Tutup</button>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
