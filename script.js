@@ -1,6 +1,9 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbxidjon3T56d3EMUYRVjyjO1mcNulgERcPqmdxEpKutN88B9F-b1XoTsV_R3afyFBp2/exec";
+// URL dari Web App Google Apps Script kamu
+const sheetURL = "https://script.google.com/macros/s/AKfycbzSd5XF_7n5d8OZ9gDuB06_m9at49Evqew__xtQqe9g6ZzhCFQIO_I55lDNPvibwrYN/exec";
 
-// TAMPILKAN DATA
+// =======================
+// FUNGSI MENAMPILKAN DATA
+// =======================
 async function loadContacts() {
   const tbody = document.querySelector("#contactTable tbody");
   tbody.innerHTML = "<tr><td colspan='6'>Memuat data...</td></tr>";
@@ -35,17 +38,21 @@ async function loadContacts() {
   }
 }
 
-// TAMBAH / UPDATE DATA
+// =======================
+// TAMBAH & EDIT DATA
+// =======================
 document.querySelector("#contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
 
-  const method = form.row.value ? "PUT" : "POST"; // PUT jika sedang edit
+  // Tentukan aksi
+  const action = form.row.value ? "update" : "add";
+  formData.append("action", action);
 
   try {
     await fetch(sheetURL, {
-      method,
+      method: "POST",
       body: formData
     });
 
@@ -58,7 +65,9 @@ document.querySelector("#contactForm").addEventListener("submit", async (e) => {
   }
 });
 
-// FUNGSI EDIT
+// =======================
+// EDIT KONTAK
+// =======================
 function editContact(row, Nama, Email, Telepon, Perusahaan, Catatan) {
   document.querySelector("#row").value = row;
   document.querySelector("#Nama").value = Nama;
@@ -70,16 +79,19 @@ function editContact(row, Nama, Email, Telepon, Perusahaan, Catatan) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// FUNGSI HAPUS
+// =======================
+// HAPUS KONTAK
+// =======================
 async function deleteContact(row) {
   if (!confirm("Yakin ingin menghapus kontak ini?")) return;
 
   const formData = new FormData();
   formData.append("row", row);
+  formData.append("action", "delete");
 
   try {
     await fetch(sheetURL, {
-      method: "DELETE",
+      method: "POST",
       body: formData
     });
     await loadContacts();
