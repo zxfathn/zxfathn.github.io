@@ -1,17 +1,13 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzLni3rDZ3Uyujz1PWNvBhFYK8Bm5SSbjoo-AFAazqgwwvLW3OdtumtFdwmz-1Kj_eKJQ/exec";
 
 let contactsData = [];
-let sheetUrl = "";
 
-// Load semua kontak dan link sheet
+// Load semua kontak
 function loadContacts(){
   fetch(API_URL + "?action=readAll")
     .then(res => res.json())
     .then(res => {
       contactsData = res.data;
-      sheetUrl = res.sheetUrl;
-      document.querySelector("#sheetLink a").href = sheetUrl;
-      document.querySelector("#sheetLink a").textContent = sheetUrl;
       renderTable(contactsData);
     });
 }
@@ -60,7 +56,10 @@ function saveContact(){
     params.append("action","create");
   }
   fetch(API_URL,{method:"POST",body:params})
-    .then(()=>{ clearForm(); loadContacts(); });
+    .then(()=>{ 
+      clearForm(); 
+      loadContacts(); // update tabel tanpa reload
+    });
 }
 
 // Edit
@@ -78,7 +77,7 @@ function deleteContact(id){
   if(confirm("Hapus kontak ini?")){
     const params = new URLSearchParams({ action:"delete", id:id });
     fetch(API_URL,{method:"POST",body:params})
-      .then(()=>loadContacts());
+      .then(()=>loadContacts()); // update tabel otomatis
   }
 }
 
@@ -90,7 +89,7 @@ function deleteSelected(){
       const params = new URLSearchParams({action:"delete",id:box.dataset.id});
       fetch(API_URL,{method:"POST",body:params});
     });
-    setTimeout(loadContacts,500);
+    setTimeout(loadContacts,500); // update tabel otomatis
   }
 }
 
