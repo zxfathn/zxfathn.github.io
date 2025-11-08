@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Pengelolaan Kontak Pelanggan</title>
+  <title>Aplikasi Kontak Pelanggan</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>Aplikasi Pengelolaan Kontak Pelanggan</h1>
+  <h1>Daftar Kontak Pelanggan</h1>
 
-    <form id="contactForm">
-      <input type="hidden" name="row" id="row">
-      <input type="text" name="Nama" id="Nama" placeholder="Nama" required>
-      <input type="email" name="Email" id="Email" placeholder="Email" required>
-      <input type="text" name="Telepon" id="Telepon" placeholder="Telepon" required>
-      <input type="text" name="Perusahaan" id="Perusahaan" placeholder="Perusahaan">
-      <textarea name="Catatan" id="Catatan" placeholder="Catatan"></textarea>
-      <button type="submit" id="submitBtn">Tambah Kontak</button>
-    </form>
+  <form id="contactForm">
+    <input type="hidden" name="rowId" id="rowId">
+    <input type="text" name="Nama" placeholder="Nama" required>
+    <input type="email" name="Email" placeholder="Email" required>
+    <input type="text" name="Telepon" placeholder="Telepon" required>
+    <input type="text" name="Perusahaan" placeholder="Perusahaan">
+    <textarea name="Catatan" placeholder="Catatan"></textarea>
+    <button type="submit">Simpan</button>
+  </form>
 
-    <table id="contactTable">
-      <thead>
-        <tr>
-          <th>Nama</th>
-          <th>Email</th>
-          <th>Telepon</th>
-          <th>Perusahaan</th>
-          <th>Catatan</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </main>
+  <table id="contactTable">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>Telepon</th>
+        <th>Perusahaan</th>
+        <th>Catatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-  <script src="script.js
+  <script src="script.js"></script>
+</body>
+</html>
