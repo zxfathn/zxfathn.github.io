@@ -1,12 +1,56 @@
-body { font-family: Arial; background:#f0f7f0; margin:20px; }
-h1 { color:#2a7a2e; }
-form { background:#fff; padding:16px; border-radius:8px; margin-bottom:20px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
-input, textarea { display:block; margin:5px 0; padding:8px; width:300px; border:1px solid #ccc; border-radius:5px; }
-textarea { resize: vertical; }
-button { background:#2a7a2e; color:white; border:none; padding:8px 16px; border-radius:5px; cursor:pointer; margin-right:6px; }
-button:hover { background:#256b28; }
-button.delete { background:#d9534f; }
-button.edit { background:#f0ad4e; }
-table { border-collapse:collapse; width:100%; background:#fff; margin-top:10px; }
-th, td { border:1px solid #ccc; padding:8px; text-align:center; }
-th { background:#e9f3ea; }
+body { 
+  font-family: Arial; 
+  background:#f0f0f0; 
+  padding:20px; 
+}
+
+.container { 
+  max-width:900px; 
+  margin:auto; 
+  background:white; 
+  padding:20px; 
+  border-radius:8px; 
+  box-shadow:0 0 10px #ccc; 
+}
+
+h2 { text-align:center; }
+
+form input { 
+  padding:6px; 
+  margin:4px; 
+  width:calc(20% - 10px); 
+}
+
+form button { 
+  padding:6px 12px; 
+  margin:4px; 
+}
+
+#searchInput {
+  width:100%;
+  padding:6px;
+  margin:10px 0;
+  box-sizing:border-box;
+}
+
+table { 
+  width:100%; 
+  border-collapse:collapse; 
+  margin-top:10px; 
+}
+
+th, td { 
+  border:1px solid #ccc; 
+  padding:8px; 
+  text-align:left; 
+}
+
+th { 
+  background:#eee; 
+}
+
+button.action { 
+  padding:4px 8px; 
+  margin:2px; 
+  cursor:pointer; 
+}
