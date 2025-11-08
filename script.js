@@ -1,38 +1,5 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzLni3rDZ3Uyujz1PWNvBhFYK8Bm5SSbjoo-AFAazqgwwvLW3OdtumtFdwmz-1Kj_eKJQ/exec";
 
-let contactsData = [];
-
-// Load semua kontak
-function loadContacts(){
-  fetch(API_URL + "?action=readAll")
-    .then(res => res.json())
-    .then(res => {
-      contactsData = res.data;
-      renderTable(contactsData);
-    });
-}
-
-// Render tabel
-function renderTable(data){
-  const tbody = document.getElementById("contactsTable");
-  tbody.innerHTML = "";
-  data.forEach((c,i) => {
-    tbody.innerHTML += `<tr>
-      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
-      <td>${i+1}</td>
-      <td>${c.nama}</td>
-      <td>${c.telepon}</td>
-      <td>${c.email}</td>
-      <td>${c.perusahaan}</td>
-      <td>${c.catatan}</td>
-      <td>
-        <button class="action" onclick='editContact(${JSON.stringify(c)})'>✏️ Edit</button>
-        <button class="action" onclick='deleteContact(${c.id})'>🗑️ Hapus</button>
-      </td>
-    </tr>`;
-  });
-}
-
 // Form submit
 document.getElementById("contactForm").addEventListener("submit", e=>{
   e.preventDefault();
@@ -56,10 +23,7 @@ function saveContact(){
     params.append("action","create");
   }
   fetch(API_URL,{method:"POST",body:params})
-    .then(()=>{ 
-      clearForm(); 
-      loadContacts(); // update tabel tanpa reload
-    });
+    .then(()=> location.reload()); // reload halaman setelah create/update
 }
 
 // Edit
@@ -77,7 +41,7 @@ function deleteContact(id){
   if(confirm("Hapus kontak ini?")){
     const params = new URLSearchParams({ action:"delete", id:id });
     fetch(API_URL,{method:"POST",body:params})
-      .then(()=>loadContacts()); // update tabel otomatis
+      .then(()=> location.reload()); // reload halaman setelah delete
   }
 }
 
@@ -89,7 +53,7 @@ function deleteSelected(){
       const params = new URLSearchParams({action:"delete",id:box.dataset.id});
       fetch(API_URL,{method:"POST",body:params});
     });
-    setTimeout(loadContacts,500); // update tabel otomatis
+    setTimeout(()=>location.reload(),500); // reload halaman setelah delete banyak
   }
 }
 
@@ -115,15 +79,12 @@ function clearForm(){
 // Filter/search
 function filterContacts(){
   const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = contactsData.filter(c=>
-    c.nama.toLowerCase().includes(keyword) ||
-    c.telepon.toLowerCase().includes(keyword) ||
-    c.email.toLowerCase().includes(keyword) ||
-    c.perusahaan.toLowerCase().includes(keyword) ||
-    c.catatan.toLowerCase().includes(keyword)
-  );
-  renderTable(filtered);
+  const rows = document.querySelectorAll("#contactsTable tr");
+  rows.forEach(row=>{
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(keyword) ? "" : "none";
+  });
 }
 
 // Load awal
-loadContacts();
+// data akan otomatis muncul saat halaman reload
