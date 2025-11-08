@@ -1,5 +1,5 @@
 // GANTI dengan URL Web App kamu dari Google Apps Script
-const API_URL = "https://script.google.com/macros/s/AKfycbzvnPXQTWhUL6P43uIK-l-tR1mmjF2KRAwIidpHzXkeCUSVFEy3vEo372GaIp8wM6ukPA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxUL7BA-Obl2D0uinaElayBlKx09Jg5EPScfq3F0_n9kCcT4zaytW2Qh0sLh0_yteQd5g/exec";
 
 // === FORM SUBMIT ===
 document.getElementById("contactForm").addEventListener("submit", e=>{
