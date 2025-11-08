@@ -1,4 +1,4 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbwZWtU7zDTiHhIW6EYDFohnV2x1AYVsGzAzwutd9-Lu9qaTumEyyNltE5TxYXuugNrL/exec";
+const sheetURL = "https://script.google.com/macros/s/AKfycbx0xOEw2VnJXXntw3RRKqdCrHSjjySAcAkr1YgZ6doIG0WoK9rEbPl--y9ejdtW4sdt/exec";
 
 async function loadContacts() {
   const res = await fetch(sheetURL);
