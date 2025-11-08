@@ -17,6 +17,8 @@ input, textarea {
   margin: 5px 0;
   padding: 8px;
   width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
@@ -25,14 +27,21 @@ button {
   border: none;
   padding: 8px 16px;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #256b28;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+  background: white;
 }
 
 th, td {
   border: 1px solid #ccc;
   padding: 8px;
+  text-align: left;
 }
