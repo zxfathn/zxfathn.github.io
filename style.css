@@ -38,29 +38,17 @@ table {
   width:100%; 
   border-collapse:collapse; 
   margin-top:10px; 
-  table-layout: auto; /* ubah fixed → auto supaya tabel tampil */
 }
 
 th, td { 
   border:1px solid #ccc; 
   padding:8px; 
   text-align:left; 
-  word-wrap: break-word; /* teks panjang tetap tampil */
 }
 
 th { 
   background:#eee; 
 }
-
-/* Lebar kolom tetap proporsional */
-th:nth-child(1), td:nth-child(1) { width:30px; }    /* Checkbox */
-th:nth-child(2), td:nth-child(2) { width:50px; }    /* No */
-th:nth-child(3), td:nth-child(3) { width:200px; text-transform: uppercase; } /* Nama */
-th:nth-child(4), td:nth-child(4) { width:120px; }   /* Telepon */
-th:nth-child(5), td:nth-child(5) { width:200px; }   /* Email */
-th:nth-child(6), td:nth-child(6) { width:150px; }   /* Perusahaan */
-th:nth-child(7), td:nth-child(7) { width:150px; }   /* Catatan */
-th:nth-child(8), td:nth-child(8) { width:80px; }    /* Aksi */
 
 button.action { 
   padding:4px 8px; 
