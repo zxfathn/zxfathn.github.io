@@ -8,17 +8,17 @@
 </head>
 <body>
 <div class="container">
-  <h2>📇 Pengelola Kontak Client</h2>
+  <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
   <form id="contactForm">
     <input type="hidden" id="contactId">
-    <input type="text" id="nama" placeholder="Nama" required>
+    <input type="text" id="nama" placeholder="Nama" required maxlength="20">
     <input type="text" id="telepon" placeholder="Telepon" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="text" id="perusahaan" placeholder="Perusahaan">
-    <input type="text" id="catatan" placeholder="Catatan">
-    <button type="submit">💾 Simpan</button>
-    <button type="button" onclick="clearForm()">❌ Batal</button>
+    <input type="email" id="email" placeholder="Email" required maxlength="20">
+    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    <button type="submit" class="btn-save">💾 Simpan</button>
+    <button type="button" class="btn-cancel" onclick="clearForm()">❌ Batal</button>
   </form>
 
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
