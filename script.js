@@ -1,12 +1,13 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbykj0wv7KyUt4tKJwBFhmVXpHpF74qr252AfrCdsPcrbJpgFlLDO_n1SAaDnKS10fN3Rg/exec";
+// GANTI dengan URL Web App kamu dari Google Apps Script
+const API_URL = "https://script.google.com/macros/s/AKfycbxUpdq2NtbfXI-m6GG01tmUBVjt-7niIDWIF-P3s9qI7sGupL802c67Fb0waV7ZV8nj3g/exec";
 
-// Form submit
+// === FORM SUBMIT ===
 document.getElementById("contactForm").addEventListener("submit", e=>{
   e.preventDefault();
   saveContact();
 });
 
-// Simpan / update
+// === SIMPAN / UPDATE ===
 function saveContact(){
   const id = document.getElementById("contactId").value;
   const params = new URLSearchParams({
@@ -23,10 +24,10 @@ function saveContact(){
     params.append("action","create");
   }
   fetch(API_URL,{method:"POST",body:params})
-    .then(()=> location.reload()); // reload halaman setelah create/update
+    .then(()=>location.reload());
 }
 
-// Edit
+// === EDIT ===
 function editContact(c){
   document.getElementById("contactId").value = c.id;
   document.getElementById("nama").value = c.nama;
@@ -36,16 +37,16 @@ function editContact(c){
   document.getElementById("catatan").value = c.catatan;
 }
 
-// Hapus satu
+// === HAPUS SATU ===
 function deleteContact(id){
   if(confirm("Hapus kontak ini?")){
     const params = new URLSearchParams({ action:"delete", id:id });
     fetch(API_URL,{method:"POST",body:params})
-      .then(()=> location.reload()); // reload halaman setelah delete
+      .then(()=>location.reload());
   }
 }
 
-// Hapus banyak
+// === HAPUS BANYAK ===
 function deleteSelected(){
   if(confirm("Hapus semua kontak yang dipilih?")){
     const selected = Array.from(document.querySelectorAll(".selectBox:checked"));
@@ -53,30 +54,30 @@ function deleteSelected(){
       const params = new URLSearchParams({action:"delete",id:box.dataset.id});
       fetch(API_URL,{method:"POST",body:params});
     });
-    setTimeout(()=>location.reload(),500); // reload halaman setelah delete banyak
+    setTimeout(()=>location.reload(),500);
   }
 }
 
-// Pilih semua
+// === PILIH SEMUA ===
 function toggleSelectAll(checkbox){
   const boxes = document.querySelectorAll(".selectBox");
   boxes.forEach(b=>b.checked = checkbox.checked);
   toggleDeleteBtn();
 }
 
-// Tampilkan tombol delete multi
+// === TOMBOL DELETE BANYAK ===
 function toggleDeleteBtn(){
   const selected = document.querySelectorAll(".selectBox:checked").length;
   document.getElementById("deleteSelectedBtn").style.display = selected>0?"inline-block":"none";
 }
 
-// Bersihkan form
+// === BERSIHKAN FORM ===
 function clearForm(){
   document.getElementById("contactForm").reset();
   document.getElementById("contactId").value="";
 }
 
-// Filter/search
+// === FILTER ===
 function filterContacts(){
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const rows = document.querySelectorAll("#contactsTable tr");
@@ -86,5 +87,29 @@ function filterContacts(){
   });
 }
 
-// Load awa
-// data akan otomatis muncul saat halaman reload
+// === TAMPILKAN DATA SAAT HALAMAN DIBUKA ===
+window.onload = function() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("contactsTable");
+      table.innerHTML = "";
+      data.forEach((c, i) => {
+        const row = `
+          <tr>
+            <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
+            <td>${i+1}</td>
+            <td>${c.nama}</td>
+            <td>${c.telepon}</td>
+            <td>${c.email}</td>
+            <td>${c.perusahaan}</td>
+            <td>${c.catatan}</td>
+            <td>
+              <button class="action" onclick='editContact(${JSON.stringify(c)})'>✏️</button>
+              <button class="action" onclick="deleteContact(${c.id})">🗑️</button>
+            </td>
+          </tr>`;
+        table.innerHTML += row;
+      });
+    });
+};
