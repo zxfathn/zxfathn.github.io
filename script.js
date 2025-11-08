@@ -1,5 +1,5 @@
 // URL dari Web App Google Apps Script kamu
-const sheetURL = "https://script.google.com/macros/s/AKfycbzSd5XF_7n5d8OZ9gDuB06_m9at49Evqew__xtQqe9g6ZzhCFQIO_I55lDNPvibwrYN/exec";
+const sheetURL = "https://script.google.com/macros/s/AKfycbzaQFfiHAcAQAR7nC8p2kGu4pthSu_dH2h-nuXIYvO2sVW27V0-2OwubXqN3aKAICrG/exec";
 
 // =======================
 // FUNGSI MENAMPILKAN DATA
