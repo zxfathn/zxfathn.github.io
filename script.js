@@ -1,14 +1,18 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzLni3rDZ3Uyujz1PWNvBhFYK8Bm5SSbjoo-AFAazqgwwvLW3OdtumtFdwmz-1Kj_eKJQ/exec";
 
 let contactsData = [];
+let sheetUrl = "";
 
-// Load semua kontak
+// Load semua kontak dan link sheet
 function loadContacts(){
   fetch(API_URL + "?action=readAll")
     .then(res => res.json())
-    .then(data => {
-      contactsData = data;
-      renderTable(data);
+    .then(res => {
+      contactsData = res.data;
+      sheetUrl = res.sheetUrl;
+      document.querySelector("#sheetLink a").href = sheetUrl;
+      document.querySelector("#sheetLink a").textContent = sheetUrl;
+      renderTable(contactsData);
     });
 }
 
