@@ -1,104 +1,64 @@
-// URL dari Web App Google Apps Script kamu
-const sheetURL = "https://script.google.com/macros/s/AKfycbzaQFfiHAcAQAR7nC8p2kGu4pthSu_dH2h-nuXIYvO2sVW27V0-2OwubXqN3aKAICrG/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyf74daN0LuKKAsEfRCPwXhXNAtZWUKgerML_nlFVXgqdl6yl-s8KnEoYgPbXRAJczn/exec";
 
-// =======================
-// FUNGSI MENAMPILKAN DATA
-// =======================
 async function loadContacts() {
-  const tbody = document.querySelector("#contactTable tbody");
-  tbody.innerHTML = "<tr><td colspan='6'>Memuat data...</td></tr>";
-
   try {
-    const res = await fetch(sheetURL);
+    const res = await fetch(SCRIPT_URL);
     const data = await res.json();
+    const tbody = document.querySelector("#contactTable tbody");
     tbody.innerHTML = "";
 
-    if (!data || data.length === 0) {
-      tbody.innerHTML = "<tr><td colspan='6'>Belum ada data</td></tr>";
-      return;
-    }
-
     data.forEach((c, i) => {
-      const row = `<tr>
-        <td>${c.Nama || ""}</td>
-        <td>${c.Email || ""}</td>
-        <td>${c.Telepon || ""}</td>
-        <td>${c.Perusahaan || ""}</td>
-        <td>${c.Catatan || ""}</td>
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${c.Nama}</td>
+        <td>${c.Email}</td>
+        <td>${c.Telepon}</td>
+        <td>${c.Perusahaan}</td>
+        <td>${c.Catatan}</td>
         <td>
-          <button class="edit" onclick="editContact(${i + 2}, '${c.Nama}', '${c.Email}', '${c.Telepon}', '${c.Perusahaan}', '${c.Catatan}')">Edit</button>
-          <button class="delete" onclick="deleteContact(${i + 2})">Hapus</button>
+          <button class="action-btn edit-btn" onclick="editContact(${i + 2}, '${c.Nama}', '${c.Email}', '${c.Telepon}', '${c.Perusahaan}', '${c.Catatan}')">Edit</button>
+          <button class="action-btn delete-btn" onclick="deleteContact(${i + 2})">Hapus</button>
         </td>
-      </tr>`;
-      tbody.insertAdjacentHTML("beforeend", row);
+      `;
+      tbody.appendChild(row);
     });
   } catch (err) {
-    console.error("Gagal memuat data:", err);
-    tbody.innerHTML = "<tr><td colspan='6'>Gagal memuat data</td></tr>";
+    alert("Gagal memuat data. Pastikan Apps Script di-deploy sebagai 'Anyone'.");
+    console.error(err);
   }
 }
 
-// =======================
-// TAMBAH & EDIT DATA
-// =======================
 document.querySelector("#contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
+  const rowId = formData.get("rowId");
+  const method = rowId ? "PUT" : "POST";
 
-  // Tentukan aksi
-  const action = form.row.value ? "update" : "add";
-  formData.append("action", action);
+  await fetch(SCRIPT_URL, {
+    method,
+    body: JSON.stringify(Object.fromEntries(formData)),
+  });
 
-  try {
-    await fetch(sheetURL, {
-      method: "POST",
-      body: formData
-    });
-
-    form.reset();
-    document.querySelector("#submitBtn").textContent = "Tambah Kontak";
-    await loadContacts();
-  } catch (err) {
-    console.error("Gagal menyimpan data:", err);
-    alert("Gagal menyimpan data. Coba lagi.");
-  }
+  form.reset();
+  document.querySelector("#btnSimpan").textContent = "Tambah Kontak";
+  loadContacts();
 });
 
-// =======================
-// EDIT KONTAK
-// =======================
-function editContact(row, Nama, Email, Telepon, Perusahaan, Catatan) {
-  document.querySelector("#row").value = row;
-  document.querySelector("#Nama").value = Nama;
-  document.querySelector("#Email").value = Email;
-  document.querySelector("#Telepon").value = Telepon;
-  document.querySelector("#Perusahaan").value = Perusahaan;
-  document.querySelector("#Catatan").value = Catatan;
-  document.querySelector("#submitBtn").textContent = "Simpan Perubahan";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function editContact(rowId, Nama, Email, Telepon, Perusahaan, Catatan) {
+  document.querySelector("#rowId").value = rowId;
+  document.querySelector("[name='Nama']").value = Nama;
+  document.querySelector("[name='Email']").value = Email;
+  document.querySelector("[name='Telepon']").value = Telepon;
+  document.querySelector("[name='Perusahaan']").value = Perusahaan;
+  document.querySelector("[name='Catatan']").value = Catatan;
+  document.querySelector("#btnSimpan").textContent = "Simpan Perubahan";
 }
 
-// =======================
-// HAPUS KONTAK
-// =======================
-async function deleteContact(row) {
-  if (!confirm("Yakin ingin menghapus kontak ini?")) return;
-
-  const formData = new FormData();
-  formData.append("row", row);
-  formData.append("action", "delete");
-
-  try {
-    await fetch(sheetURL, {
-      method: "POST",
-      body: formData
-    });
-    await loadContacts();
-  } catch (err) {
-    console.error("Gagal menghapus:", err);
-    alert("Gagal menghapus data.");
-  }
+async function deleteContact(rowId) {
+  if (!confirm("Yakin mau hapus data ini?")) return;
+  await fetch(`${SCRIPT_URL}?rowId=${rowId}`, { method: "DELETE" });
+  loadContacts();
 }
 
 loadContacts();
