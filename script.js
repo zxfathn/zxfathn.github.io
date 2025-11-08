@@ -1,5 +1,6 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxmbLVrLtpehWdQAD6Yc3ARPQK5jEt8YwVhQMWp2lRFIfdIW7Vrbvum7Grv2q6Lb4nuZA/exec";
-let contactsData = []; // Simpan semua data
+const API_URL = "https://script.google.com/macros/s/AKfycbzLni3rDZ3Uyujz1PWNvBhFYK8Bm5SSbjoo-AFAazqgwwvLW3OdtumtFdwmz-1Kj_eKJQ/exec";
+
+let contactsData = [];
 
 // Load semua kontak
 function loadContacts(){
@@ -25,20 +26,20 @@ function renderTable(data){
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
       <td>
-        <button class="action" onclick='editContact(${JSON.stringify(c)})'>Edit</button>
-        <button class="action" onclick='deleteContact(${c.id})'>Hapus</button>
+        <button class="action" onclick='editContact(${JSON.stringify(c)})'>✏️ Edit</button>
+        <button class="action" onclick='deleteContact(${c.id})'>🗑️ Hapus</button>
       </td>
     </tr>`;
   });
 }
 
-// Submit form
-document.getElementById("contactForm").addEventListener("submit", function(e){
+// Form submit
+document.getElementById("contactForm").addEventListener("submit", e=>{
   e.preventDefault();
   saveContact();
 });
 
-// Simpan / update kontak
+// Simpan / update
 function saveContact(){
   const id = document.getElementById("contactId").value;
   const params = new URLSearchParams({
@@ -48,57 +49,55 @@ function saveContact(){
     perusahaan: document.getElementById("perusahaan").value,
     catatan: document.getElementById("catatan").value
   });
-
   if(id){
     params.append("action","update");
-    params.append("id", id);
+    params.append("id",id);
   } else {
     params.append("action","create");
   }
-
-  fetch(API_URL, { method:"POST", body: params })
-    .then(()=> { clearForm(); loadContacts(); });
+  fetch(API_URL,{method:"POST",body:params})
+    .then(()=>{ clearForm(); loadContacts(); });
 }
 
-// Edit kontak
-function editContact(contact){
-  document.getElementById("contactId").value = contact.id;
-  document.getElementById("nama").value = contact.nama;
-  document.getElementById("telepon").value = contact.telepon;
-  document.getElementById("email").value = contact.email;
-  document.getElementById("perusahaan").value = contact.perusahaan;
-  document.getElementById("catatan").value = contact.catatan;
+// Edit
+function editContact(c){
+  document.getElementById("contactId").value = c.id;
+  document.getElementById("nama").value = c.nama;
+  document.getElementById("telepon").value = c.telepon;
+  document.getElementById("email").value = c.email;
+  document.getElementById("perusahaan").value = c.perusahaan;
+  document.getElementById("catatan").value = c.catatan;
 }
 
-// Hapus kontak tunggal
+// Hapus satu
 function deleteContact(id){
   if(confirm("Hapus kontak ini?")){
     const params = new URLSearchParams({ action:"delete", id:id });
-    fetch(API_URL, { method:"POST", body: params })
-      .then(()=> loadContacts());
+    fetch(API_URL,{method:"POST",body:params})
+      .then(()=>loadContacts());
   }
 }
 
-// Hapus kontak terpilih (multi-delete)
+// Hapus banyak
 function deleteSelected(){
   if(confirm("Hapus semua kontak yang dipilih?")){
     const selected = Array.from(document.querySelectorAll(".selectBox:checked"));
-    selected.forEach(box => {
-      const params = new URLSearchParams({ action:"delete", id:box.dataset.id });
-      fetch(API_URL, { method:"POST", body: params });
+    selected.forEach(box=>{
+      const params = new URLSearchParams({action:"delete",id:box.dataset.id});
+      fetch(API_URL,{method:"POST",body:params});
     });
-    setTimeout(loadContacts, 500); // Tunggu sebentar untuk update
+    setTimeout(loadContacts,500);
   }
 }
 
-// Pilih semua checkbox
+// Pilih semua
 function toggleSelectAll(checkbox){
   const boxes = document.querySelectorAll(".selectBox");
-  boxes.forEach(b => b.checked = checkbox.checked);
+  boxes.forEach(b=>b.checked = checkbox.checked);
   toggleDeleteBtn();
 }
 
-// Tampilkan tombol delete multi jika ada yang dipilih
+// Tampilkan tombol delete multi
 function toggleDeleteBtn(){
   const selected = document.querySelectorAll(".selectBox:checked").length;
   document.getElementById("deleteSelectedBtn").style.display = selected>0?"inline-block":"none";
@@ -106,14 +105,14 @@ function toggleDeleteBtn(){
 
 // Bersihkan form
 function clearForm(){
-  document.getElementById("contactId").value = "";
   document.getElementById("contactForm").reset();
+  document.getElementById("contactId").value="";
 }
 
-// Search/filter
+// Filter/search
 function filterContacts(){
   const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const filtered = contactsData.filter(c => 
+  const filtered = contactsData.filter(c=>
     c.nama.toLowerCase().includes(keyword) ||
     c.telepon.toLowerCase().includes(keyword) ||
     c.email.toLowerCase().includes(keyword) ||
