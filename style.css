@@ -1,168 +1,131 @@
-body {
-  font-family: "Poppins", Arial, sans-serif;
-  background: url("ba.jpg") no-repeat center center fixed;
+body { 
+  font-family: "Poppins", Arial, sans-serif; 
+  background: url("ba.jpg") no-repeat center center fixed; 
   background-size: cover;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 30px;
+  padding: 20px; 
+  margin: 0;
+  color: #333;
 }
 
-/* Lapisan transparan agar teks tetap terbaca */
-.container {
-  width: 100%;
-  max-width: 900px;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  padding: 25px 30px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+.container { 
+  max-width: 950px; 
+  margin: auto; 
+  background: rgba(255,255,255,0.9);
+  padding: 25px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2); 
 }
 
-h2 {
-  text-align: center;
-  color: #ffd700;
-  font-size: 1.8em;
-  letter-spacing: 1.5px;
+h2 { 
+  text-align: center; 
   text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #222;
+  margin-bottom: 15px;
 }
 
-/* Form styling */
-form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
+form input, form button { 
+  padding: 8px; 
+  margin: 5px; 
+  border: 1px solid #bbb; 
+  border-radius: 6px; 
 }
 
 form input {
-  flex: 1 1 calc(20% - 10px);
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
+  width: calc(20% - 10px);
+  transition: all 0.3s ease;
+}
+
+form input:focus {
+  border-color: #3a8ef6;
+  box-shadow: 0 0 5px #3a8ef6;
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
 }
 
-form input::placeholder {
-  color: #ddd;
-}
-
-form button {
-  background: #ffd700;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
+form button { 
   cursor: pointer;
-  transition: 0.3s;
+  background: #3a8ef6; 
+  color: white; 
+  border: none; 
 }
 
-form button:hover {
-  background: #ffea00;
+form button:hover { 
+  background: #2d6fd3; 
 }
 
-/* Search box */
 #searchInput {
   width: 100%;
-  padding: 10px;
-  margin: 15px 0;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
-/* Table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  overflow: hidden;
-  table-layout: fixed;
-}
-
-/* Header tabel kapital semua */
-th {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  padding: 10px;
-}
-
-/* Isi tabel */
-td {
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-  text-transform: uppercase;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 20ch; /* batas 20 karakter */
-}
-
-/* email tetap lowercase */
-td.email {
-  text-transform: none !important;
-}
-
-/* warna baris selang-seling */
-tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* efek hover */
-tr:hover {
-  background: rgba(255, 215, 0, 0.25);
-  transition: background 0.3s ease;
-}
-
-/* Tombol di tabel */
-button.action {
-  background: #ffd700;
-  border: none;
+  padding: 8px;
+  margin: 12px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
   border-radius: 6px;
+}
+
+.top-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.top-buttons button {
   padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+  background: #4a90e2;
+  color: white;
   cursor: pointer;
-  color: #000;
+}
+
+.top-buttons button:hover {
+  background: #357abd;
+}
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin-top: 10px; 
+  background: white;
+}
+
+th, td { 
+  border: 1px solid #ccc; 
+  padding: 10px; 
+  text-align: center; 
+  max-width: 180px;
+  word-wrap: break-word;
+}
+
+th { 
+  background: #3a8ef6; 
+  color: white;
+  text-transform: uppercase;
+}
+
+td { 
+  text-transform: uppercase;
+}
+
+td.email {
+  text-transform: lowercase !important;
+}
+
+tr:hover {
+  background: #e6f0ff;
+  cursor: pointer;
+}
+
+button.action { 
+  padding: 4px 8px; 
+  margin: 2px; 
+  cursor: pointer; 
+  border: none;
+  border-radius: 4px;
+  background: #f0f0f0;
   transition: 0.3s;
 }
 
 button.action:hover {
-  background: #ffea00;
-}
-
-/* Tombol hapus banyak */
-#deleteSelectedBtn {
-  background: #ff4d4d;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  padding: 10px 16px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#deleteSelectedBtn:hover {
-  background: #ff0000;
-}
-
-/* Responsif */
-@media (max-width: 768px) {
-  form input {
-    width: 100%;
-  }
-
-  table, th, td {
-    font-size: 14px;
-  }
+  background: #ddd;
 }
