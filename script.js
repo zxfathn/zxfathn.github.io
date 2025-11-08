@@ -1,4 +1,4 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbzx37v6cgsfIqBt3VrYmEu4AcBcwgE3W5yjyzmYwETc-WoX86NArZTHS7bx3sI40wHVUQ/exec"; // pastikan benar
+const sheetURL = "https://script.google.com/macros/s/AKfycbxT3N_F8fkI5ABPhvu-NZaZeQ-3pqPzRKQtvs2Pq-MFT9nP6OuImPCzbULSGpJ_zbD16w/exec"; // pastikan benar
 
 async function loadContacts() {
   try {
