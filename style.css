@@ -15,10 +15,6 @@ body {
 
 h2 { text-align:center; }
 
-#sheetLink {
-  margin-bottom:10px;
-}
-
 form input { 
   padding:6px; 
   margin:4px; 
