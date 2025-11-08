@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzLni3rDZ3Uyujz1PWNvBhFYK8Bm5SSbjoo-AFAazqgwwvLW3OdtumtFdwmz-1Kj_eKJQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbykj0wv7KyUt4tKJwBFhmVXpHpF74qr252AfrCdsPcrbJpgFlLDO_n1SAaDnKS10fN3Rg/exec";
 
 // Form submit
 document.getElementById("contactForm").addEventListener("submit", e=>{
