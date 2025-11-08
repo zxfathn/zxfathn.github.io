@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Kontak Pelanggan</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Kontak Pelanggan</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>📞 Daftar Kontak Pelanggan</h1>
+<div class="container">
+  <h1>📞 Daftar Kontak Pelanggan</h1>
 
-    <form id="contactForm">
-      <input type="hidden" id="contactId">
-      <input type="text" id="Nama" placeholder="Nama" required>
-      <input type="email" id="Email" placeholder="Email" required>
-      <input type="text" id="Telepon" placeholder="Telepon" required>
-      <input type="text" id="Perusahaan" placeholder="Perusahaan">
-      <textarea id="Catatan" placeholder="Catatan"></textarea>
-      <button type="submit">💾 Simpan Kontak</button>
-    </form>
+  <form id="contactForm">
+    <input type="hidden" id="contactId">
+    <input type="text" name="Nama" placeholder="Nama" required>
+    <input type="email" name="Email" placeholder="Email" required>
+    <input type="text" name="Telepon" placeholder="Telepon" required>
+    <input type="text" name="Perusahaan" placeholder="Perusahaan">
+    <textarea name="Catatan" placeholder="Catatan"></textarea>
+    <button type="submit">💾 Simpan Kontak</button>
+  </form>
 
-    <table id="contactTable">
-      <thead>
-        <tr>
-          <th>Nama</th>
-          <th>Email</th>
-          <th>Telepon</th>
-          <th>Perusahaan</th>
-          <th>Catatan</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <button id="selectAllBtn">Pilih Semua</button>
+  <button id="deleteSelectedBtn">Hapus yang Dipilih</button>
 
-  <script src="script.js"></script>
+  <table id="contactTable">
+    <thead>
+      <tr>
+        <th>Pilih</th>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>Telepon</th>
+        <th>Perusahaan</th>
+        <th>Catatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
