@@ -8,34 +8,43 @@
 </head>
 <body>
 <div class="container">
-<h2>📇 Pengelola Kontak Client</h2>
+  <h2>📇 Pengelola Kontak Client</h2>
 
-<form id="contactForm">
-  <input type="hidden" id="contactId">
-  <input type="text" id="nama" placeholder="Nama" required>
-  <input type="text" id="telepon" placeholder="Telepon" required>
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="text" id="perusahaan" placeholder="Perusahaan">
-  <input type="text" id="catatan" placeholder="Catatan">
-  <button type="submit">💾 Simpan</button>
-  <button type="button" onclick="clearForm()">❌ Batal</button>
-</form>
+  <form id="contactForm">
+    <input type="hidden" id="contactId">
+    <input type="text" id="nama" placeholder="Nama" required>
+    <input type="text" id="telepon" placeholder="Telepon" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="perusahaan" placeholder="Perusahaan">
+    <input type="text" id="catatan" placeholder="Catatan">
+    <button type="submit">💾 Simpan</button>
+    <button type="button" onclick="clearForm()">❌ Batal</button>
+  </form>
 
-<input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
+  <input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
 
-<button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang dipilih</button>
+  <div class="top-buttons">
+    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin</button>
+    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus</button>
+    <button id="exportBtn" onclick="exportCSV()">📤 Ekspor CSV</button>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-      <th>No</th><th>Nama</th><th>Telepon</th><th>Email</th><th>Perusahaan</th><th>Catatan</th><th>Aksi</th>
-    </tr>
-  </thead>
-  <tbody id="contactsTable"></tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Telepon</th>
+        <th>Email</th>
+        <th>Perusahaan</th>
+        <th>Catatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="contactsTable"></tbody>
+  </table>
 </div>
-
 <script src="script.js"></script>
 </body>
 </html>
