@@ -1,4 +1,4 @@
-const SCRIPT_URL = "MASUKKAN_URL_APPS_SCRIPT_KAMU_DI_SINI";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIm1TEaxg6P11w7h2xW0wAtNUupf6r_BgWpHi_aLyPApCh3A94Zvl2c1O0V-NC2w_9/exec";
 
 async function loadContacts() {
   try {
