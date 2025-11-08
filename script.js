@@ -1,95 +1,82 @@
-const sheetURL = "https://script.google.com/macros/s/AKfycbxUeONdd-3mbxz0iwhlC4p6HIwt0N3o6z8x3mPGEBNCDysiWSXLtfdaONg8HYln0ai9/exec"; // pastikan benar
+const sheetURL = "https://script.google.com/macros/s/AKfycbxOrDU5Yx5PYGVr_Afpm3r1l1_A1nItOhqvS5vvBh_CXTWqIIAdYXHYeNIy9Mnag9-cUA/exec"; // Ganti dengan URL Web App
 
+let selectAll = false;
+
+// ==== Load semua kontak ====
 async function loadContacts() {
+  const tbody = document.querySelector("#contactTable tbody");
+  tbody.innerHTML = "";
   try {
     const res = await fetch(sheetURL);
-    const json = await res.json();
-    if (json.status !== "OK") throw new Error(json.message || "Gagal load");
-    const data = json.data || [];
-    const tbody = document.querySelector("#contactTable tbody");
-    tbody.innerHTML = "";
-
+    const data = await res.json();
     data.forEach(c => {
-      // escape string untuk aman dalam onclick (simple replace)
-      const esc = s => (s === undefined || s === null) ? "" : String(s).replace(/'/g, "\\'").replace(/"/g, '&quot;');
       const row = document.createElement("tr");
       row.innerHTML = `
+        <td><input type="checkbox" class="rowCheckbox" data-id="${c.id}"></td>
         <td>${c.Nama || ""}</td>
         <td>${c.Email || ""}</td>
         <td>${c.Telepon || ""}</td>
         <td>${c.Perusahaan || ""}</td>
         <td>${c.Catatan || ""}</td>
         <td>
-          <button class="edit" onclick='editContact(${c.id},"${esc(c.Nama)}","${esc(c.Email)}","${esc(c.Telepon)}","${esc(c.Perusahaan)}","${esc(c.Catatan)}")'>Edit</button>
+          <button class="edit" onclick="editContact(${c.id}, '${c.Nama}', '${c.Email}', '${c.Telepon}', '${c.Perusahaan}', '${c.Catatan}')">Edit</button>
           <button class="delete" onclick="deleteContact(${c.id})">Hapus</button>
         </td>
       `;
       tbody.appendChild(row);
     });
-  } catch (err) {
-    console.error("Gagal memuat data:", err);
-    alert("Gagal memuat data: " + err.message);
-  }
+  } catch(err) { console.error("Gagal memuat data:", err); }
 }
 
-document.querySelector("#contactForm").addEventListener("submit", async (e) => {
+// ==== Simpan / Edit Kontak ====
+document.querySelector("#contactForm").addEventListener("submit", async e => {
   e.preventDefault();
-
-  const id = document.getElementById("contactId").value;
-  const Nama = document.getElementById("Nama").value;
-  const Email = document.getElementById("Email").value;
-  const Telepon = document.getElementById("Telepon").value;
-  const Perusahaan = document.getElementById("Perusahaan").value;
-  const Catatan = document.getElementById("Catatan").value;
-
-  const isUpdate = !!id;
-  const payload = {
-    action: isUpdate ? "update" : "create",
-    id: id || undefined,
-    Nama, Email, Telepon, Perusahaan, Catatan
-  };
-
+  const form = e.target;
+  const formData = Object.fromEntries(new FormData(form));
   try {
-    const res = await fetch(sheetURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-    const json = await res.json();
-    if (json.status !== "OK") throw new Error(json.message || "Gagal menyimpan");
-    e.target.reset();
+    await fetch(sheetURL, { method: "POST", body: JSON.stringify(formData) });
+    form.reset();
     document.getElementById("contactId").value = "";
     loadContacts();
-  } catch (err) {
-    console.error("Simpan error:", err);
-    alert("Simpan error: " + err.message);
-  }
+  } catch(err){ console.error("Simpan error:", err); }
 });
 
-async function deleteContact(id) {
-  if (!confirm("Yakin ingin menghapus kontak ini?")) return;
-  try {
-    const res = await fetch(sheetURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "delete", id })
-    });
-    const json = await res.json();
-    if (json.status !== "OK") throw new Error(json.message || "Gagal delete");
+// ==== Hapus Kontak ====
+async function deleteContact(id){
+  if(!confirm("Yakin ingin menghapus kontak ini?")) return;
+  try{
+    await fetch(`${sheetURL}?id=${id}`, { method: "DELETE" });
     loadContacts();
-  } catch (err) {
-    console.error("Delete error:", err);
-    alert("Delete error: " + err.message);
-  }
+  } catch(err){ console.error("Delete error:", err); }
 }
 
-function editContact(id, Nama, Email, Telepon, Perusahaan, Catatan) {
+// ==== Edit Kontak ====
+function editContact(id,nama,email,telepon,perusahaan,catatan){
   document.getElementById("contactId").value = id;
-  document.getElementById("Nama").value = Nama;
-  document.getElementById("Email").value = Email;
-  document.getElementById("Telepon").value = Telepon;
-  document.getElementById("Perusahaan").value = Perusahaan;
-  document.getElementById("Catatan").value = Catatan;
+  document.querySelector('[name="Nama"]').value = nama;
+  document.querySelector('[name="Email"]').value = email;
+  document.querySelector('[name="Telepon"]').value = telepon;
+  document.querySelector('[name="Perusahaan"]').value = perusahaan;
+  document.querySelector('[name="Catatan"]').value = catatan;
 }
 
+// ==== Select All / Unselect All ====
+document.getElementById("selectAllBtn").addEventListener("click", ()=>{
+  selectAll = !selectAll;
+  document.querySelectorAll(".rowCheckbox").forEach(cb => cb.checked = selectAll);
+});
+
+// ==== Delete Selected ====
+document.getElementById("deleteSelectedBtn").addEventListener("click", async ()=>{
+  const checkedBoxes = document.querySelectorAll(".rowCheckbox:checked");
+  if(!checkedBoxes.length){ alert("Pilih kontak dulu!"); return; }
+  if(!confirm(`Hapus ${checkedBoxes.length} kontak?`)) return;
+  for(const cb of checkedBoxes){
+    const id = cb.dataset.id;
+    await fetch(`${sheetURL}?id=${id}`, { method:"DELETE" });
+  }
+  loadContacts();
+});
+
+// ==== Load saat halaman dibuka ====
 loadContacts();
