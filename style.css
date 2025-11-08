@@ -38,23 +38,21 @@ table {
   width:100%; 
   border-collapse:collapse; 
   margin-top:10px; 
-  table-layout: fixed; /* Kolom tidak berubah ukuran */
+  table-layout: auto; /* ubah fixed → auto supaya tabel tampil */
 }
 
 th, td { 
   border:1px solid #ccc; 
   padding:8px; 
   text-align:left; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-wrap: break-word; /* teks panjang tetap tampil */
 }
 
 th { 
   background:#eee; 
 }
 
-/* Lebar tetap setiap kolom */
+/* Lebar kolom tetap proporsional */
 th:nth-child(1), td:nth-child(1) { width:30px; }    /* Checkbox */
 th:nth-child(2), td:nth-child(2) { width:50px; }    /* No */
 th:nth-child(3), td:nth-child(3) { width:200px; text-transform: uppercase; } /* Nama */
