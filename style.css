@@ -1,211 +1,168 @@
-/* === GLOBAL === */
 body {
   font-family: "Poppins", Arial, sans-serif;
-  background: url("https://zxfathn.github.io/ba.jpg") no-repeat center center fixed;
+  background: url("ba.jpg") no-repeat center center fixed;
   background-size: cover;
-  margin: 0;
-  padding: 20px;
-  color: #f8f9fa;
-}
-
-/* === CONTAINER === */
-.container {
-  max-width: 1000px;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.55); /* transparan agar background terlihat */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px;
 }
 
-/* === TITLE === */
+/* Lapisan transparan agar teks tetap terbaca */
+.container {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
 h2 {
   text-align: center;
+  color: #ffd700;
+  font-size: 1.8em;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: 800;
-  color: #caf0f8;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-  margin-bottom: 25px;
 }
 
-/* === FORM === */
+/* Form styling */
 form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 10px;
-  margin-bottom: 15px;
 }
 
 form input {
+  flex: 1 1 calc(20% - 10px);
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: none;
   border-radius: 8px;
-  width: calc(20% - 10px);
-  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 14px;
-  transition: all 0.3s ease;
 }
 
 form input::placeholder {
   color: #ddd;
 }
 
-form input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.25);
-  border-color: #90e0ef;
-}
-
-/* === BUTTON === */
 form button {
-  padding: 10px 16px;
+  background: #ffd700;
+  color: #000;
   border: none;
   border-radius: 8px;
+  padding: 10px 16px;
   cursor: pointer;
-  font-weight: 600;
-  background: linear-gradient(135deg, #00b4d8, #4361ee);
-  color: white;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 form button:hover {
-  background: linear-gradient(135deg, #3a0ca3, #7209b7);
-  transform: translateY(-1px);
+  background: #ffea00;
 }
 
-/* === SEARCH BAR === */
+/* Search box */
 #searchInput {
   width: 100%;
   padding: 10px;
   margin: 15px 0;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  box-sizing: border-box;
-}
-
-#searchInput::placeholder {
-  color: #eee;
-}
-
-/* === DELETE BUTTON === */
-#deleteSelectedBtn {
-  background: linear-gradient(135deg, #ff5d8f, #ff006e);
-  color: white;
   border: none;
   border-radius: 8px;
-  padding: 8px 14px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 
-#deleteSelectedBtn:hover {
-  background: linear-gradient(135deg, #d0004d, #720026);
-}
-
-/* === TABLE === */
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  color: #fff;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   overflow: hidden;
+  table-layout: fixed;
 }
 
-th, td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 10px 8px;
-  text-align: left;
-}
-
+/* Header tabel kapital semua */
 th {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
   text-transform: uppercase;
-  font-size: 13px;
   letter-spacing: 1px;
-  color: #90e0ef;
+  text-align: center;
+  padding: 10px;
 }
 
-/* === KOLOM NAMA (huruf besar & muat 20 karakter) === */
-td:nth-child(3), th:nth-child(3) {
+/* Isi tabel */
+td {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
   text-transform: uppercase;
-  font-weight: 700;
-  color: #48cae4;
-  max-width: 200px;
-  min-width: 180px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 20ch; /* batas 20 karakter */
 }
 
-/* === HOVER EFFECT === */
-tr:hover {
+/* email tetap lowercase */
+td.email {
+  text-transform: none !important;
+}
+
+/* warna baris selang-seling */
+tr:nth-child(even) {
   background: rgba(255, 255, 255, 0.1);
-  transition: 0.2s ease;
 }
 
-/* === BUTTON AKSI === */
+/* efek hover */
+tr:hover {
+  background: rgba(255, 215, 0, 0.25);
+  transition: background 0.3s ease;
+}
+
+/* Tombol di tabel */
 button.action {
-  padding: 6px 10px;
+  background: #ffd700;
   border: none;
   border-radius: 6px;
-  margin: 2px;
+  padding: 6px 10px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  transition: all 0.3s ease;
+  color: #000;
+  transition: 0.3s;
 }
 
 button.action:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
+  background: #ffea00;
 }
 
-/* === RESPONSIVE === */
+/* Tombol hapus banyak */
+#deleteSelectedBtn {
+  background: #ff4d4d;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#deleteSelectedBtn:hover {
+  background: #ff0000;
+}
+
+/* Responsif */
 @media (max-width: 768px) {
   form input {
     width: 100%;
   }
 
-  form button {
-    width: 48%;
-  }
-
-  table, thead, tbody, th, td, tr {
-    display: block;
-  }
-
-  thead {
-    display: none;
-  }
-
-  tr {
-    background: rgba(255, 255, 255, 0.08);
-    margin-bottom: 10px;
-    border-radius: 10px;
-    padding: 10px;
-  }
-
-  td {
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 5px;
-  }
-
-  td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #90e0ef;
+  table, th, td {
+    font-size: 14px;
   }
 }
