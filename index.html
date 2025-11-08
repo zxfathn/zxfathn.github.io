@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manajemen Kontak Pelanggan</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Manajemen Kontak Pelanggan</h1>
+  <div class="container">
+    <h1>📞 Daftar Kontak Pelanggan</h1>
 
-  <form id="contactForm">
-    <input type="hidden" id="rowId" name="rowId">
-    <input type="text" name="Nama" placeholder="Nama" required>
-    <input type="email" name="Email" placeholder="Email" required>
-    <input type="text" name="Telepon" placeholder="Telepon" required>
-    <input type="text" name="Perusahaan" placeholder="Perusahaan">
-    <textarea name="Catatan" placeholder="Catatan"></textarea>
-    <button type="submit" id="btnSimpan">Tambah Kontak</button>
-  </form>
+    <form id="contactForm">
+      <input type="hidden" name="id" id="contactId">
+      <input type="text" name="Nama" placeholder="Nama" required>
+      <input type="email" name="Email" placeholder="Email" required>
+      <input type="text" name="Telepon" placeholder="Telepon" required>
+      <input type="text" name="Perusahaan" placeholder="Perusahaan">
+      <textarea name="Catatan" placeholder="Catatan"></textarea>
+      <button type="submit">💾 Simpan Kontak</button>
+    </form>
 
-  <table id="contactTable">
-    <thead>
-      <tr>
-        <th>Nama</th>
-        <th>Email</th>
-        <th>Telepon</th>
-        <th>Perusahaan</th>
-        <th>Catatan</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <table id="contactTable">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Telepon</th>
+          <th>Perusahaan</th>
+          <th>Catatan</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
   <script src="script.js"></script>
 </body>
