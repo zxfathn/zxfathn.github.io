@@ -1,4 +1,4 @@
-/* === GLOBAL STYLE === */
+/* === GLOBAL === */
 body {
   font-family: "Poppins", Arial, sans-serif;
   background: url("https://i.pximg.net/img-master/img/2023/06/24/02/59/20/109286012_p0_master1200.jpg") 
@@ -6,27 +6,30 @@ body {
   background-size: cover;
   margin: 0;
   padding: 20px;
-  color: #fff;
+  color: #f8f9fa;
 }
 
 /* === CONTAINER === */
 .container {
   max-width: 1000px;
   margin: auto;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.45); /* lebih transparan agar gambar terlihat */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* === TITLE === */
 h2 {
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: #fff;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: #f1f3f8;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
   margin-bottom: 25px;
 }
 
@@ -41,10 +44,10 @@ form {
 
 form input {
   padding: 10px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   width: calc(20% - 10px);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-size: 14px;
   transition: all 0.3s ease;
@@ -56,7 +59,8 @@ form input::placeholder {
 
 form input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #90e0ef;
 }
 
 /* === BUTTON === */
@@ -66,45 +70,47 @@ form button {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  background: linear-gradient(135deg, #48cae4, #4361ee);
   color: white;
   transition: all 0.3s ease;
 }
 
 form button:hover {
-  background: linear-gradient(135deg, #0077b6, #023e8a);
+  background: linear-gradient(135deg, #3a0ca3, #7209b7);
+  transform: translateY(-1px);
 }
 
-/* === SEARCH BAR === */
+/* === SEARCH === */
 #searchInput {
   width: 100%;
   padding: 10px;
   margin: 15px 0;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 8px;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
+  box-sizing: border-box;
 }
 
 #searchInput::placeholder {
-  color: #ddd;
+  color: #eee;
 }
 
-/* === DELETE BUTTON === */
+/* === DELETE SELECTED BUTTON === */
 #deleteSelectedBtn {
-  background: #ff4d6d;
+  background: linear-gradient(135deg, #ff5d8f, #ff006e);
   color: white;
   border: none;
   border-radius: 8px;
   padding: 8px 14px;
   margin-bottom: 10px;
   cursor: pointer;
+  font-weight: 600;
   transition: 0.3s;
 }
 
 #deleteSelectedBtn:hover {
-  background: #c9184a;
+  background: linear-gradient(135deg, #d0004d, #720026);
 }
 
 /* === TABLE === */
@@ -118,52 +124,54 @@ table {
 }
 
 th, td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding: 10px 8px;
   text-align: left;
 }
 
 th {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.1);
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 1px;
+  color: #ade8f4;
 }
 
-/* === KOLOM NAMA (Huruf besar & muat 20 karakter) === */
+/* === KOLOM NAMA === */
 td:nth-child(3), th:nth-child(3) {
   text-transform: uppercase;
-  font-weight: 600;
-  color: #00b4d8;
+  font-weight: 700;
+  color: #90e0ef;
   max-width: 200px;
   min-width: 180px;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* === TABLE EFFECTS === */
+/* === HOVER EFFECT === */
 tr:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transition: background 0.2s ease;
+  background: rgba(255, 255, 255, 0.08);
+  transition: 0.2s ease;
 }
 
-/* === BUTTON AKSI === */
+/* === ACTION BUTTONS === */
 button.action {
   padding: 6px 10px;
   border: none;
   border-radius: 6px;
   margin: 2px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   transition: all 0.3s ease;
 }
 
 button.action:hover {
   background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
 }
 
-/* === RESPONSIVE DESIGN === */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   form input {
     width: 100%;
@@ -182,7 +190,7 @@ button.action:hover {
   }
 
   tr {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 10px;
