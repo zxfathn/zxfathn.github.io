@@ -10,6 +10,10 @@ h1 {
 
 form {
   margin-bottom: 20px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 input, textarea {
@@ -21,27 +25,43 @@ input, textarea {
   border-radius: 5px;
 }
 
+textarea {
+  resize: vertical;
+}
+
 button {
   background: #2a7a2e;
   color: white;
   border: none;
   padding: 8px 16px;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
+  margin-right: 6px;
 }
 
 button:hover {
   background: #256b28;
 }
 
+button.delete {
+  background: #d9534f;
+}
+
+button.edit {
+  background: #f0ad4e;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
-  background: white;
+  background: #fff;
 }
 
 th, td {
   border: 1px solid #ccc;
   padding: 8px;
-  text-align: left;
+}
+
+th {
+  background: #e9f3ea;
 }
