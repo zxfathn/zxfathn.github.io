@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwjplk3fuw3gG8_5Jfd5P0zHPyk1GNOSo2glHnBBGdfw6mjbNaJ73svQ9ZvBGxvRgsBag/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -100,7 +100,7 @@ async function deleteSelected() {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
   }
 
-  // Alert after deletion
+  // Alert setelah menghapus
   alert("Kontak yang dipilih telah dihapus! Klik OK untuk melanjutkan.");
   window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
   fetchData(); // Refresh the data on the page
