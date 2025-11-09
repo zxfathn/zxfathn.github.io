@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/.../exec"; // ganti dengan milikmu
+const API_URL = "https://script.google.com/macros/s/AKfycbwabIbM3XX3GqNWuGOVduM7yzsO9o3f9SCGdoWwssaWlvbJe-vFeGZfwimT3vgS81n31A/exec"; // ganti dengan milikmu
 const contactsTable = document.getElementById("contactsTable");
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
