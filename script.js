@@ -1,8 +1,11 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti API URL
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
+
+const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+const copySelectedBtn = document.getElementById("copySelectedBtn");
 
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
@@ -25,6 +28,7 @@ function buildTable(data){
   data.forEach((c,i)=>{
     const row = document.createElement("tr");
     row.innerHTML=`
+      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="updateSelectedButtons()"></td>
       <td>${i+1}</td>
       <td>${c.nama}</td>
       <td>${c.telepon}</td>
@@ -32,10 +36,46 @@ function buildTable(data){
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
     `;
-    row.addEventListener("click", ()=>{
-      showDetailModal(c);
+    row.addEventListener("click", e=>{
+      if(!e.target.classList.contains("selectBox")) showDetailModal(c);
     });
     contactsTable.appendChild(row);
+  });
+  updateSelectedButtons();
+}
+
+// ==== SELECT ALL / SELECT ONE ====
+function toggleSelectAll(box){
+  const checked = box.checked;
+  document.querySelectorAll(".selectBox").forEach(cb=>cb.checked=checked);
+  updateSelectedButtons();
+}
+
+function updateSelectedButtons(){
+  const anySelected = document.querySelectorAll(".selectBox:checked").length>0;
+  deleteSelectedBtn.style.display = anySelected ? "inline-block" : "none";
+  copySelectedBtn.style.display = anySelected ? "inline-block" : "none";
+}
+
+// ==== DELETE SELECTED ====
+function deleteSelected(){
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map(b=>b.dataset.id);
+  if(selected.length===0) return;
+  if(!confirm("Hapus semua kontak yang dipilih?")) return;
+  selected.forEach(id=>{
+    fetch(API_URL,{method:"POST",body:new URLSearchParams({action:"delete",id})});
+  });
+  fetchData();
+}
+
+// ==== COPY SELECTED ====
+function copySelected(){
+  const selectedIds = Array.from(document.querySelectorAll(".selectBox:checked")).map(b=>b.dataset.id);
+  if(selectedIds.length===0) return;
+  fetch(API_URL).then(res=>res.json()).then(data=>{
+    const text = data.filter(c=>selectedIds.includes(c.id)).map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
+    navigator.clipboard.writeText(text);
+    alert("Kontak terpilih telah disalin!");
   });
 }
 
@@ -109,26 +149,6 @@ searchInput.addEventListener("keyup", ()=>{
     r.style.display = r.innerText.toLowerCase().includes(kw)?"":"none";
   });
 });
-
-// ==== COPY & EXPORT ====
-function copyAll(){
-  fetch(API_URL).then(res=>res.json()).then(data=>{
-    const text = data.map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
-    navigator.clipboard.writeText(text);
-    alert("Kontak telah disalin!");
-  });
-}
-function exportCSV(){
-  fetch(API_URL).then(res=>res.json()).then(data=>{
-    const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"],...data.map(c=>[c.nama,c.telepon,c.email,c.perusahaan,c.catatan])]
-      .map(e=>e.join(",")).join("\n");
-    const blob = new Blob([csv],{type:"text/csv"});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download="kontak.csv";
-    link.click();
-  });
-}
 
 // ==== INIT ====
 window.addEventListener("load", fetchData);
