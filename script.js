@@ -164,7 +164,7 @@ searchInput.addEventListener("keyup", ()=>{
 window.addEventListener("load", fetchData);
 function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
 
-// ==== EXPORT CSV (TERPISAH) ====
+// ==== EXPORT CSV ====
 function exportCSV(){
   fetch(API_URL).then(res=>res.json()).then(data=>{
     const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"],
