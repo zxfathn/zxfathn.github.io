@@ -18,9 +18,9 @@ async function fetchData() {
     const res = await fetch(API_URL);
     const data = await res.json();
     contactsData = data;
-    buildTable(data);
+    buildTable(data); // Update the table with the latest data
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data: ", err);
   }
 }
 
@@ -62,7 +62,7 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
-  document.getElementById("copyFromDetail").onclick = copyData;  // Perubahan di sini
+  document.getElementById("copyFromDetail").onclick = copyData;
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -102,6 +102,8 @@ contactForm.addEventListener("submit", async (e) => {
   });
 
   await fetch(API_URL, { method: "POST", body: params });
+
+  // After adding/updating, refresh the data
   fetchData();
   clearForm();
 });
@@ -117,26 +119,30 @@ function clearForm() {
 async function deleteContact(id) {
   if (!confirm("Hapus kontak ini?")) return;
   await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
+
+  // After deleting, refresh the data
   fetchData();
 }
 
 // === Delete Selected Contacts ===
-function deleteSelected() {
+async function deleteSelected() {
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
   if (selected.length === 0) return;
+  
   if (!confirm("Hapus semua kontak yang dipilih?")) return;
 
-  selected.forEach(async (id) => {
+  // Loop over each selected id and delete
+  for (let id of selected) {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
-  });
+  }
 
+  // After deleting selected, refresh the data
   fetchData();
 }
 
 // === Copy Data from Detail Modal ===
-// Fungsi ini sudah diperbarui untuk menyalin teks langsung dari modal detail
 function copyData() {
-  const text = detailText.innerText; // Ambil teks dari modal detail
+  const text = detailText.innerText; // Take the exact text from the modal
   navigator.clipboard.writeText(text)
     .then(() => alert("Kontak detail telah disalin!"));
 }
@@ -179,6 +185,8 @@ uploadCsvInput.addEventListener("change", (e) => {
         catatan: row[4],
       }));
       await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
+
+      // After importing CSV, refresh the data
       alert("CSV berhasil diimpor!");
       fetchData();
     };
