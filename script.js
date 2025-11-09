@@ -73,7 +73,9 @@ uploadCsvInput.addEventListener("change", (e) => {
 
         const responseData = await res.json();
         if (responseData.status === "ok") {
-          alert("CSV berhasil diimpor!");
+          alert("CSV berhasil diimpor! Klik OK untuk melanjutkan.");
+          // Arahkan pengguna ke halaman tujuan setelah klik OK
+          window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman
           fetchData(); // Memanggil fungsi fetchData untuk reload data baru
         } else {
           alert("Terjadi kesalahan: " + responseData.message);
@@ -88,13 +90,55 @@ uploadCsvInput.addEventListener("change", (e) => {
   }
 });
 
-// === Search Functionality ===
-searchInput.addEventListener("keyup", () => {
-  const kw = searchInput.value.toLowerCase();
-  document.querySelectorAll("#contactsTable tr").forEach((row) => {
-    row.style.display = row.innerText.toLowerCase().includes(kw) ? "" : "none";
+// === Delete Selected Contacts ===
+async function deleteSelected() {
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
+  if (selected.length === 0) return;
+  if (!confirm("Hapus semua kontak yang dipilih?")) return;
+
+  for (let id of selected) {
+    await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
+  }
+
+  // Alert after deletion
+  alert("Kontak yang dipilih telah dihapus! Klik OK untuk melanjutkan.");
+  window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
+  fetchData(); // Refresh the data on the page
+}
+
+// === Save/Edit Contact ===
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const id = contactForm.contactId.value;
+  const params = new URLSearchParams({
+    nama: contactForm.nama.value,
+    telepon: contactForm.telepon.value,
+    email: contactForm.email.value,
+    perusahaan: contactForm.perusahaan.value,
+    catatan: contactForm.catatan.value,
+    action: id ? "update" : "create",
+    id,
   });
+
+  try {
+    await fetch(API_URL, { method: "POST", body: params });
+    fetchData();
+    clearForm();
+    alert("Kontak berhasil disimpan! Klik OK untuk melanjutkan.");
+    window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
+  } catch (err) {
+    console.error("Error saving contact:", err);
+    alert("Terjadi kesalahan saat menyimpan kontak.");
+  }
 });
+
+// === Clear Form ===
+function clearForm() {
+  contactForm.reset();
+  contactForm.contactId.value = "";
+  document.getElementById("btnCancel").style.display = "none";
+}
 
 // === Initialize ===
 window.addEventListener("load", fetchData);
