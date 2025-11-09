@@ -21,11 +21,7 @@ body {
   align-items: center;
 }
 
-h2 {
-  text-align: center;
-  letter-spacing: 2px;
-  color: #ffe680;
-}
+h2 { text-align: center; letter-spacing: 2px; color: #ffe680; }
 
 /* ===== Form Tambah Kontak ===== */
 .add-form {
@@ -50,12 +46,10 @@ h2 {
   border: 1px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
   color: #fff;
+  box-sizing: border-box;
 }
 
-.add-form .form-row.center {
-  justify-content: center;
-}
-
+.add-form .form-row.center { justify-content: center; }
 .add-form .form-row.center button {
   margin-top: 5px;
   padding: 8px 16px;
@@ -64,23 +58,15 @@ h2 {
   border: none;
 }
 
-.btn-save {
-  background: #ffe680;
-  color: #000;
-}
-
+.btn-save { background: #ffe680; color: #000; }
 .btn-save:hover { background: #fff27f; }
 
-.btn-cancel {
-  background: #ff6f6f;
-  color: #fff;
-}
-
+.btn-cancel { background: #ff6f6f; color: #fff; }
 .btn-cancel:hover { background: #ff8b8b; }
 
 /* ===== Search & Table ===== */
 #searchInput {
-  width: 100%; /* mengikuti container */
+  width: 100%;
   max-width: 1000px;
   padding: 8px;
   margin: 10px 0;
@@ -93,7 +79,7 @@ h2 {
 
 table {
   width: 100%;
-  max-width: 100%;
+  max-width: 1000px;
   border-collapse: collapse;
   margin-top: 10px;
   font-size: 14px;
@@ -106,20 +92,18 @@ th, td {
   word-wrap: break-word;
 }
 
-th {
-  background: rgba(255, 230, 128, 0.2);
-  text-transform: uppercase;
-  text-align: center;
-}
+th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; text-align: center; }
 
 td { text-align: center; }
 td:nth-child(1), td:nth-child(2) { text-align: left; }
 
+/* ===== Checkbox ===== */
 .selectBox, #selectAll {
-  width: 20px;  /* sama ukuran */
+  width: 20px;
   height: 20px;
   cursor: pointer;
   vertical-align: middle;
+  box-sizing: border-box;
 }
 
 th:first-child, td:first-child { width: 40px; }
@@ -137,7 +121,6 @@ tr:hover { background: rgba(255,255,255,0.15); }
 
 /* ===== Modal ===== */
 .modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
-
 .modal-content {
   background: rgba(20,25,50,0.95);
   margin: 5% auto;
@@ -149,7 +132,6 @@ tr:hover { background: rgba(255,255,255,0.15); }
   box-shadow: 0 0 15px rgba(255,255,255,0.2);
   animation: fadeIn 0.5s ease;
 }
-
 .popup input {
   width: 100%;
   margin: 6px 0;
@@ -161,7 +143,6 @@ tr:hover { background: rgba(255,255,255,0.15); }
 }
 
 .close { float: right; font-size: 24px; cursor: pointer; }
-
 .modal-actions { margin-top: 15px; display: flex; justify-content: space-around; }
 .modal-actions.center { justify-content: center; }
 
