@@ -25,7 +25,6 @@
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
-    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
     <button onclick="exportCSV()">⬇️ Ekspor CSV</button>
     <button onclick="copyAll()">📋 Salin Semua</button>
   </div>
@@ -33,14 +32,12 @@
   <table>
     <thead>
       <tr>
-        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
         <th>No</th>
         <th>Nama</th>
         <th>Telepon</th>
         <th>Email</th>
         <th>Perusahaan</th>
         <th>Catatan</th>
-        <th>Aksi</th>
       </tr>
     </thead>
     <tbody id="contactsTable"></tbody>
@@ -55,8 +52,6 @@
     <div id="detailText"></div>
     <div class="modal-actions">
       <button id="editFromDetail" class="btn-save">✏️ Edit</button>
-      <button id="deleteFromDetail" class="btn-cancel">🗑️ Hapus</button>
-      <button onclick="copyDetail()" class="btn-save">📋 Salin</button>
     </div>
   </div>
 </div>
