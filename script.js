@@ -12,13 +12,14 @@ const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
 
 let contactsData = [];
+let selectedData = [];
 
 // === Fetch Data ===
 async function fetchData() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-    contactsData = data;
+    contactsData = data; // Store all data fetched from API
     buildTable(data);
   } catch (err) {
     console.error(err);
@@ -32,7 +33,7 @@ function buildTable(data) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleDeleteBtn()"></td>
+      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleSelection(c.id, this)"></td>
       <td>${i + 1}</td>
       <td>${c.nama}</td>
       <td>${c.telepon}</td>
@@ -40,13 +41,6 @@ function buildTable(data) {
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
     `;
-
-    row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
-    row.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("selectBox")) {
-        showDetails(c);
-      }
-    });
 
     contactsTable.appendChild(row);
   });
@@ -122,15 +116,16 @@ async function deleteContact(id) {
 
 // === Delete Selected Contacts ===
 function deleteSelected() {
-  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
-  if (selected.length === 0) return;
+  if (selectedData.length === 0) return;
   if (!confirm("Hapus semua kontak yang dipilih?")) return;
 
-  selected.forEach(async (id) => {
+  selectedData.forEach(async (id) => {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
   });
 
   fetchData();
+  selectedData = []; // Clear selected data
+  toggleDeleteBtn();
 }
 
 // === Select All / Unselect All ===
@@ -138,27 +133,38 @@ function toggleSelectAll(checkbox) {
   const checkboxes = document.querySelectorAll(".selectBox");
   checkboxes.forEach((cb) => {
     cb.checked = checkbox.checked;
+    toggleSelection(cb.dataset.id, cb); // Sync selection
   });
+  toggleDeleteBtn();
+}
+
+// === Toggle Selection of Individual Row ===
+function toggleSelection(id, checkbox) {
+  if (checkbox.checked) {
+    if (!selectedData.includes(id)) {
+      selectedData.push(id);
+    }
+  } else {
+    selectedData = selectedData.filter((selectedId) => selectedId !== id);
+  }
   toggleDeleteBtn();
 }
 
 // === Toggle Delete Button Visibility ===
 function toggleDeleteBtn() {
-  const selectedCount = document.querySelectorAll(".selectBox:checked").length;
-  deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
-  exportCsvBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
+  deleteSelectedBtn.style.display = selectedData.length > 0 ? "inline-block" : "none";
+  exportCsvBtn.style.display = selectedData.length > 0 ? "inline-block" : "none";
 }
 
 // === Export Selected Data to CSV ===
 function exportCsv() {
-  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
-  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
+  const selectedDataDetails = contactsData.filter((c) => selectedData.includes(c.id));
 
-  if (selectedData.length === 0) return;
+  if (selectedDataDetails.length === 0) return;
 
   const csv = [
     ["Nama", "Telepon", "Email", "Perusahaan", "Catatan"],
-    ...selectedData.map((c) => [c.nama, c.telepon, c.email, c.perusahaan, c.catatan]),
+    ...selectedDataDetails.map((c) => [c.nama, c.telepon, c.email, c.perusahaan, c.catatan]),
   ]
     .map((row) => row.join(","))
     .join("\n");
