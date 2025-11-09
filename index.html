@@ -24,13 +24,19 @@
     </div>
   </form>
 
-  <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
+  <!-- SEARCH -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
+  </div>
 
+  <!-- ACTIONS -->
   <div class="actions">
     <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
     <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
+    <button id="exportCsvBtn" onclick="exportCSV()">⬇️ Ekspor CSV</button>
   </div>
 
+  <!-- TABLE -->
   <table>
     <thead>
       <tr>
