@@ -11,27 +11,32 @@
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
   <!-- Form Tambah Kontak -->
-  <form id="contactForm">
+  <form id="contactForm" class="add-form">
     <input type="hidden" id="contactId">
-    <input type="text" id="nama" placeholder="Nama" required maxlength="24">
-    <input type="text" id="telepon" placeholder="Telepon" required>
-    <input type="email" id="email" placeholder="Email" required maxlength="30">
-    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
-    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
-    <button type="submit" class="btn-save">💾 Tambah Kontak</button>
-    <button type="button" class="btn-cancel" onclick="clearForm()" style="display:none;">❌ Batal</button>
+    <div class="form-row">
+      <input type="text" id="nama" placeholder="Nama" required maxlength="24">
+      <input type="text" id="telepon" placeholder="Telepon" required>
+      <input type="email" id="email" placeholder="Email" required maxlength="30">
+      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    </div>
+    <div class="form-row center">
+      <button type="submit" class="btn-save">💾 Tambah Kontak</button>
+      <button type="button" class="btn-cancel" onclick="clearForm()" style="display:none;">❌ Batal</button>
+    </div>
   </form>
 
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
-    <button onclick="exportCSV()">⬇️ Ekspor CSV</button>
-    <button onclick="copyAll()">📋 Salin Semua</button>
+    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
+    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
   </div>
 
   <table>
     <thead>
       <tr>
+        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
         <th>No</th>
         <th>Nama</th>
         <th>Telepon</th>
@@ -68,7 +73,7 @@
       <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
       <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
       <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
-      <div class="modal-actions">
+      <div class="modal-actions center">
         <button type="submit" class="btn-save">💾 Simpan</button>
         <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
       </div>
