@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwjplk3fuw3gG8_5Jfd5P0zHPyk1GNOSo2glHnBBGdfw6mjbNaJ73svQ9ZvBGxvRgsBag/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -16,7 +16,7 @@ async function fetchData() {
     const res = await fetch(API_URL);
     const data = await res.json();
     contactsData = data;
-    buildTable(data);  // Memanggil buildTable untuk menampilkan data
+    buildTable(data);  // Rebuild the table with new data
   } catch (err) {
     console.error("Error fetching data:", err);
   }
@@ -101,7 +101,7 @@ async function deleteSelected() {
 
   alert("Kontak yang dipilih telah dihapus! Klik OK untuk melanjutkan.");
   window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
-  fetchData(); // Fetch ulang data setelah hapus
+  fetchData(); // Memanggil fetchData untuk update setelah hapus
 }
 
 // === Save/Edit Contact ===
@@ -121,7 +121,7 @@ contactForm.addEventListener("submit", async (e) => {
 
   try {
     await fetch(API_URL, { method: "POST", body: params });
-    fetchData();  // Fetch ulang data setelah create/edit
+    fetchData();  // Memanggil fetchData untuk update setelah create/edit
     clearForm();
     alert("Kontak berhasil disimpan! Klik OK untuk melanjutkan.");
     window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
