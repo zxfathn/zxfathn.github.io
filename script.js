@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti URL API
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti API URL
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -16,7 +16,7 @@ async function fetchData(){
     const res = await fetch(API_URL);
     const data = await res.json();
     buildTable(data);
-    window.scrollTo(0,0); // kembali ke atas setelah setiap aksi
+    window.scrollTo(0,0);
   }catch(err){ console.error(err); }
 }
 
@@ -53,11 +53,9 @@ function showDetailModal(c){
     <b>Catatan:</b> ${c.catatan}
   `;
   detailModal.style.display="block";
-
   document.getElementById("editFromDetail").onclick = ()=> openEditModal(c);
   document.getElementById("deleteFromDetail").onclick = ()=> deleteContact(c.id);
 }
-
 function closeDetailModal(){ detailModal.style.display="none"; }
 detailModal.addEventListener("click", e=>{ if(e.target===detailModal) closeDetailModal(); });
 
@@ -72,12 +70,7 @@ function openEditModal(c){
   document.getElementById("editCatatan").value = c.catatan;
   closeDetailModal();
 }
-
-function closeEditModal(){
-  editModal.style.display="none";
-  editForm.reset();
-}
-
+function closeEditModal(){ editModal.style.display="none"; editForm.reset(); }
 editModal.addEventListener("click", e=>{ if(e.target===editModal) closeEditModal(); });
 
 // ==== SAVE EDIT ====
@@ -95,7 +88,7 @@ editForm.addEventListener("submit", async e=>{
   });
   await fetch(API_URL, {method:"POST", body:params});
   closeEditModal();
-  fetchData(); // tabel diperbarui, scroll ke atas
+  fetchData();
 });
 
 // ==== ADD CONTACT ====
@@ -165,5 +158,4 @@ function exportCSV(){
 
 // ==== INIT ====
 window.addEventListener("load", fetchData);
-
 function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
