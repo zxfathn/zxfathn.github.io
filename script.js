@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxfsA5hIqfF_PNQm6GTBLvlVa774qvLzubgmgL-WiNoDQThqxP0swplHP4049oZbWXfEg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -62,7 +62,7 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
-  document.getElementById("copyFromDetail").onclick = () => copyData(c);
+  document.getElementById("copyFromDetail").onclick = copyData;  // Perubahan di sini
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -133,21 +133,12 @@ function deleteSelected() {
   fetchData();
 }
 
-// === Copy Selected Data ===
-function copySelected() {
-  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
-  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
-
-  if (selectedData.length === 0) return;
-
-  const text = selectedData.map((c) => `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
-  navigator.clipboard.writeText(text).then(() => alert("Kontak yang dipilih telah disalin!"));
-}
-
 // === Copy Data from Detail Modal ===
-function copyData(c) {
-  const text = `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`;
-  navigator.clipboard.writeText(text).then(() => alert("Kontak detail telah disalin!"));
+// Fungsi ini sudah diperbarui untuk menyalin teks langsung dari modal detail
+function copyData() {
+  const text = detailText.innerText; // Ambil teks dari modal detail
+  navigator.clipboard.writeText(text)
+    .then(() => alert("Kontak detail telah disalin!"));
 }
 
 // === Select All / Unselect All ===
