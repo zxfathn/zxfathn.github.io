@@ -194,7 +194,7 @@ uploadCsvInput.addEventListener("change", (e) => {
         });
         
         const result = await response.json();
-        if (result.success) {
+        if (result.status === "ok") {
           alert("CSV berhasil diimpor!");
           fetchData();  // Memperbarui data setelah impor
         } else {
