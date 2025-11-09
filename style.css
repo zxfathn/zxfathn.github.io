@@ -16,6 +16,9 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.6);
   backdrop-filter: blur(10px);
   animation: fadeIn 1s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h2 {
@@ -30,6 +33,7 @@ h2 {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .add-form .form-row {
@@ -76,13 +80,15 @@ h2 {
 
 /* ===== Search & Table ===== */
 #searchInput {
-  width: 100%;
+  width: 100%; /* mengikuti container */
+  max-width: 1000px;
   padding: 8px;
   margin: 10px 0;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 table {
@@ -107,18 +113,22 @@ th {
 }
 
 td { text-align: center; }
-
 td:nth-child(1), td:nth-child(2) { text-align: left; }
 
-.selectBox { width: 18px; height: 18px; cursor: pointer; }
+.selectBox, #selectAll {
+  width: 20px;  /* sama ukuran */
+  height: 20px;
+  cursor: pointer;
+  vertical-align: middle;
+}
 
-th:first-child, td:first-child { width: 40px; } /* checkbox */
-th:nth-child(2), td:nth-child(2) { width: 40px; }  /* No */
-th:nth-child(3), td:nth-child(3) { width: 150px; } /* Nama */
-th:nth-child(4), td:nth-child(4) { width: 120px; } /* Telepon */
-th:nth-child(5), td:nth-child(5) { width: 200px; } /* Email */
-th:nth-child(6), td:nth-child(6) { width: 150px; } /* Perusahaan */
-th:nth-child(7), td:nth-child(7) { width: 120px; } /* Catatan */
+th:first-child, td:first-child { width: 40px; }
+th:nth-child(2), td:nth-child(2) { width: 40px; }
+th:nth-child(3), td:nth-child(3) { width: 150px; }
+th:nth-child(4), td:nth-child(4) { width: 120px; }
+th:nth-child(5), td:nth-child(5) { width: 200px; }
+th:nth-child(6), td:nth-child(6) { width: 150px; }
+th:nth-child(7), td:nth-child(7) { width: 120px; }
 
 tr:hover { background: rgba(255,255,255,0.15); }
 
@@ -150,18 +160,9 @@ tr:hover { background: rgba(255,255,255,0.15); }
   color: #fff;
 }
 
-.close {
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-}
+.close { float: right; font-size: 24px; cursor: pointer; }
 
-.modal-actions {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-around;
-}
-
+.modal-actions { margin-top: 15px; display: flex; justify-content: space-around; }
 .modal-actions.center { justify-content: center; }
 
 @media(max-width:768px){
