@@ -61,6 +61,9 @@ table {
   margin-top: 10px;
   font-size: 14px;
   table-layout: fixed;
+  max-height: 400px;
+  overflow-y: auto;
+  display: block;
 }
 
 th, td {
@@ -70,6 +73,13 @@ th, td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: rgba(20, 25, 50, 0.95);
+  z-index: 1;
 }
 
 th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; }
@@ -90,6 +100,7 @@ button.btn-action {
   cursor: pointer;
   transition: 0.3s;
 }
+
 button.btn-action:hover { background: #fff27f; }
 
 .modal {
