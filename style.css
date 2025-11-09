@@ -94,7 +94,7 @@ th, td {
 
 th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; text-align: center; }
 td { text-align: center; }
-td:nth-child(1), td:nth-child(2) { text-align: left; }
+td:nth-child(1), td:nth-child(2) { text-align: center; }
 
 /* ===== Checkbox ===== */
 .selectBox, #selectAll {
@@ -103,6 +103,7 @@ td:nth-child(1), td:nth-child(2) { text-align: left; }
   margin: 0;
   padding: 0;
   vertical-align: middle;
+  display: inline-block;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -110,7 +111,8 @@ td:nth-child(1), td:nth-child(2) { text-align: left; }
 th:first-child, td:first-child {
   width: 40px;
   text-align: center;
-  padding: 0 5px;
+  padding: 0;
+  line-height: 1; /* sejajar dengan header */
 }
 
 tr:hover { background: rgba(255,255,255,0.15); }
