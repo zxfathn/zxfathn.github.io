@@ -10,12 +10,11 @@ body {
 .container {
   max-width: 1000px;
   margin: auto;
-  background: rgba(15, 20, 40, 0.8);
+  background: rgba(15, 20, 40, 0.9);
   border-radius: 16px;
   padding: 25px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  box-shadow: 0 0 25px rgba(0,0,0,0.7);
   backdrop-filter: blur(10px);
-  animation: fadeIn 1s ease;
 }
 
 h2 {
@@ -41,9 +40,7 @@ form input {
   width: calc(20% - 12px);
 }
 
-form input#nama {
-  width: calc(28% - 12px);
-}
+form input#nama { width: calc(28% - 12px); }
 
 form button {
   border: none;
@@ -58,19 +55,13 @@ form button {
   background: #ffe680;
   color: #000;
 }
-
-.btn-save:hover {
-  background: #fff27f;
-}
+.btn-save:hover { background: #fff27f; }
 
 .btn-cancel {
   background: #ff6f6f;
   color: white;
 }
-
-.btn-cancel:hover {
-  background: #ff8b8b;
-}
+.btn-cancel:hover { background: #ff8b8b; }
 
 #searchInput {
   width: 100%;
@@ -94,47 +85,22 @@ th, td {
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-th {
-  background: rgba(255, 230, 128, 0.2);
-  text-transform: uppercase;
-}
+th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; }
+td { text-align: center; }
+td:nth-child(2), td:first-child { text-align: left; }
 
-td {
-  text-align: center;
-  transition: background 0.3s;
-}
-
-td:nth-child(2),
-td:first-child {
-  text-align: left;
-}
-
-tr:hover {
-  background: rgba(255,255,255,0.15);
-}
+tr:hover { background: rgba(255,255,255,0.15); }
 
 button.action {
-  background: #ffe680;
-  color: black;
+  background: #ff6f6f;
+  color: white;
   border-radius: 6px;
   border: none;
   cursor: pointer;
   padding: 4px 8px;
   transition: 0.3s;
 }
-
-button.action:hover {
-  background: #fff9a6;
-}
-
-.fade-in {
-  animation: fadeIn 1.2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+button.action:hover { background: #ff8b8b; }
 
 /* Modal */
 .modal {
@@ -146,16 +112,20 @@ button.action:hover {
   background: rgba(0,0,0,0.6);
 }
 
-.modal-content {
-  background: rgba(20,25,50,0.95);
+.modal-content.popup {
+  background: rgba(25,30,55,0.95);
   margin: 5% auto;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 500px;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  animation: fadeIn 0.5s ease;
+  max-width: 450px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+}
+
+.modal-content.popup h3 {
+  margin-top: 0;
+  color: #ffe680;
+  text-align: center;
 }
 
 .close {
@@ -168,11 +138,11 @@ button.action:hover {
   margin-top: 15px;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 /* Responsif */
-@media (max-width: 768px) {
-  form input {
-    width: 100%;
-  }
+@media (max-width: 768px){
+  form input { width: 100%; }
+  .modal-content.popup { width: 95%; }
 }
