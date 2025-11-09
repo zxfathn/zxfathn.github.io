@@ -29,8 +29,8 @@
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
-    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
-    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
+    <button id="deleteSelectedBtn" class="btn-cancel" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
+    <button id="copySelectedBtn" class="btn-copy" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
   </div>
 
   <table>
@@ -55,8 +55,9 @@
     <span class="close" onclick="closeDetailModal()">&times;</span>
     <h3>Detail Kontak</h3>
     <div id="detailText"></div>
-    <div class="modal-actions">
-      <button id="editFromDetail" class="btn-save">✏️ Edit</button>
+    <div class="modal-actions center">
+      <button id="editFromDetail" class="btn-edit">✏️ Edit</button>
+      <button id="copyFromDetail" class="btn-copy">📋 Salin</button>
     </div>
   </div>
 </div>
