@@ -58,11 +58,23 @@ h2 { text-align: center; letter-spacing: 2px; color: #ffe680; }
   border: none;
 }
 
-.btn-save { background: #ffe680; color: #000; }
-.btn-save:hover { background: #fff27f; }
+/* ===== Tombol Umum ===== */
+button {
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
 
-.btn-cancel { background: #ff6f6f; color: #fff; }
-.btn-cancel:hover { background: #ff8b8b; }
+.btn-save { background: #4caf50; color: #fff; }
+.btn-save:hover { background: #45a049; }
+
+.btn-cancel { background: #f44336; color: #fff; }
+.btn-cancel:hover { background: #e53935; }
+
+.btn-edit { background: #2196f3; color: #fff; }
+.btn-edit:hover { background: #1e88e5; }
+
+.btn-copy { background: #ff9800; color: #fff; }
+.btn-copy:hover { background: #fb8c00; }
 
 /* ===== Search & Table ===== */
 #searchInput {
@@ -118,7 +130,7 @@ th:first-child, td:first-child {
   width: 40px;
   text-align: center;
   padding: 0;
-  line-height: 1; /* sejajar header */
+  line-height: 1;
 }
 
 tr:hover { background: rgba(255,255,255,0.15); }
@@ -150,7 +162,7 @@ tr:hover { background: rgba(255,255,255,0.15); }
 }
 
 .close { float: right; font-size: 24px; cursor: pointer; }
-.modal-actions { margin-top: 15px; display: flex; justify-content: space-around; }
+.modal-actions { margin-top: 15px; display: flex; justify-content: space-around; gap: 10px; }
 .modal-actions.center { justify-content: center; }
 
 @media(max-width:768px){
