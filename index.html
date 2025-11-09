@@ -1,58 +1,42 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pengelola Kontak Client</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengelola Kontak Client</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container fade-in">
-    <h2>📇 PENGELOLA KONTAK CLIENT</h2>
+<div class="container fade-in">
+  <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-    <!-- FORM TAMBAH KONTAK + IMPORT CSV -->
-    <form id="contactForm">
-      <input type="hidden" id="contactId">
-      <input type="text" id="nama" placeholder="Nama" required maxlength="24">
-      <input type="text" id="telepon" placeholder="Telepon" required>
-      <input type="email" id="email" placeholder="Email" required maxlength="30">
-      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
-      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
-      <div class="form-buttons">
-        <button type="submit" class="btn-action">💾 Tambah Kontak</button>
-        <label for="uploadCsv" class="btn-action">⬆️ Import CSV</label>
-        <input type="file" id="uploadCsv" accept=".csv" style="display:none;">
-      </div>
-    </form>
-
-    <!-- SEARCH -->
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
+  <!-- FORM TAMBAH KONTAK + IMPORT CSV -->
+  <form id="contactForm">
+    <input type="hidden" id="contactId">
+    <input type="text" id="nama" placeholder="Nama" required maxlength="24">
+    <input type="text" id="telepon" placeholder="Telepon" required>
+    <input type="email" id="email" placeholder="Email" required maxlength="30">
+    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    <div class="form-buttons">
+      <button type="submit" class="btn-action">💾 Tambah Kontak</button>
+      <label for="uploadCsv" class="btn-action">⬆️ Import CSV</label>
+      <input type="file" id="uploadCsv" accept=".csv" style="display:none;">
     </div>
+  </form>
 
-    <!-- ACTIONS -->
-    <div class="actions">
-      <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
-      <button id="copySelectedBtn" onclick="copySelected()" style="display:none;" class="btn-action">📋 Salin yang Dipilih</button>
-    </div>
-
-    <!-- TABLE -->
-    <table id="contactsTable">
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-          <th>No</th>
-          <th>Nama</th>
-          <th>Telepon</th>
-          <th>Email</th>
-          <th>Perusahaan</th>
-          <th>Catatan</th>
-        </tr>
-      </thead>
-      <tbody id="contactsTable"></tbody>
-    </table>
+  <!-- SEARCH -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
+  </div>
+
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="selectAll" onclick="
