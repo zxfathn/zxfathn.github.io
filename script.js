@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxfsA5hIqfF_PNQm6GTBLvlVa774qvLzubgmgL-WiNoDQThqxP0swplHP4049oZbWXfEg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -103,9 +103,12 @@ contactForm.addEventListener("submit", async (e) => {
 
   await fetch(API_URL, { method: "POST", body: params });
 
-  // After adding/updating, refresh the data
+  // After adding/updating, refresh the data and reset form
   fetchData();
   clearForm();
+  // Optional: Reload the page to ensure no data is cached (quick refresh)
+  // location.reload();  // Uncomment this line if you want to force a reload
+
 });
 
 // === Clear Form ===
