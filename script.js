@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti dengan URL deploy milikmu
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti dengan URL Web App Google Sheets
 const contactsTable = document.getElementById("contactsTable");
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
@@ -32,9 +32,16 @@ function buildTable(data){
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
+      <td>
+        <button class="action editBtn">✏️</button>
+        <button class="action deleteBtn">🗑️</button>
+      </td>
     `;
+    row.querySelector(".editBtn").onclick = ()=> openEditForm(c);
+    row.querySelector(".deleteBtn").onclick = ()=> deleteContact(c.id);
+    row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
     row.addEventListener("click", e=>{
-      if(!e.target.classList.contains("selectBox")) showDetails(c);
+      if(!e.target.classList.contains("action") && e.target.type !== "checkbox") showDetails(c);
     });
     contactsTable.appendChild(row);
   });
@@ -49,7 +56,6 @@ function showDetails(c){
     <b>Catatan:</b> ${c.catatan}`;
   detailModal.style.display="block";
 
-  // Tambah tombol fungsi di popup
   document.getElementById("editFromDetail").onclick = ()=> openEditForm(c);
   document.getElementById("deleteFromDetail").onclick = ()=> deleteContact(c.id);
 }
