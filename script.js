@@ -62,6 +62,7 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
+  document.getElementById("copyFromDetail").onclick = () => copyData(c);
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -132,6 +133,23 @@ function deleteSelected() {
   fetchData();
 }
 
+// === Copy Selected Data ===
+function copySelected() {
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
+  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
+
+  if (selectedData.length === 0) return;
+
+  const text = selectedData.map((c) => `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
+  navigator.clipboard.writeText(text).then(() => alert("Kontak yang dipilih telah disalin!"));
+}
+
+// === Copy Data from Detail Modal ===
+function copyData(c) {
+  const text = `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`;
+  navigator.clipboard.writeText(text).then(() => alert("Kontak detail telah disalin!"));
+}
+
 // === Select All / Unselect All ===
 function toggleSelectAll(checkbox) {
   const checkboxes = document.querySelectorAll(".selectBox");
@@ -161,52 +179,18 @@ uploadCsvInput.addEventListener("change", (e) => {
   if (file && file.type === "text/csv") {
     const reader = new FileReader();
     reader.onload = async function () {
-      // Mengambil data CSV yang diupload
       const csvData = reader.result.split("\n").map((row) => row.split(","));
-      
-      // Memastikan bahwa baris pertama adalah header, dan baris berikutnya adalah data
-      const headers = csvData[0];  // Ambil header CSV
-      const data = csvData.slice(1); // Ambil data setelah header
-
-      // Memetakan setiap baris data ke format objek
-      const formattedData = data.map((row) => ({
-        nama: row[0],        // Nama
-        telepon: row[1],     // Telepon
-        email: row[2],       // Email
-        perusahaan: row[3],  // Perusahaan
-        catatan: row[4],     // Catatan
+      const data = csvData.slice(1).map((row) => ({
+        nama: row[0],
+        telepon: row[1],
+        email: row[2],
+        perusahaan: row[3],
+        catatan: row[4],
       }));
-
-      // Cek apakah ada data untuk dikirim
-      if (formattedData.length === 0) {
-        alert("File CSV tidak mengandung data!");
-        return;
-      }
-
-      // Kirim data ke API
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          body: new URLSearchParams({
-            action: "import",          // Aksi impor
-            data: JSON.stringify(formattedData),  // Data dalam format JSON
-          }),
-        });
-        
-        const result = await response.json();
-        if (result.status === "ok") {
-          alert("CSV berhasil diimpor!");
-          fetchData();  // Memperbarui data setelah impor
-        } else {
-          alert("Terjadi kesalahan saat mengimpor CSV.");
-        }
-      } catch (err) {
-        console.error("Error importing CSV: ", err);
-        alert("Terjadi kesalahan saat mengimpor CSV.");
-      }
+      await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
+      alert("CSV berhasil diimpor!");
+      fetchData();
     };
-    
-    // Membaca file CSV sebagai teks
     reader.readAsText(file);
   } else {
     alert("File bukan format CSV!");
