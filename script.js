@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzfbnfSw6UelQSJtRi4GGCWxQjcE6SyrryC191LWRsqL9O2x_ZJUsucSqS3cdJJ28YBiQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwabIbM3XX3GqNWuGOVduM7yzsO9o3f9SCGdoWwssaWlvbJe-vFeGZfwimT3vgS81n31A/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
