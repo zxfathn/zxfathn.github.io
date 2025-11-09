@@ -26,7 +26,7 @@ async function fetchData() {
 
 // === Build Table ===
 function buildTable(data) {
-  contactsTable.innerHTML = "";
+  contactsTable.innerHTML = "";  // Clear current table data
   data.forEach((c, i) => {
     const row = document.createElement("tr");
 
@@ -107,11 +107,12 @@ contactForm.addEventListener("submit", async (e) => {
 
   // After adding/updating, refresh the data and reset form
   alert("Data berhasil disimpan!");
-  fetchData();  // Refresh data
-  clearForm();
 
-  // Reload the page to reset everything to its initial state
-  location.reload();
+  // Refresh data
+  fetchData();
+  
+  // Clear the form after submission
+  clearForm();
 });
 
 // === Clear Form ===
@@ -129,10 +130,9 @@ async function deleteContact(id) {
 
   // After deleting, refresh the data
   alert("Kontak berhasil dihapus!");
-  fetchData();  // Refresh data
 
-  // Reload the page to reset everything to its initial state
-  location.reload();
+  // Refresh data
+  fetchData();
 }
 
 // === Delete Selected Contacts ===
@@ -149,10 +149,9 @@ async function deleteSelected() {
 
   // After deleting selected, refresh the data
   alert("Kontak yang dipilih berhasil dihapus!");
-  fetchData();  // Refresh data
 
-  // Reload the page to reset everything to its initial state
-  location.reload();
+  // Refresh data
+  fetchData();
 }
 
 // === Copy Data from Detail Modal ===
