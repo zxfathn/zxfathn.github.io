@@ -1,11 +1,11 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti dengan URL Web App
 const contactsTable = document.getElementById("contactsTable");
+const detailModal = document.getElementById("detailModal");
+const detailText = document.getElementById("detailText");
 const contactForm = document.getElementById("contactForm");
 const btnCancel = contactForm.querySelector(".btn-cancel");
 const searchInput = document.getElementById("searchInput");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
-const detailModal = document.getElementById("detailModal");
-const detailText = document.getElementById("detailText");
 
 // ==== FETCH DATA ====
 async function fetchData() {
@@ -14,7 +14,7 @@ async function fetchData() {
     const data = await res.json();
     buildTable(data);
     return data;
-  } catch(err){ console.error(err); }
+  } catch(err) { console.error(err); }
 }
 
 // ==== BUILD TABLE ====
@@ -25,7 +25,7 @@ function buildTable(data){
     row.innerHTML = `
       <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
       <td>${i+1}</td>
-      <td>${c.nama.toUpperCase()}</td>
+      <td>${c.nama}</td>
       <td>${c.telepon}</td>
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
@@ -48,19 +48,14 @@ function buildTable(data){
 // ==== DETAIL MODAL ====
 function showDetails(c){
   detailText.innerHTML = `<b>Nama:</b> ${c.nama}<br>
-  <b>Telepon:</b> ${c.telepon}<br>
-  <b>Email:</b> ${c.email}<br>
-  <b>Perusahaan:</b> ${c.perusahaan}<br>
-  <b>Catatan:</b> ${c.catatan}`;
+    <b>Telepon:</b> ${c.telepon}<br>
+    <b>Email:</b> ${c.email}<br>
+    <b>Perusahaan:</b> ${c.perusahaan}<br>
+    <b>Catatan:</b> ${c.catatan}`;
   detailModal.style.display="block";
 
   document.getElementById("editFromDetail").onclick = ()=> openEditForm(c);
   document.getElementById("deleteFromDetail").onclick = ()=> deleteContact(c.id);
-}
-
-function copyDetail(){
-  navigator.clipboard.writeText(detailText.innerText);
-  alert("Kontak disalin!");
 }
 
 function closeModal(){ detailModal.style.display="none"; }
@@ -91,12 +86,12 @@ contactForm.addEventListener("submit", async e=>{
   e.preventDefault();
   const id = contactForm.contactId.value;
   const params = new URLSearchParams({
-    nama: contactForm.nama.value.toUpperCase().slice(0,24),
+    nama: contactForm.nama.value,
     telepon: contactForm.telepon.value,
-    email: contactForm.email.value.toLowerCase(),
-    perusahaan: contactForm.perusahaan.value.slice(0,20),
-    catatan: contactForm.catatan.value.slice(0,20),
-    action: id?"update":"create",
+    email: contactForm.email.value,
+    perusahaan: contactForm.perusahaan.value,
+    catatan: contactForm.catatan.value,
+    action: id ? "update" : "create",
     id
   });
   await fetch(API_URL,{method:"POST",body:params});
@@ -111,7 +106,7 @@ async function deleteContact(id){
   fetchData();
 }
 
-// ==== MULTI DELETE ====
+// ==== DELETE SELECTED ====
 function toggleDeleteBtn(){
   deleteSelectedBtn.style.display = document.querySelectorAll(".selectBox:checked").length>0?"inline-block":"none";
 }
@@ -137,9 +132,9 @@ searchInput.addEventListener("keyup",()=>{
 // ==== COPY ALL ====
 function copyAll(){
   fetch(API_URL).then(res=>res.json()).then(data=>{
-    const text = data.map(c=>`${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
+    const text = data.map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
     navigator.clipboard.writeText(text);
-    alert("Semua kontak telah disalin!");
+    alert("Kontak telah disalin!");
   });
 }
 
@@ -155,12 +150,6 @@ function exportCSV(){
     link.click();
   });
 }
-
-// ==== SELECT ALL ====
-document.getElementById("selectAll").addEventListener("change", e=>{
-  document.querySelectorAll(".selectBox").forEach(b=>b.checked=e.target.checked);
-  toggleDeleteBtn();
-});
 
 // ==== INIT ====
 window.addEventListener("load", fetchData);
