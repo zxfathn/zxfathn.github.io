@@ -18,7 +18,7 @@
     <input type="email" id="email" placeholder="Email" required maxlength="30">
     <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
     <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
-    <button type="submit" class="btn-save">💾 Simpan</button>
+    <button type="submit" class="btn-save">💾 Tambah Kontak</button>
     <button type="button" class="btn-cancel" onclick="clearForm()" style="display:none;">❌ Batal</button>
   </form>
 
@@ -49,10 +49,10 @@
 
 <!-- Modal Detail -->
 <div id="detailModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content popup">
     <span class="close" onclick="closeDetailModal()">&times;</span>
     <h3>Detail Kontak</h3>
-    <p id="detailText"></p>
+    <div id="detailText"></div>
     <div class="modal-actions">
       <button id="editFromDetail" class="btn-save">✏️ Edit</button>
       <button id="deleteFromDetail" class="btn-cancel">🗑️ Hapus</button>
@@ -63,7 +63,7 @@
 
 <!-- Modal Edit -->
 <div id="editModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content popup">
     <span class="close" onclick="closeEditModal()">&times;</span>
     <h3>Edit Kontak</h3>
     <form id="editForm">
@@ -73,7 +73,7 @@
       <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
       <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
       <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
-      <div style="text-align:center; margin-top:10px;">
+      <div class="modal-actions">
         <button type="submit" class="btn-save">💾 Simpan</button>
         <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
       </div>
