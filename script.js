@@ -75,11 +75,11 @@ function copySelected(){
   fetch(API_URL)
     .then(res=>res.json())
     .then(data=>{
-      const text = data.filter(c=>selectedIds.includes(c.id))
-                       .map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`)
-                       .join("\n");
-      navigator.clipboard.writeText(text);
-      alert("Kontak terpilih telah disalin!");
+      const text = data
+        .filter(c=>selectedIds.includes(c.id))
+        .map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`)
+        .join("\n");
+      navigator.clipboard.writeText(text).then(()=>alert("Kontak terpilih telah disalin!"));
     });
 }
 
