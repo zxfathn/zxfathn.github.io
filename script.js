@@ -25,7 +25,7 @@ function buildTable(data){
     row.innerHTML = `
       <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
       <td>${i+1}</td>
-      <td>${c.nama.toUpperCase().slice(0,24)}</td>
+      <td>${c.nama.toUpperCase()}</td>
       <td>${c.telepon}</td>
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
