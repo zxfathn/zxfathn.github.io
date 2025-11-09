@@ -3,7 +3,6 @@ const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIY
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
-
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
 const copySelectedBtn = document.getElementById("copySelectedBtn");
 
@@ -93,6 +92,13 @@ function showDetailModal(c){
 }
 function closeDetailModal(){ detailModal.style.display="none"; }
 detailModal.addEventListener("click", e=>{ if(e.target===detailModal) closeDetailModal(); });
+
+// ==== COPY FROM DETAIL ====
+document.getElementById("copyFromDetail").addEventListener("click", ()=>{
+  const text = detailText.innerText;
+  navigator.clipboard.writeText(text);
+  alert("Kontak telah disalin!");
+});
 
 // ==== EDIT MODAL ====
 function openEditModal(c){
