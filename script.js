@@ -1,4 +1,7 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwabIbM3XX3GqNWuGOVduM7yzsO9o3f9SCGdoWwssaWlvbJe-vFeGZfwimT3vgS81n31A/exec"; // ganti dengan milikmu
+// ===== CONFIG =====
+const API_URL = "https://script.google.com/macros/s/AKfycbzfbnfSw6UelQSJtRi4GGCWxQjcE6SyrryC191LWRsqL9O2x_ZJUsucSqS3cdJJ28YBiQ/exec";
+
+// ===== ELEMENTS =====
 const contactsTable = document.getElementById("contactsTable");
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
@@ -9,18 +12,19 @@ const searchInput = document.getElementById("searchInput");
 const exportCSVBtn = document.getElementById("exportCSVBtn");
 const copyAllBtn = document.getElementById("copyAllBtn");
 
-// Modals
+// Modal edit
 const editModal = document.getElementById("editModal");
 const editForm = document.getElementById("editForm");
 const editCancelBtn = document.getElementById("editCancelBtn");
 
-// === CUSTOM CONFIRM ===
+// ===== CUSTOM CONFIRM =====
 function customConfirm(msg) {
   return new Promise(resolve => {
     const confirmModal = document.getElementById("confirmModal");
     const confirmText = document.getElementById("confirmText");
     const confirmYes = document.getElementById("confirmYes");
     const confirmNo = document.getElementById("confirmNo");
+
     confirmText.textContent = msg;
     confirmModal.style.display = "block";
 
@@ -29,20 +33,21 @@ function customConfirm(msg) {
       confirmYes.onclick = null;
       confirmNo.onclick = null;
     };
+
     confirmYes.onclick = () => { cleanUp(); resolve(true); };
     confirmNo.onclick = () => { cleanUp(); resolve(false); };
     confirmModal.onclick = e => { if(e.target===confirmModal){ cleanUp(); resolve(false);} };
   });
 }
 
-// === TOAST ===
+// ===== TOAST =====
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"), 2000);
 }
 
-// === FETCH DATA ===
+// ===== FETCH DATA =====
 async function fetchData() {
   const res = await fetch(API_URL);
   const data = await res.json();
@@ -50,7 +55,7 @@ async function fetchData() {
   return data;
 }
 
-// === BUILD TABLE ===
+// ===== BUILD TABLE =====
 function buildTable(data) {
   contactsTable.innerHTML = "";
   data.forEach((c,i)=>{
@@ -68,17 +73,20 @@ function buildTable(data) {
         <button class="action deleteBtn">🗑️</button>
       </td>
     `;
+
     row.querySelector(".editBtn").addEventListener("click", ()=>openEditModal(c));
     row.querySelector(".deleteBtn").addEventListener("click", ()=>deleteContact(c.id));
     row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
+
     row.addEventListener("click", e => {
       if(!e.target.classList.contains("action") && e.target.type !== "checkbox") showDetails(c);
     });
+
     contactsTable.appendChild(row);
   });
 }
 
-// === DETAILS ===
+// ===== DETAILS MODAL =====
 function showDetails(c){
   detailText.innerHTML = `<b>Nama:</b> ${c.nama}<br>
   <b>Telepon:</b> ${c.telepon}<br>
@@ -90,7 +98,7 @@ function showDetails(c){
 detailModal.querySelector(".close").addEventListener("click",()=>detailModal.style.display="none");
 detailModal.addEventListener("click", e=>{if(e.target===detailModal) detailModal.style.display="none";});
 
-// === EDIT MODAL ===
+// ===== EDIT MODAL =====
 function openEditModal(c){
   editForm.editId.value = c.id;
   editForm.editNama.value = c.nama;
@@ -122,7 +130,7 @@ editForm.addEventListener("submit", async e=>{
   fetchData();
 });
 
-// === DELETE ===
+// ===== DELETE =====
 async function deleteContact(id){
   const ok = await customConfirm("Hapus kontak ini?");
   if(!ok) return;
@@ -131,7 +139,7 @@ async function deleteContact(id){
   fetchData();
 }
 
-// === MULTI DELETE ===
+// ===== MULTI DELETE =====
 deleteSelectedBtn.addEventListener("click", async()=>{
   const selected = Array.from(document.querySelectorAll(".selectBox:checked"));
   if(selected.length===0) return;
@@ -142,7 +150,7 @@ deleteSelectedBtn.addEventListener("click", async()=>{
   fetchData();
 });
 
-// === SELECT ALL ===
+// ===== SELECT ALL =====
 selectAllCheckbox.addEventListener("change",()=>{
   document.querySelectorAll(".selectBox").forEach(b=>b.checked=selectAllCheckbox.checked);
   toggleDeleteBtn();
@@ -152,13 +160,13 @@ function toggleDeleteBtn(){
   deleteSelectedBtn.style.display = document.querySelectorAll(".selectBox:checked").length>0?"inline-block":"none";
 }
 
-// === FILTER ===
+// ===== FILTER =====
 searchInput.addEventListener("keyup", ()=>{
   const kw = searchInput.value.toLowerCase();
   document.querySelectorAll("#contactsTable tr").forEach(r=>r.style.display=r.innerText.toLowerCase().includes(kw)?"":"none");
 });
 
-// === EKSPOR CSV ===
+// ===== EKSPOR CSV =====
 exportCSVBtn.addEventListener("click", async()=>{
   const data = await fetchData();
   const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"], ...data.map(c=>[c.nama,c.telepon,c.email,c.perusahaan,c.catatan])]
@@ -170,7 +178,7 @@ exportCSVBtn.addEventListener("click", async()=>{
   link.click();
 });
 
-// === SALIN SEMUA ===
+// ===== SALIN SEMUA =====
 copyAllBtn.addEventListener("click", async()=>{
   const data = await fetchData();
   const text = data.map(c=>`${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
@@ -178,5 +186,5 @@ copyAllBtn.addEventListener("click", async()=>{
   showToast("Semua kontak telah disalin!");
 });
 
-// INIT
+// ===== INIT =====
 window.addEventListener("load", fetchData);
