@@ -101,14 +101,17 @@ contactForm.addEventListener("submit", async (e) => {
     id,
   });
 
+  if (!confirm("Apakah Anda yakin ingin menyimpan perubahan ini?")) return;
+
   await fetch(API_URL, { method: "POST", body: params });
 
   // After adding/updating, refresh the data and reset form
-  fetchData();
+  alert("Data berhasil disimpan!");
+  fetchData();  // Refresh data
   clearForm();
-  // Optional: Reload the page to ensure no data is cached (quick refresh)
-  // location.reload();  // Uncomment this line if you want to force a reload
 
+  // Reload the page to reset everything to its initial state
+  location.reload();
 });
 
 // === Clear Form ===
@@ -120,19 +123,24 @@ function clearForm() {
 
 // === Delete Contact ===
 async function deleteContact(id) {
-  if (!confirm("Hapus kontak ini?")) return;
+  if (!confirm("Apakah Anda yakin ingin menghapus kontak ini?")) return;
+
   await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
 
   // After deleting, refresh the data
-  fetchData();
+  alert("Kontak berhasil dihapus!");
+  fetchData();  // Refresh data
+
+  // Reload the page to reset everything to its initial state
+  location.reload();
 }
 
 // === Delete Selected Contacts ===
 async function deleteSelected() {
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
   if (selected.length === 0) return;
-  
-  if (!confirm("Hapus semua kontak yang dipilih?")) return;
+
+  if (!confirm("Apakah Anda yakin ingin menghapus semua kontak yang dipilih?")) return;
 
   // Loop over each selected id and delete
   for (let id of selected) {
@@ -140,7 +148,11 @@ async function deleteSelected() {
   }
 
   // After deleting selected, refresh the data
-  fetchData();
+  alert("Kontak yang dipilih berhasil dihapus!");
+  fetchData();  // Refresh data
+
+  // Reload the page to reset everything to its initial state
+  location.reload();
 }
 
 // === Copy Data from Detail Modal ===
@@ -187,6 +199,9 @@ uploadCsvInput.addEventListener("change", (e) => {
         perusahaan: row[3],
         catatan: row[4],
       }));
+
+      if (!confirm("Apakah Anda yakin ingin mengimpor CSV ini?")) return;
+
       await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
 
       // After importing CSV, refresh the data
