@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwjplk3fuw3gG8_5Jfd5P0zHPyk1GNOSo2glHnBBGdfw6mjbNaJ73svQ9ZvBGxvRgsBag/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -18,7 +18,7 @@ async function fetchData() {
     contactsData = data;
     buildTable(data);
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data:", err);
   }
 }
 
@@ -123,7 +123,7 @@ contactForm.addEventListener("submit", async (e) => {
 
   try {
     await fetch(API_URL, { method: "POST", body: params });
-    fetchData();
+    fetchData(); // Fetch ulang setelah simpan
     clearForm();
     alert("Kontak berhasil disimpan! Klik OK untuk melanjutkan.");
     window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
@@ -141,4 +141,4 @@ function clearForm() {
 }
 
 // === Initialize ===
-window.addEventListener("load", fetchData);
+window.addEventListener("load", fetchData); // Pastikan data diambil saat halaman pertama kali dimuat
