@@ -32,7 +32,7 @@ function buildTable(data){
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
     `;
-    row.addEventListener("click", e=>{
+    row.addEventListener("click", ()=>{
       showDetailModal(c);
     });
     contactsTable.appendChild(row);
