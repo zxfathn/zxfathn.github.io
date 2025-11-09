@@ -49,7 +49,7 @@
 <!-- Modal Detail -->
 <div id="detailModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="close" onclick="closeDetailModal()">&times;</span>
     <h3>Detail Kontak</h3>
     <p id="detailText"></p>
     <div class="modal-actions">
@@ -57,6 +57,26 @@
       <button id="deleteFromDetail" class="btn-cancel">🗑️ Hapus</button>
       <button onclick="copyDetail()" class="btn-save">📋 Salin</button>
     </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>Edit Kontak</h3>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <input type="text" id="editNama" placeholder="Nama" required maxlength="24">
+      <input type="text" id="editTelepon" placeholder="Telepon" required>
+      <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
+      <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
+      <div style="text-align:center; margin-top:10px;">
+        <button type="submit" class="btn-save">💾 Simpan</button>
+        <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
+      </div>
+    </form>
   </div>
 </div>
 
