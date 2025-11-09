@@ -25,7 +25,7 @@ function buildTable(data){
     row.innerHTML = `
       <td><input type="checkbox" class="selectBox" data-id="${c.id}" onchange="toggleDeleteBtn()"></td>
       <td>${i+1}</td>
-      <td>${c.nama}</td>
+      <td>${c.nama.toUpperCase().slice(0,24)}</td>
       <td>${c.telepon}</td>
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
@@ -91,11 +91,11 @@ contactForm.addEventListener("submit", async e=>{
   e.preventDefault();
   const id = contactForm.contactId.value;
   const params = new URLSearchParams({
-    nama: contactForm.nama.value,
+    nama: contactForm.nama.value.toUpperCase().slice(0,24),
     telepon: contactForm.telepon.value,
-    email: contactForm.email.value,
-    perusahaan: contactForm.perusahaan.value,
-    catatan: contactForm.catatan.value,
+    email: contactForm.email.value.toLowerCase(),
+    perusahaan: contactForm.perusahaan.value.slice(0,20),
+    catatan: contactForm.catatan.value.slice(0,20),
     action: id?"update":"create",
     id
   });
