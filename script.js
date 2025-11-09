@@ -1,25 +1,24 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // Ganti dengan URL API Anda
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
 const selectAllCheckbox = document.getElementById("selectAll");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
-const exportCsvBtn = document.getElementById("exportCsvBtn");
+const copySelectedBtn = document.getElementById("copySelectedBtn");
 const uploadCsvInput = document.getElementById("uploadCsv");
 const editModal = document.getElementById("editModal");
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
 
 let contactsData = [];
-let selectedData = [];
 
 // === Fetch Data ===
 async function fetchData() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-    contactsData = data; // Store all data fetched from API
+    contactsData = data;
     buildTable(data);
   } catch (err) {
     console.error(err);
@@ -33,7 +32,7 @@ function buildTable(data) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleSelection(c.id, this)"></td>
+      <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleDeleteBtn()"></td>
       <td>${i + 1}</td>
       <td>${c.nama}</td>
       <td>${c.telepon}</td>
@@ -41,6 +40,13 @@ function buildTable(data) {
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
     `;
+
+    row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
+    row.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("selectBox")) {
+        showDetails(c);
+      }
+    });
 
     contactsTable.appendChild(row);
   });
@@ -57,6 +63,7 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
+  document.getElementById("copyFromDetail").onclick = () => copyData(c);
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -116,16 +123,32 @@ async function deleteContact(id) {
 
 // === Delete Selected Contacts ===
 function deleteSelected() {
-  if (selectedData.length === 0) return;
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
+  if (selected.length === 0) return;
   if (!confirm("Hapus semua kontak yang dipilih?")) return;
 
-  selectedData.forEach(async (id) => {
+  selected.forEach(async (id) => {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
   });
 
   fetchData();
-  selectedData = []; // Clear selected data
-  toggleDeleteBtn();
+}
+
+// === Copy Selected Data ===
+function copySelected() {
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
+  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
+
+  if (selectedData.length === 0) return;
+
+  const text = selectedData.map((c) => `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
+  navigator.clipboard.writeText(text).then(() => alert("Kontak yang dipilih telah disalin!"));
+}
+
+// === Copy Data from Detail Modal ===
+function copyData(c) {
+  const text = `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`;
+  navigator.clipboard.writeText(text).then(() => alert("Kontak detail telah disalin!"));
 }
 
 // === Select All / Unselect All ===
@@ -133,47 +156,15 @@ function toggleSelectAll(checkbox) {
   const checkboxes = document.querySelectorAll(".selectBox");
   checkboxes.forEach((cb) => {
     cb.checked = checkbox.checked;
-    toggleSelection(cb.dataset.id, cb); // Sync selection
   });
-  toggleDeleteBtn();
-}
-
-// === Toggle Selection of Individual Row ===
-function toggleSelection(id, checkbox) {
-  if (checkbox.checked) {
-    if (!selectedData.includes(id)) {
-      selectedData.push(id);
-    }
-  } else {
-    selectedData = selectedData.filter((selectedId) => selectedId !== id);
-  }
   toggleDeleteBtn();
 }
 
 // === Toggle Delete Button Visibility ===
 function toggleDeleteBtn() {
-  deleteSelectedBtn.style.display = selectedData.length > 0 ? "inline-block" : "none";
-  exportCsvBtn.style.display = selectedData.length > 0 ? "inline-block" : "none";
-}
-
-// === Export Selected Data to CSV ===
-function exportCsv() {
-  const selectedDataDetails = contactsData.filter((c) => selectedData.includes(c.id));
-
-  if (selectedDataDetails.length === 0) return;
-
-  const csv = [
-    ["Nama", "Telepon", "Email", "Perusahaan", "Catatan"],
-    ...selectedDataDetails.map((c) => [c.nama, c.telepon, c.email, c.perusahaan, c.catatan]),
-  ]
-    .map((row) => row.join(","))
-    .join("\n");
-
-  const blob = new Blob([csv], { type: "text/csv" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "kontak_terpilih.csv";
-  link.click();
+  const selectedCount = document.querySelectorAll(".selectBox:checked").length;
+  deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
+  copySelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
 }
 
 // === Search Functionality ===
