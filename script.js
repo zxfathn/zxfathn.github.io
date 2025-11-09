@@ -5,7 +5,6 @@ const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
 const selectAllCheckbox = document.getElementById("selectAll");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
-const copySelectedBtn = document.getElementById("copySelectedBtn");
 const uploadCsvInput = document.getElementById("uploadCsv");
 const editModal = document.getElementById("editModal");
 const detailModal = document.getElementById("detailModal");
@@ -63,7 +62,6 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
-  document.getElementById("copyFromDetail").onclick = () => copyData(c);
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -134,23 +132,6 @@ function deleteSelected() {
   fetchData();
 }
 
-// === Copy Selected Data ===
-function copySelected() {
-  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
-  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
-
-  if (selectedData.length === 0) return;
-
-  const text = selectedData.map((c) => `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
-  navigator.clipboard.writeText(text).then(() => alert("Kontak yang dipilih telah disalin!"));
-}
-
-// === Copy Data from Detail Modal ===
-function copyData(c) {
-  const text = `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`;
-  navigator.clipboard.writeText(text).then(() => alert("Kontak detail telah disalin!"));
-}
-
 // === Select All / Unselect All ===
 function toggleSelectAll(checkbox) {
   const checkboxes = document.querySelectorAll(".selectBox");
@@ -164,7 +145,6 @@ function toggleSelectAll(checkbox) {
 function toggleDeleteBtn() {
   const selectedCount = document.querySelectorAll(".selectBox:checked").length;
   deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
-  copySelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
 }
 
 // === Search Functionality ===
