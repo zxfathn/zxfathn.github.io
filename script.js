@@ -20,7 +20,7 @@ async function fetchData() {
     contactsData = data;
     buildTable(data); // Update the table with the latest data
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data: ", err);
   }
 }
 
@@ -125,14 +125,16 @@ async function deleteContact(id) {
 }
 
 // === Delete Selected Contacts ===
-function deleteSelected() {
+async function deleteSelected() {
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
   if (selected.length === 0) return;
+  
   if (!confirm("Hapus semua kontak yang dipilih?")) return;
 
-  selected.forEach(async (id) => {
+  // Loop over each selected id and delete
+  for (let id of selected) {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
-  });
+  }
 
   // After deleting selected, refresh the data
   fetchData();
