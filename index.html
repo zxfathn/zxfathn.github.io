@@ -10,7 +10,7 @@
 <div class="container fade-in">
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-  <!-- FORM TAMBAH KONTAK -->
+  <!-- FORM TAMBAH KONTAK + IMPORT CSV -->
   <form id="contactForm">
     <input type="hidden" id="contactId">
     <input type="text" id="nama" placeholder="Nama" required maxlength="24">
@@ -20,6 +20,8 @@
     <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
     <div class="form-buttons">
       <button type="submit" class="btn-action">💾 Tambah Kontak</button>
+      <label for="uploadCsv" class="btn-action">⬆️ Import CSV</label>
+      <input type="file" id="uploadCsv" accept=".csv" style="display:none;">
     </div>
   </form>
 
@@ -32,7 +34,6 @@
   <div class="actions">
     <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
     <button id="copySelectedBtn" onclick="copySelected()" style="display:none;" class="btn-action">📋 Salin yang Dipilih</button>
-    <input type="file" id="uploadCsv" accept=".csv" class="btn-action">
   </div>
 
   <!-- TABLE -->
