@@ -201,3 +201,26 @@ button.action:hover {
 @media (max-width: 768px) {
   form label { flex: 1 1 100%; }
 }
+
+/* Row hover glow */
+tr:hover { 
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  box-shadow: inset 0 0 8px rgba(255,255,128,0.4);
+  transition: all 0.3s ease;
+}
+
+/* Edit modal */
+#editModal .modal-content {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.modal-buttons button { flex: 1; margin: 0 5px; }
