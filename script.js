@@ -67,35 +67,39 @@ function deleteSelected(){
   fetchData();
 }
 
-// ==== COPY SELECTED ====
+// ==== COPY SELECTED (FORMAT LAMA) ====
 function copySelected(){
-  const selectedIds = Array.from(document.querySelectorAll(".selectBox:checked")).map(b=>b.dataset.id);
+  const selectedIds = Array.from(document.querySelectorAll(".selectBox:checked"))
+                           .map(b=>b.dataset.id);
   if(selectedIds.length===0) return;
-  fetch(API_URL).then(res=>res.json()).then(data=>{
-    const text = data.filter(c=>selectedIds.includes(c.id)).map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
-    navigator.clipboard.writeText(text);
-    alert("Kontak terpilih telah disalin!");
-  });
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      const text = data
+        .filter(c => selectedIds.includes(c.id))
+        .map(c => `${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`)
+        .join("\n");
+      navigator.clipboard.writeText(text);
+      alert("Kontak terpilih telah disalin!");
+    });
 }
 
 // ==== DETAIL MODAL ====
 function showDetailModal(c){
-  detailText.innerHTML = `
-    <b>Nama:</b> ${c.nama}<br>
-    <b>Telepon:</b> ${c.telepon}<br>
-    <b>Email:</b> ${c.email}<br>
-    <b>Perusahaan:</b> ${c.perusahaan}<br>
-    <b>Catatan:</b> ${c.catatan}
-  `;
+  detailText.innerText = `Nama: ${c.nama}
+Telepon: ${c.telepon}
+Email: ${c.email}
+Perusahaan: ${c.perusahaan}
+Catatan: ${c.catatan}`;
   detailModal.style.display="block";
   document.getElementById("editFromDetail").onclick = ()=> openEditModal(c);
 }
 function closeDetailModal(){ detailModal.style.display="none"; }
 detailModal.addEventListener("click", e=>{ if(e.target===detailModal) closeDetailModal(); });
 
-// ==== COPY FROM DETAIL ====
+// ==== COPY FROM DETAIL (FORMAT LAMA) ====
 document.getElementById("copyFromDetail").addEventListener("click", ()=>{
-  const text = detailText.innerText;
+  const text = detailText.innerText.replace(/: /g,"|");
   navigator.clipboard.writeText(text);
   alert("Kontak telah disalin!");
 });
@@ -159,3 +163,18 @@ searchInput.addEventListener("keyup", ()=>{
 // ==== INIT ====
 window.addEventListener("load", fetchData);
 function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
+
+// ==== EXPORT CSV (TERPISAH) ====
+function exportCSV(){
+  fetch(API_URL).then(res=>res.json()).then(data=>{
+    const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"],
+                 ...data.map(c=>[c.nama,c.telepon,c.email,c.perusahaan,c.catatan])]
+                 .map(row=>row.join(","))
+                 .join("\n");
+    const blob = new Blob([csv],{type:"text/csv"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "kontak.csv";
+    link.click();
+  });
+}
