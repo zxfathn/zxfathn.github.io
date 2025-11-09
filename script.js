@@ -1,11 +1,14 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti API
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti URL API
 
 const contactsTable = document.getElementById("contactsTable");
+const contactForm = document.getElementById("contactForm");
+const searchInput = document.getElementById("searchInput");
+const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
 const editModal = document.getElementById("editModal");
 const editForm = document.getElementById("editForm");
-const searchInput = document.getElementById("searchInput");
 
 // ==== FETCH DATA ====
 async function fetchData(){
@@ -13,6 +16,7 @@ async function fetchData(){
     const res = await fetch(API_URL);
     const data = await res.json();
     buildTable(data);
+    window.scrollTo(0,0); // kembali ke atas setelah setiap aksi
   }catch(err){ console.error(err); }
 }
 
@@ -29,13 +33,9 @@ function buildTable(data){
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
       <td>${c.catatan}</td>
-      <td>
-        <button class="action deleteBtn">🗑️</button>
-      </td>
+      <td><button class="action deleteBtn">🗑️</button></td>
     `;
-    // Hapus
     row.querySelector(".deleteBtn").onclick = ()=> deleteContact(c.id);
-    // Klik row (kecuali tombol/checkbox) -> detail modal
     row.addEventListener("click", e=>{
       if(!e.target.classList.contains("action") && e.target.type!=="checkbox") showDetailModal(c);
     });
@@ -94,22 +94,37 @@ editForm.addEventListener("submit", async e=>{
     catatan: document.getElementById("editCatatan").value
   });
   await fetch(API_URL, {method:"POST", body:params});
-  location.reload(); // reload page setelah edit
+  closeEditModal();
+  fetchData(); // tabel diperbarui, scroll ke atas
+});
+
+// ==== ADD CONTACT ====
+contactForm.addEventListener("submit", async e=>{
+  e.preventDefault();
+  const params = new URLSearchParams({
+    action: "create",
+    nama: contactForm.nama.value,
+    telepon: contactForm.telepon.value,
+    email: contactForm.email.value,
+    perusahaan: contactForm.perusahaan.value,
+    catatan: contactForm.catatan.value
+  });
+  await fetch(API_URL, {method:"POST", body:params});
+  contactForm.reset();
+  fetchData();
 });
 
 // ==== DELETE ====
 async function deleteContact(id){
   if(!confirm("Hapus kontak ini?")) return;
   await fetch(API_URL,{method:"POST", body:new URLSearchParams({action:"delete", id})});
-  location.reload(); // reload page setelah hapus
+  fetchData();
 }
 
 // ==== DELETE SELECTED ====
 function toggleDeleteBtn(){
-  const btn = document.getElementById("deleteSelectedBtn");
-  btn.style.display = document.querySelectorAll(".selectBox:checked").length>0?"inline-block":"none";
+  deleteSelectedBtn.style.display = document.querySelectorAll(".selectBox:checked").length>0?"inline-block":"none";
 }
-
 function deleteSelected(){
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map(b=>b.dataset.id);
   if(selected.length===0) return;
@@ -117,7 +132,7 @@ function deleteSelected(){
   selected.forEach(id=>{
     fetch(API_URL,{method:"POST", body:new URLSearchParams({action:"delete", id})});
   });
-  location.reload();
+  fetchData();
 }
 
 // ==== SEARCH ====
@@ -128,7 +143,7 @@ searchInput.addEventListener("keyup", ()=>{
   });
 });
 
-// ==== COPY ALL ====
+// ==== COPY & EXPORT ====
 function copyAll(){
   fetch(API_URL).then(res=>res.json()).then(data=>{
     const text = data.map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
@@ -136,8 +151,6 @@ function copyAll(){
     alert("Kontak telah disalin!");
   });
 }
-
-// ==== EXPORT CSV ====
 function exportCSV(){
   fetch(API_URL).then(res=>res.json()).then(data=>{
     const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"],...data.map(c=>[c.nama,c.telepon,c.email,c.perusahaan,c.catatan])]
@@ -152,3 +165,5 @@ function exportCSV(){
 
 // ==== INIT ====
 window.addEventListener("load", fetchData);
+
+function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
