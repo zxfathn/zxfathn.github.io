@@ -1,4 +1,4 @@
-const API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLiyK8PBSbL-H9T5smptb8EagrjEn5raDnPNr1LagG4ZNZOE51SoXspbzSJU8_Tif61IMUt-KX7AdoBhW8WcfNnwvLUdEqIkETtbEHxhsDhhOhf-p28Vhb0FU47UxnBqsGHTblNGbgrYnM_jQLTcqV7yKjMdgyV37zxC6HPIycP0Z6IwlHYGAp1UOKOrMgLByM4BjBC0WusosQH-xUc5aP85MnipR_1lVQhSOqBO1rSd_sO5PpBWN_bth5QI_TepeJa0180u5edL-mVh0vp-cSA7I0bPOG20gwOA4JKc&lib=MNl9qEJHmJCgxeCuOR1QF2jniUOD2JZGS";
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const detailModal = document.getElementById("detailModal");
