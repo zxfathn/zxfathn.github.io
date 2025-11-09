@@ -90,6 +90,7 @@ button.btn-action {
   cursor: pointer;
   transition: 0.3s;
 }
+
 button.btn-action:hover { background: #fff27f; }
 
 .modal {
