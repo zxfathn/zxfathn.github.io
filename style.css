@@ -1,172 +1,87 @@
-body {
-  font-family: 'Poppins', sans-serif;
-  background: url('ba.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-  padding: 20px;
-  margin: 0;
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengelola Kontak Client</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container fade-in">
+  <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-.container {
-  max-width: 1000px;
-  margin: auto;
-  background: rgba(15, 20, 40, 0.85);
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  animation: fadeIn 1s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  <!-- Form Tambah Kontak -->
+  <form id="contactForm" class="add-form">
+    <input type="hidden" id="contactId">
+    <div class="form-row">
+      <input type="text" id="nama" placeholder="Nama" required maxlength="24">
+      <input type="text" id="telepon" placeholder="Telepon" required>
+      <input type="email" id="email" placeholder="Email" required maxlength="30">
+      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    </div>
+    <div class="form-row center">
+      <button type="submit" class="btn-save">💾 Tambah Kontak</button>
+      <button type="button" class="btn-cancel" onclick="clearForm()" style="display:none;">❌ Batal</button>
+    </div>
+  </form>
 
-h2 { text-align: center; letter-spacing: 2px; color: #ffe680; }
+  <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
-/* ===== Form Tambah Kontak ===== */
-.add-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
-  width: 100%;
-}
+  <div class="actions">
+    <button id="deleteSelectedBtn" class="btn-cancel" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
+    <button id="copySelectedBtn" class="btn-copy" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
+  </div>
 
-.add-form .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+  <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Telepon</th>
+        <th>Email</th>
+        <th>Perusahaan</th>
+        <th>Catatan</th>
+      </tr>
+    </thead>
+    <tbody id="contactsTable"></tbody>
+  </table>
+</div>
 
-.add-form .form-row input {
-  flex: 1;
-  min-width: 150px;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  box-sizing: border-box;
-}
+<!-- Modal Detail -->
+<div id="detailModal" class="modal">
+  <div class="modal-content popup">
+    <span class="close" onclick="closeDetailModal()">&times;</span>
+    <h3>Detail Kontak</h3>
+    <div id="detailText"></div>
+    <div class="modal-actions center">
+      <button id="editFromDetail" class="btn-edit">✏️ Edit</button>
+      <button id="copyFromDetail" class="btn-copy">📋 Salin</button>
+    </div>
+  </div>
+</div>
 
-.add-form .form-row.center { justify-content: center; }
-.add-form .form-row.center button {
-  margin-top: 5px;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 8px;
-  border: none;
-}
+<!-- Modal Edit -->
+<div id="editModal" class="modal">
+  <div class="modal-content popup">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>Edit Kontak</h3>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <input type="text" id="editNama" placeholder="Nama" required maxlength="24">
+      <input type="text" id="editTelepon" placeholder="Telepon" required>
+      <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
+      <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
+      <div class="modal-actions center">
+        <button type="submit" class="btn-save">💾 Simpan</button>
+        <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-/* ===== Tombol Umum ===== */
-button {
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-save { background: #4caf50; color: #fff; }
-.btn-save:hover { background: #45a049; }
-
-.btn-cancel { background: #f44336; color: #fff; }
-.btn-cancel:hover { background: #e53935; }
-
-.btn-edit { background: #2196f3; color: #fff; }
-.btn-edit:hover { background: #1e88e5; }
-
-.btn-copy { background: #ff9800; color: #fff; }
-.btn-copy:hover { background: #fb8c00; }
-
-/* ===== Search & Table ===== */
-#searchInput {
-  width: 100%;
-  max-width: 1000px;
-  padding: 8px;
-  margin: 10px 0;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-table {
-  width: 100%;
-  max-width: 1000px;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
-  table-layout: fixed;
-}
-
-th, td {
-  padding: 10px;
-  border: 1px solid rgba(255,255,255,0.2);
-  word-wrap: break-word;
-}
-
-th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; text-align: center; }
-td { text-align: center; }
-
-/* ===== Kolom No ===== */
-th:nth-child(2), td:nth-child(2) {
-  width: 40px;
-  text-align: center;
-  padding: 0 5px;
-}
-
-/* ===== Checkbox ===== */
-.selectBox, #selectAll {
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
-  display: inline-block;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-th:first-child, td:first-child {
-  width: 40px;
-  text-align: center;
-  padding: 0;
-  line-height: 1;
-}
-
-tr:hover { background: rgba(255,255,255,0.15); }
-
-.fade-in { animation: fadeIn 1.2s ease; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
-
-/* ===== Modal ===== */
-.modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
-.modal-content {
-  background: rgba(20,25,50,0.95);
-  margin: 5% auto;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  animation: fadeIn 0.5s ease;
-}
-.popup input {
-  width: 100%;
-  margin: 6px 0;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-}
-
-.close { float: right; font-size: 24px; cursor: pointer; }
-.modal-actions { margin-top: 15px; display: flex; justify-content: space-around; gap: 10px; }
-.modal-actions.center { justify-content: center; }
-
-@media(max-width:768px){
-  .add-form .form-row{ flex-direction: column; }
-  table { display:block; overflow-x:auto; }
-  .selectBox { transform: scale(1.2); }
-}
+<script src="script.js"></script>
+</body>
+</html>
