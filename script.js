@@ -12,6 +12,29 @@ const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
 const toast = document.getElementById("toast");
 
+// === CUSTOM CONFIRM ===
+function customConfirm(message) {
+  return new Promise((resolve) => {
+    const confirmModal = document.getElementById("confirmModal");
+    const confirmText = document.getElementById("confirmText");
+    const confirmYes = document.getElementById("confirmYes");
+    const confirmNo = document.getElementById("confirmNo");
+
+    confirmText.textContent = message;
+    confirmModal.style.display = "block";
+
+    const cleanUp = () => {
+      confirmModal.style.display = "none";
+      confirmYes.onclick = null;
+      confirmNo.onclick = null;
+    };
+
+    confirmYes.onclick = () => { cleanUp(); resolve(true); };
+    confirmNo.onclick = () => { cleanUp(); resolve(false); };
+    confirmModal.onclick = (e) => { if(e.target === confirmModal){ cleanUp(); resolve(false); } };
+  });
+}
+
 // === HELPERS ===
 function showToast(msg) {
   toast.textContent = msg;
@@ -76,7 +99,10 @@ function buildTable(data) {
       if (!e.target.classList.contains("action") && e.target.type !== "checkbox") showDetails(c);
     });
 
-    row.querySelector(".editBtn").addEventListener("click", () => editContact(c));
+    row.querySelector(".editBtn").addEventListener("click", async () => {
+      const ok = await customConfirm("Edit kontak ini?");
+      if(ok) editContact(c);
+    });
     row.querySelector(".deleteBtn").addEventListener("click", () => deleteContact(c.id));
     row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
 
@@ -96,7 +122,8 @@ function editContact(c) {
 
 // === DELETE ===
 async function deleteContact(id) {
-  if (!confirm("Hapus kontak ini?")) return;
+  const ok = await customConfirm("Hapus kontak ini?");
+  if(!ok) return;
   await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action:"delete", id }) });
   showToast("Kontak dihapus!");
   fetchData();
@@ -104,8 +131,11 @@ async function deleteContact(id) {
 
 // === MULTI DELETE ===
 deleteSelectedBtn.addEventListener("click", async () => {
-  if (!confirm("Hapus semua kontak yang dipilih?")) return;
   const selected = Array.from(document.querySelectorAll(".selectBox:checked"));
+  if(selected.length === 0) return;
+  const ok = await customConfirm("Hapus semua kontak yang dipilih?");
+  if(!ok) return;
+
   await Promise.all(selected.map(box => 
     fetch(API_URL, { method:"POST", body: new URLSearchParams({ action:"delete", id: box.dataset.id }) })
   ));
@@ -144,9 +174,7 @@ function showDetails(c) {
 }
 
 detailModal.querySelector(".close").addEventListener("click", () => detailModal.style.display = "none");
-detailModal.addEventListener("click", e => {
-  if (e.target === detailModal) detailModal.style.display = "none";
-});
+detailModal.addEventListener("click", e => { if(e.target === detailModal) detailModal.style.display = "none"; });
 
 // === EKSPOR CSV ===
 exportCSVBtn.addEventListener("click", async () => {
