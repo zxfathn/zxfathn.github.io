@@ -5,6 +5,7 @@ const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
 const copySelectedBtn = document.getElementById("copySelectedBtn");
+const exportCsvBtn = document.getElementById("exportCsvBtn");
 
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
@@ -64,10 +65,11 @@ function deleteSelected(){
   selected.forEach(id=>{
     fetch(API_URL,{method:"POST",body:new URLSearchParams({action:"delete",id})});
   });
+  alert("Kontak terhapus!");
   fetchData();
 }
 
-// ==== COPY SELECTED (FORMAT LAMA) ====
+// ==== COPY SELECTED ====
 function copySelected(){
   const selectedIds = Array.from(document.querySelectorAll(".selectBox:checked"))
                            .map(b=>b.dataset.id);
@@ -86,23 +88,25 @@ function copySelected(){
 
 // ==== DETAIL MODAL ====
 function showDetailModal(c){
-  detailText.innerText = `Nama: ${c.nama}
-Telepon: ${c.telepon}
-Email: ${c.email}
-Perusahaan: ${c.perusahaan}
-Catatan: ${c.catatan}`;
+  detailText.innerText = `Nama: ${c.nama}\nTelepon: ${c.telepon}\nEmail: ${c.email}\nPerusahaan: ${c.perusahaan}\nCatatan: ${c.catatan}`;
   detailModal.style.display="block";
+
   document.getElementById("editFromDetail").onclick = ()=> openEditModal(c);
+  document.getElementById("copyFromDetail").onclick = ()=> {
+    navigator.clipboard.writeText(detailText.innerText.replace(/: /g,"|"));
+    alert("Kontak telah disalin!");
+  };
+  document.getElementById("exportFromDetail").onclick = ()=> exportDetailCSV(c);
+  document.getElementById("deleteFromDetail").onclick = async ()=>{
+    if(!confirm("Hapus kontak ini?")) return;
+    await fetch(API_URL, {method:"POST", body: new URLSearchParams({action:"delete", id:c.id})});
+    alert("Kontak terhapus!");
+    closeDetailModal();
+    fetchData();
+  };
 }
 function closeDetailModal(){ detailModal.style.display="none"; }
 detailModal.addEventListener("click", e=>{ if(e.target===detailModal) closeDetailModal(); });
-
-// ==== COPY FROM DETAIL (FORMAT LAMA) ====
-document.getElementById("copyFromDetail").addEventListener("click", ()=>{
-  const text = detailText.innerText.replace(/: /g,"|");
-  navigator.clipboard.writeText(text);
-  alert("Kontak telah disalin!");
-});
 
 // ==== EDIT MODAL ====
 function openEditModal(c){
@@ -132,6 +136,7 @@ editForm.addEventListener("submit", async e=>{
     catatan: document.getElementById("editCatatan").value
   });
   await fetch(API_URL, {method:"POST", body:params});
+  alert("Kontak berhasil diupdate!");
   closeEditModal();
   fetchData();
 });
@@ -148,6 +153,7 @@ contactForm.addEventListener("submit", async e=>{
     catatan: contactForm.catatan.value
   });
   await fetch(API_URL, {method:"POST", body:params});
+  alert("Kontak berhasil ditambahkan!");
   contactForm.reset();
   fetchData();
 });
@@ -159,10 +165,6 @@ searchInput.addEventListener("keyup", ()=>{
     r.style.display = r.innerText.toLowerCase().includes(kw)?"":"none";
   });
 });
-
-// ==== INIT ====
-window.addEventListener("load", fetchData);
-function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
 
 // ==== EXPORT CSV ====
 function exportCSV(){
@@ -178,3 +180,20 @@ function exportCSV(){
     link.click();
   });
 }
+
+// ==== EXPORT DETAIL CSV ====
+function exportDetailCSV(c){
+  const csv = [["Nama","Telepon","Email","Perusahaan","Catatan"],
+               [c.nama,c.telepon,c.email,c.perusahaan,c.catatan]]
+               .map(row=>row.join(","))
+               .join("\n");
+  const blob = new Blob([csv],{type:"text/csv"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${c.nama}.csv`;
+  link.click();
+}
+
+// ==== INIT ====
+window.addEventListener("load", fetchData);
+function clearForm(){ contactForm.reset(); contactForm.contactId.value=""; }
