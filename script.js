@@ -161,18 +161,52 @@ uploadCsvInput.addEventListener("change", (e) => {
   if (file && file.type === "text/csv") {
     const reader = new FileReader();
     reader.onload = async function () {
+      // Mengambil data CSV yang diupload
       const csvData = reader.result.split("\n").map((row) => row.split(","));
-      const data = csvData.slice(1).map((row) => ({
-        nama: row[0],
-        telepon: row[1],
-        email: row[2],
-        perusahaan: row[3],
-        catatan: row[4],
+      
+      // Memastikan bahwa baris pertama adalah header, dan baris berikutnya adalah data
+      const headers = csvData[0];  // Ambil header CSV
+      const data = csvData.slice(1); // Ambil data setelah header
+
+      // Memetakan setiap baris data ke format objek
+      const formattedData = data.map((row) => ({
+        nama: row[0],        // Nama
+        telepon: row[1],     // Telepon
+        email: row[2],       // Email
+        perusahaan: row[3],  // Perusahaan
+        catatan: row[4],     // Catatan
       }));
-      await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
-      alert("CSV berhasil diimpor!");
-      fetchData();
+
+      // Cek apakah ada data untuk dikirim
+      if (formattedData.length === 0) {
+        alert("File CSV tidak mengandung data!");
+        return;
+      }
+
+      // Kirim data ke API
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: new URLSearchParams({
+            action: "import",          // Aksi impor
+            data: JSON.stringify(formattedData),  // Data dalam format JSON
+          }),
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          alert("CSV berhasil diimpor!");
+          fetchData();  // Memperbarui data setelah impor
+        } else {
+          alert("Terjadi kesalahan saat mengimpor CSV.");
+        }
+      } catch (err) {
+        console.error("Error importing CSV: ", err);
+        alert("Terjadi kesalahan saat mengimpor CSV.");
+      }
     };
+    
+    // Membaca file CSV sebagai teks
     reader.readAsText(file);
   } else {
     alert("File bukan format CSV!");
