@@ -10,17 +10,6 @@
 <div class="container fade-in">
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-  <form id="contactForm">
-    <input type="hidden" id="contactId">
-    <label><input type="text" id="nama" placeholder="Nama" required maxlength="20"></label>
-    <label><input type="text" id="telepon" placeholder="Telepon" required></label>
-    <label><input type="email" id="email" placeholder="Email" required maxlength="30"></label>
-    <label><input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20"></label>
-    <label><input type="text" id="catatan" placeholder="Catatan" maxlength="20"></label>
-    <button type="submit" class="btn-save">💾 Simpan</button>
-    <button type="button" class="btn-cancel" id="btnCancel">❌ Batal</button>
-  </form>
-
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
@@ -48,7 +37,7 @@
   </div>
 </div>
 
-<!-- Modal Detail -->
+<!-- Detail Modal -->
 <div id="detailModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -57,10 +46,29 @@
   </div>
 </div>
 
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h3>Edit Kontak</h3>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <input type="text" id="editNama" placeholder="Nama" required maxlength="20">
+      <input type="text" id="editTelepon" placeholder="Telepon" required>
+      <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
+      <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
+      <div class="modal-buttons">
+        <button type="submit" class="btn-save">💾 Simpan</button>
+        <button type="button" class="btn-cancel" id="editCancelBtn">❌ Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Toast -->
 <div id="toast"></div>
 
-<!-- Custom Confirm Modal -->
+<!-- Confirm Modal -->
 <div id="confirmModal" class="modal">
   <div class="modal-content confirm">
     <p id="confirmText">Apakah Anda yakin?</p>
