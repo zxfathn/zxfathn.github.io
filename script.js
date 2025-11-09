@@ -1,10 +1,11 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
+ini script.js const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
 const searchInput = document.getElementById("searchInput");
 const selectAllCheckbox = document.getElementById("selectAll");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+const copySelectedBtn = document.getElementById("copySelectedBtn");
 const uploadCsvInput = document.getElementById("uploadCsv");
 const editModal = document.getElementById("editModal");
 const detailModal = document.getElementById("detailModal");
@@ -62,6 +63,7 @@ function showDetails(c) {
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
+  document.getElementById("copyFromDetail").onclick = () => copyData(c);
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
 }
 
@@ -132,6 +134,23 @@ function deleteSelected() {
   fetchData();
 }
 
+// === Copy Selected Data ===
+function copySelected() {
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
+  const selectedData = contactsData.filter((c) => selected.includes(c.id.toString()));
+
+  if (selectedData.length === 0) return;
+
+  const text = selectedData.map((c) => `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
+  navigator.clipboard.writeText(text).then(() => alert("Kontak yang dipilih telah disalin!"));
+}
+
+// === Copy Data from Detail Modal ===
+function copyData(c) {
+  const text = `${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`;
+  navigator.clipboard.writeText(text).then(() => alert("Kontak detail telah disalin!"));
+}
+
 // === Select All / Unselect All ===
 function toggleSelectAll(checkbox) {
   const checkboxes = document.querySelectorAll(".selectBox");
@@ -145,6 +164,7 @@ function toggleSelectAll(checkbox) {
 function toggleDeleteBtn() {
   const selectedCount = document.querySelectorAll(".selectBox:checked").length;
   deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
+  copySelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
 }
 
 // === Search Functionality ===
@@ -160,44 +180,18 @@ uploadCsvInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (file && file.type === "text/csv") {
     const reader = new FileReader();
-    
-    // Menampilkan pesan loading
-    const loadingMessage = document.createElement("div");
-    loadingMessage.textContent = "Memproses file CSV... Harap tunggu.";
-    loadingMessage.style.position = "absolute";
-    loadingMessage.style.top = "50%";
-    loadingMessage.style.left = "50%";
-    loadingMessage.style.transform = "translate(-50%, -50%)";
-    loadingMessage.style.background = "rgba(0,0,0,0.8)";
-    loadingMessage.style.color = "white";
-    loadingMessage.style.padding = "10px 20px";
-    loadingMessage.style.borderRadius = "8px";
-    document.body.appendChild(loadingMessage);
-
     reader.onload = async function () {
-      try {
-        const csvData = reader.result.split("\n").map((row) => row.split(","));
-        const data = csvData.slice(1).map((row) => ({
-          nama: row[0],
-          telepon: row[1],
-          email: row[2],
-          perusahaan: row[3],
-          catatan: row[4],
-        }));
-
-        // Kirim data CSV ke API
-        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
-        
-        // Tampilkan pesan sukses
-        alert("CSV berhasil diimpor!");
-        fetchData(); // Memperbarui data di tabel
-      } catch (err) {
-        console.error("Gagal mengimpor CSV", err);
-        alert("Terjadi kesalahan saat mengimpor CSV!");
-      } finally {
-        // Menghapus pesan loading setelah proses selesai
-        document.body.removeChild(loadingMessage);
-      }
+      const csvData = reader.result.split("\n").map((row) => row.split(","));
+      const data = csvData.slice(1).map((row) => ({
+        nama: row[0],
+        telepon: row[1],
+        email: row[2],
+        perusahaan: row[3],
+        catatan: row[4],
+      }));
+      await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
+      alert("CSV berhasil diimpor!");
+      fetchData();
     };
     reader.readAsText(file);
   } else {
