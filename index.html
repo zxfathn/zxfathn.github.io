@@ -10,6 +10,16 @@
 <div class="container fade-in">
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
+  <!-- FORM CREATE -->
+  <form id="contactForm">
+    <input type="text" id="nama" placeholder="Nama" required maxlength="20">
+    <input type="text" id="telepon" placeholder="Telepon" required>
+    <input type="email" id="email" placeholder="Email" required maxlength="30">
+    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    <button type="submit" class="btn-save">💾 Tambah Kontak</button>
+  </form>
+
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
@@ -18,26 +28,24 @@
     <button id="copyAllBtn">📋 Salin Semua</button>
   </div>
 
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="selectAll"></th>
-          <th>No</th>
-          <th>Nama</th>
-          <th>Telepon</th>
-          <th>Email</th>
-          <th>Perusahaan</th>
-          <th>Catatan</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="contactsTable"></tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="selectAll"></th>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Telepon</th>
+        <th>Email</th>
+        <th>Perusahaan</th>
+        <th>Catatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="contactsTable"></tbody>
+  </table>
 </div>
 
-<!-- Detail Modal -->
+<!-- MODAL DETAIL -->
 <div id="detailModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -46,38 +54,34 @@
   </div>
 </div>
 
-<!-- Edit Modal -->
+<!-- MODAL EDIT -->
 <div id="editModal" class="modal">
   <div class="modal-content">
     <h3>Edit Kontak</h3>
     <form id="editForm">
-      <input type="hidden" id="editId">
-      <input type="text" id="editNama" placeholder="Nama" required maxlength="20">
-      <input type="text" id="editTelepon" placeholder="Telepon" required>
-      <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
-      <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
-      <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
-      <div class="modal-buttons">
-        <button type="submit" class="btn-save">💾 Simpan</button>
-        <button type="button" class="btn-cancel" id="editCancelBtn">❌ Batal</button>
-      </div>
+      <input type="hidden" name="editId">
+      <input type="text" name="editNama" placeholder="Nama" required maxlength="20">
+      <input type="text" name="editTelepon" placeholder="Telepon" required>
+      <input type="email" name="editEmail" placeholder="Email" required maxlength="30">
+      <input type="text" name="editPerusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" name="editCatatan" placeholder="Catatan" maxlength="20">
+      <button type="submit" class="btn-save">💾 Simpan</button>
+      <button type="button" id="editCancelBtn" class="btn-cancel" style="display:none;">❌ Batal</button>
     </form>
   </div>
 </div>
 
-<!-- Toast -->
-<div id="toast"></div>
-
-<!-- Confirm Modal -->
+<!-- MODAL CONFIRM -->
 <div id="confirmModal" class="modal">
-  <div class="modal-content confirm">
-    <p id="confirmText">Apakah Anda yakin?</p>
-    <div class="confirm-buttons">
-      <button id="confirmYes" class="btn-save">Ya</button>
-      <button id="confirmNo" class="btn-cancel">Batal</button>
-    </div>
+  <div class="modal-content">
+    <p id="confirmText"></p>
+    <button id="confirmYes" class="btn-save">Ya</button>
+    <button id="confirmNo" class="btn-cancel">Tidak</button>
   </div>
 </div>
+
+<!-- TOAST -->
+<div id="toast"></div>
 
 <script src="script.js"></script>
 </body>
