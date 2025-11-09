@@ -1,11 +1,11 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti dengan URL Web App Google Sheets
+const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec"; // ganti dengan URL Web App
 const contactsTable = document.getElementById("contactsTable");
-const detailModal = document.getElementById("detailModal");
-const detailText = document.getElementById("detailText");
 const contactForm = document.getElementById("contactForm");
 const btnCancel = contactForm.querySelector(".btn-cancel");
 const searchInput = document.getElementById("searchInput");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+const detailModal = document.getElementById("detailModal");
+const detailText = document.getElementById("detailText");
 
 // ==== FETCH DATA ====
 async function fetchData() {
@@ -14,9 +14,7 @@ async function fetchData() {
     const data = await res.json();
     buildTable(data);
     return data;
-  } catch(err) {
-    console.error("Gagal fetch data:", err);
-  }
+  } catch(err){ console.error(err); }
 }
 
 // ==== BUILD TABLE ====
@@ -41,23 +39,28 @@ function buildTable(data){
     row.querySelector(".deleteBtn").onclick = ()=> deleteContact(c.id);
     row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
     row.addEventListener("click", e=>{
-      if(!e.target.classList.contains("action") && e.target.type !== "checkbox") showDetails(c);
+      if(!e.target.classList.contains("action") && e.target.type!=="checkbox") showDetails(c);
     });
     contactsTable.appendChild(row);
   });
 }
 
-// ==== SHOW DETAIL MODAL ====
+// ==== DETAIL MODAL ====
 function showDetails(c){
   detailText.innerHTML = `<b>Nama:</b> ${c.nama}<br>
-    <b>Telepon:</b> ${c.telepon}<br>
-    <b>Email:</b> ${c.email}<br>
-    <b>Perusahaan:</b> ${c.perusahaan}<br>
-    <b>Catatan:</b> ${c.catatan}`;
+  <b>Telepon:</b> ${c.telepon}<br>
+  <b>Email:</b> ${c.email}<br>
+  <b>Perusahaan:</b> ${c.perusahaan}<br>
+  <b>Catatan:</b> ${c.catatan}`;
   detailModal.style.display="block";
 
   document.getElementById("editFromDetail").onclick = ()=> openEditForm(c);
   document.getElementById("deleteFromDetail").onclick = ()=> deleteContact(c.id);
+}
+
+function copyDetail(){
+  navigator.clipboard.writeText(detailText.innerText);
+  alert("Kontak disalin!");
 }
 
 function closeModal(){ detailModal.style.display="none"; }
@@ -93,7 +96,7 @@ contactForm.addEventListener("submit", async e=>{
     email: contactForm.email.value,
     perusahaan: contactForm.perusahaan.value,
     catatan: contactForm.catatan.value,
-    action: id ? "update" : "create",
+    action: id?"update":"create",
     id
   });
   await fetch(API_URL,{method:"POST",body:params});
@@ -108,13 +111,11 @@ async function deleteContact(id){
   fetchData();
 }
 
-// ==== TOGGLE DELETE BTN ====
+// ==== MULTI DELETE ====
 function toggleDeleteBtn(){
-  const selected = document.querySelectorAll(".selectBox:checked").length;
-  deleteSelectedBtn.style.display = selected>0 ? "inline-block" : "none";
+  deleteSelectedBtn.style.display = document.querySelectorAll(".selectBox:checked").length>0?"inline-block":"none";
 }
 
-// ==== DELETE SELECTED ====
 function deleteSelected(){
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map(b=>b.dataset.id);
   if(selected.length===0) return;
@@ -125,20 +126,20 @@ function deleteSelected(){
   fetchData();
 }
 
-// ==== SEARCH FILTER ====
+// ==== SEARCH ====
 searchInput.addEventListener("keyup",()=>{
   const kw = searchInput.value.toLowerCase();
   document.querySelectorAll("#contactsTable tr").forEach(r=>{
-    r.style.display = r.innerText.toLowerCase().includes(kw) ? "" : "none";
+    r.style.display = r.innerText.toLowerCase().includes(kw)?"":"none";
   });
 });
 
 // ==== COPY ALL ====
 function copyAll(){
   fetch(API_URL).then(res=>res.json()).then(data=>{
-    const text = data.map(c=>`${c.nama}|${c.telepon}|${c.email}|${c.perusahaan}|${c.catatan}`).join("\n");
+    const text = data.map(c=>`${c.nama} | ${c.telepon} | ${c.email} | ${c.perusahaan} | ${c.catatan}`).join("\n");
     navigator.clipboard.writeText(text);
-    alert("Kontak telah disalin!");
+    alert("Semua kontak telah disalin!");
   });
 }
 
@@ -154,6 +155,12 @@ function exportCSV(){
     link.click();
   });
 }
+
+// ==== SELECT ALL ====
+document.getElementById("selectAll").addEventListener("change", e=>{
+  document.querySelectorAll(".selectBox").forEach(b=>b.checked=e.target.checked);
+  toggleDeleteBtn();
+});
 
 // ==== INIT ====
 window.addEventListener("load", fetchData);
