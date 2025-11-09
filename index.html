@@ -32,7 +32,7 @@
   <div class="actions">
     <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
     <button id="copySelectedBtn" onclick="copySelected()" style="display:none;" class="btn-action">📋 Salin yang Dipilih</button>
-    <button id="exportCsvBtn" onclick="exportCSV()" class="btn-action">⬇️ Ekspor CSV</button>
+    <input type="file" id="uploadCsv" accept=".csv" class="btn-action">
   </div>
 
   <!-- TABLE -->
@@ -61,7 +61,6 @@
     <div class="modal-actions">
       <button id="editFromDetail" class="btn-action">✏️ Edit</button>
       <button id="copyFromDetail" class="btn-action">📋 Salin</button>
-      <button id="exportFromDetail" class="btn-action">⬇️ Ekspor CSV</button>
       <button id="deleteFromDetail" class="btn-action">🗑️ Hapus</button>
     </div>
   </div>
