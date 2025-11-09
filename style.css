@@ -38,7 +38,11 @@ form input {
   border-radius: 8px;
   padding: 8px;
   margin: 6px;
-  width: calc(22% - 12px); /* sedikit lebih lebar untuk Nama 24 karakter */
+  width: calc(20% - 12px);
+}
+
+form input#nama {
+  width: calc(28% - 12px);
 }
 
 form button {
