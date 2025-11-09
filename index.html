@@ -10,27 +10,25 @@
 <div class="container fade-in">
   <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-  <!-- Form Tambah Kontak -->
-  <form id="contactForm" class="add-form">
+  <!-- FORM TAMBAH KONTAK -->
+  <form id="contactForm">
     <input type="hidden" id="contactId">
-    <div class="form-row">
-      <input type="text" id="nama" placeholder="Nama" required maxlength="24">
-      <input type="text" id="telepon" placeholder="Telepon" required>
-      <input type="email" id="email" placeholder="Email" required maxlength="30">
-      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
-      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
-    </div>
-    <div class="form-row center">
+    <input type="text" id="nama" placeholder="Nama" required maxlength="24">
+    <input type="text" id="telepon" placeholder="Telepon" required>
+    <input type="email" id="email" placeholder="Email" required maxlength="30">
+    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    <div class="form-buttons">
       <button type="submit" class="btn-save">💾 Tambah Kontak</button>
-      <button type="button" class="btn-cancel" onclick="clearForm()" style="display:none;">❌ Batal</button>
+      <button type="button" class="btn-cancel" onclick="clearForm()">❌ Batal</button>
     </div>
   </form>
 
   <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
-    <button id="deleteSelectedBtn" class="btn-cancel" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
-    <button id="copySelectedBtn" class="btn-copy" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
+    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
+    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
   </div>
 
   <table>
@@ -51,20 +49,20 @@
 
 <!-- Modal Detail -->
 <div id="detailModal" class="modal">
-  <div class="modal-content popup">
+  <div class="modal-content">
     <span class="close" onclick="closeDetailModal()">&times;</span>
     <h3>Detail Kontak</h3>
-    <div id="detailText"></div>
-    <div class="modal-actions center">
-      <button id="editFromDetail" class="btn-edit">✏️ Edit</button>
-      <button id="copyFromDetail" class="btn-copy">📋 Salin</button>
+    <p id="detailText"></p>
+    <div class="modal-actions">
+      <button id="editFromDetail" class="btn-save">✏️ Edit</button>
+      <button id="copyFromDetail" class="btn-save">📋 Salin</button>
     </div>
   </div>
 </div>
 
 <!-- Modal Edit -->
 <div id="editModal" class="modal">
-  <div class="modal-content popup">
+  <div class="modal-content">
     <span class="close" onclick="closeEditModal()">&times;</span>
     <h3>Edit Kontak</h3>
     <form id="editForm">
@@ -74,7 +72,7 @@
       <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
       <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
       <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
-      <div class="modal-actions center">
+      <div class="form-buttons">
         <button type="submit" class="btn-save">💾 Simpan</button>
         <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
       </div>
