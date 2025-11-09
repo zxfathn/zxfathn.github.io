@@ -12,48 +12,63 @@
 
   <form id="contactForm">
     <input type="hidden" id="contactId">
-    <input type="text" id="nama" placeholder="Nama" required maxlength="20">
-    <input type="text" id="telepon" placeholder="Telepon" required>
-    <input type="email" id="email" placeholder="Email" required maxlength="30">
-    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
-    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    <label>
+      <input type="text" id="nama" placeholder="Nama" required maxlength="20">
+    </label>
+    <label>
+      <input type="text" id="telepon" placeholder="Telepon" required>
+    </label>
+    <label>
+      <input type="email" id="email" placeholder="Email" required maxlength="30">
+    </label>
+    <label>
+      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+    </label>
+    <label>
+      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
+    </label>
     <button type="submit" class="btn-save">💾 Simpan</button>
-    <button type="button" class="btn-cancel" onclick="clearForm()">❌ Batal</button>
+    <button type="button" class="btn-cancel" id="btnCancel">❌ Batal</button>
   </form>
 
-  <input type="text" id="searchInput" placeholder="🔍 Cari kontak..." onkeyup="filterContacts()">
+  <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
 
   <div class="actions">
-    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
-    <button onclick="exportCSV()">⬇️ Ekspor CSV</button>
-    <button onclick="copyAll()">📋 Salin Semua</button>
+    <button id="deleteSelectedBtn" style="display:none;">🗑️ Hapus yang Dipilih</button>
+    <button id="exportCSVBtn">⬇️ Ekspor CSV</button>
+    <button id="copyAllBtn">📋 Salin Semua</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Telepon</th>
-        <th>Email</th>
-        <th>Perusahaan</th>
-        <th>Catatan</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="contactsTable"></tbody>
-  </table>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll"></th>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Telepon</th>
+          <th>Email</th>
+          <th>Perusahaan</th>
+          <th>Catatan</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="contactsTable"></tbody>
+    </table>
+  </div>
 </div>
 
 <!-- Modal Detail -->
 <div id="detailModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="close">&times;</span>
     <h3>Detail Kontak</h3>
     <p id="detailText"></p>
   </div>
 </div>
+
+<!-- Toast -->
+<div id="toast"></div>
 
 <script src="script.js"></script>
 </body>
