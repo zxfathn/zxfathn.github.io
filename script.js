@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbydEpfOgZhBuKqdoROmXlIYi41PW9E5YpECmUhu-Mrhgaku1Pchf3KVqbZ9bkiJa7rvNw/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwjplk3fuw3gG8_5Jfd5P0zHPyk1GNOSo2glHnBBGdfw6mjbNaJ73svQ9ZvBGxvRgsBag/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -16,7 +16,7 @@ async function fetchData() {
     const res = await fetch(API_URL);
     const data = await res.json();
     contactsData = data;
-    buildTable(data);
+    buildTable(data);  // Memanggil buildTable untuk menampilkan data
   } catch (err) {
     console.error("Error fetching data:", err);
   }
@@ -74,12 +74,11 @@ uploadCsvInput.addEventListener("change", (e) => {
         const responseData = await res.json();
         if (responseData.status === "ok") {
           alert("CSV berhasil diimpor! Klik OK untuk melanjutkan.");
-          // Arahkan pengguna ke halaman tujuan setelah klik OK
           window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman
-          fetchData(); // Memanggil fungsi fetchData untuk reload data baru
         } else {
           alert("Terjadi kesalahan: " + responseData.message);
         }
+        fetchData();  // Memanggil fetchData untuk update setelah import
       } catch (err) {
         alert("Error mengimpor CSV: " + err.message);
       }
@@ -100,10 +99,9 @@ async function deleteSelected() {
     await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
   }
 
-  // Alert setelah menghapus
   alert("Kontak yang dipilih telah dihapus! Klik OK untuk melanjutkan.");
   window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
-  fetchData(); // Refresh the data on the page
+  fetchData(); // Fetch ulang data setelah hapus
 }
 
 // === Save/Edit Contact ===
@@ -123,7 +121,7 @@ contactForm.addEventListener("submit", async (e) => {
 
   try {
     await fetch(API_URL, { method: "POST", body: params });
-    fetchData(); // Fetch ulang setelah simpan
+    fetchData();  // Fetch ulang data setelah create/edit
     clearForm();
     alert("Kontak berhasil disimpan! Klik OK untuk melanjutkan.");
     window.location.href = "https://zxfathn.github.io";  // Arahkan ke halaman setelah mengklik OK
@@ -141,4 +139,4 @@ function clearForm() {
 }
 
 // === Initialize ===
-window.addEventListener("load", fetchData); // Pastikan data diambil saat halaman pertama kali dimuat
+window.addEventListener("load", fetchData);  // Pastikan data diambil saat halaman pertama kali dimuat
