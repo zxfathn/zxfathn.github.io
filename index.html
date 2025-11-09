@@ -19,8 +19,7 @@
     <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
     <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
     <div class="form-buttons">
-      <button type="submit" class="btn-save">💾 Tambah Kontak</button>
-      <button type="button" class="btn-cancel" onclick="clearForm()">❌ Batal</button>
+      <button type="submit" class="btn-action">💾 Tambah Kontak</button>
     </div>
   </form>
 
@@ -31,9 +30,9 @@
 
   <!-- ACTIONS -->
   <div class="actions">
-    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;">🗑️ Hapus yang Dipilih</button>
-    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;">📋 Salin yang Dipilih</button>
-    <button id="exportCsvBtn" onclick="exportCSV()">⬇️ Ekspor CSV</button>
+    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
+    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;" class="btn-action">📋 Salin yang Dipilih</button>
+    <button id="exportCsvBtn" onclick="exportCSV()" class="btn-action">⬇️ Ekspor CSV</button>
   </div>
 
   <!-- TABLE -->
@@ -60,8 +59,10 @@
     <h3>Detail Kontak</h3>
     <p id="detailText"></p>
     <div class="modal-actions">
-      <button id="editFromDetail" class="btn-save">✏️ Edit</button>
-      <button id="copyFromDetail" class="btn-save">📋 Salin</button>
+      <button id="editFromDetail" class="btn-action">✏️ Edit</button>
+      <button id="copyFromDetail" class="btn-action">📋 Salin</button>
+      <button id="exportFromDetail" class="btn-action">⬇️ Ekspor CSV</button>
+      <button id="deleteFromDetail" class="btn-action">🗑️ Hapus</button>
     </div>
   </div>
 </div>
@@ -79,8 +80,7 @@
       <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
       <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
       <div class="form-buttons">
-        <button type="submit" class="btn-save">💾 Simpan</button>
-        <button type="button" class="btn-cancel" onclick="closeEditModal()">❌ Batal</button>
+        <button type="submit" class="btn-action">💾 Simpan</button>
       </div>
     </form>
   </div>
