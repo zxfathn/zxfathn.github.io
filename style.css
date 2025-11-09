@@ -94,7 +94,13 @@ th, td {
 
 th { background: rgba(255, 230, 128, 0.2); text-transform: uppercase; text-align: center; }
 td { text-align: center; }
-td:nth-child(1), td:nth-child(2) { text-align: center; }
+
+/* ===== Kolom No ===== */
+th:nth-child(2), td:nth-child(2) {
+  width: 40px;
+  text-align: center;
+  padding: 0 5px;
+}
 
 /* ===== Checkbox ===== */
 .selectBox, #selectAll {
@@ -112,7 +118,7 @@ th:first-child, td:first-child {
   width: 40px;
   text-align: center;
   padding: 0;
-  line-height: 1; /* sejajar dengan header */
+  line-height: 1; /* sejajar header */
 }
 
 tr:hover { background: rgba(255,255,255,0.15); }
