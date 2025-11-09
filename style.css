@@ -10,7 +10,7 @@ body {
 .container {
   max-width: 1000px;
   margin: auto;
-  background: rgba(15, 20, 40, 0.8);
+  background: rgba(15, 20, 40, 0.85);
   border-radius: 16px;
   padding: 25px;
   box-shadow: 0 0 20px rgba(0,0,0,0.6);
@@ -24,7 +24,7 @@ h2 {
   color: #ffe680;
 }
 
-/* ===== Form Add Contact ===== */
+/* ===== Form Tambah Kontak ===== */
 .add-form {
   display: flex;
   flex-direction: column;
@@ -65,18 +65,14 @@ h2 {
   color: #000;
 }
 
-.btn-save:hover {
-  background: #fff27f;
-}
+.btn-save:hover { background: #fff27f; }
 
 .btn-cancel {
   background: #ff6f6f;
   color: #fff;
 }
 
-.btn-cancel:hover {
-  background: #ff8b8b;
-}
+.btn-cancel:hover { background: #ff8b8b; }
 
 /* ===== Search & Table ===== */
 #searchInput {
@@ -91,6 +87,7 @@ h2 {
 
 table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   font-size: 14px;
@@ -109,34 +106,27 @@ th {
   text-align: center;
 }
 
-td {
-  text-align: center;
-}
+td { text-align: center; }
 
 td:nth-child(1), td:nth-child(2) { text-align: left; }
 
+.selectBox { width: 18px; height: 18px; cursor: pointer; }
+
+th:first-child, td:first-child { width: 40px; } /* checkbox */
+th:nth-child(2), td:nth-child(2) { width: 40px; }  /* No */
+th:nth-child(3), td:nth-child(3) { width: 150px; } /* Nama */
+th:nth-child(4), td:nth-child(4) { width: 120px; } /* Telepon */
+th:nth-child(5), td:nth-child(5) { width: 200px; } /* Email */
+th:nth-child(6), td:nth-child(6) { width: 150px; } /* Perusahaan */
+th:nth-child(7), td:nth-child(7) { width: 120px; } /* Catatan */
+
 tr:hover { background: rgba(255,255,255,0.15); }
 
-/* Kolom lebar sesuai konten */
-th:nth-child(2), td:nth-child(2) { width: 40px; }
-th:nth-child(3), td:nth-child(3) { width: 150px; }
-th:nth-child(4), td:nth-child(4) { width: 120px; }
-th:nth-child(5), td:nth-child(5) { width: 200px; }
-th:nth-child(6), td:nth-child(6) { width: 150px; }
-th:nth-child(7), td:nth-child(7) { width: 120px; }
-
 .fade-in { animation: fadeIn 1.2s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-}
+/* ===== Modal ===== */
+.modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
 
 .modal-content {
   background: rgba(20,25,50,0.95);
@@ -153,6 +143,11 @@ th:nth-child(7), td:nth-child(7) { width: 120px; }
 .popup input {
   width: 100%;
   margin: 6px 0;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
 }
 
 .close {
@@ -169,6 +164,8 @@ th:nth-child(7), td:nth-child(7) { width: 120px; }
 
 .modal-actions.center { justify-content: center; }
 
-@media (max-width: 768px) {
-  .add-form .form-row { flex-direction: column; }
+@media(max-width:768px){
+  .add-form .form-row{ flex-direction: column; }
+  table { display:block; overflow-x:auto; }
+  .selectBox { transform: scale(1.2); }
 }
