@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzTJtaSdvKyMZtMTspA-6Qcymv4wuwHLxJ3PcrkEa_7IrbMdbCKUohznixKap0DajPVMw/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyqkID8Qy_eXIOOuXypgiQpnF5kIbT_P3btlmF5F8W28zECn8dMLBrDSTTht2Ne_ze2fg/exec";
 
 const contactsTable = document.getElementById("contactsTable");
 const contactForm = document.getElementById("contactForm");
@@ -9,37 +9,19 @@ const uploadCsvInput = document.getElementById("uploadCsv");
 const editModal = document.getElementById("editModal");
 const detailModal = document.getElementById("detailModal");
 const detailText = document.getElementById("detailText");
-const loader = document.getElementById("loader");
-const notification = document.getElementById("notification");
 
 let contactsData = [];
 
-function showLoader(show) {
-  loader.style.display = show ? "flex" : "none";
-}
-
-function showNotification(message, type = "success") {
-  notification.textContent = message;
-  notification.className = "notification " + type;
-  notification.style.display = "block";
-  setTimeout(() => {
-    notification.style.display = "none";
-  }, 3000);
-}
-
 // === Fetch Data ===
 async function fetchData() {
-  showLoader(true);
   try {
-    const res = await fetch(API_URL + "?t=" + new Date().getTime());
+    const res = await fetch(API_URL);
     const data = await res.json();
     contactsData = data;
     buildTable(data);
   } catch (err) {
-    console.error("Error fetching data: ", err);
-    showNotification("Gagal memuat data", "error");
-  } finally {
-    showLoader(false);
+    console.error("Error fetching data:", err);
+    alert("Gagal memuat data!");
   }
 }
 
@@ -50,20 +32,14 @@ function buildTable(data) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td><input type="checkbox" class="selectBox" data-id="${c.id}"></td>
+      <td><input type="checkbox" class="selectBox" data-nama="${c.nama}" onclick="toggleDeleteBtn()"></td>
       <td>${i + 1}</td>
       <td>${c.nama}</td>
       <td>${c.telepon}</td>
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
-      <td>${c.catatan || ""}</td>
+      <td>${c.catatan}</td>
     `;
-
-    const check = row.querySelector(".selectBox");
-    check.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleDeleteBtn();
-    });
 
     row.addEventListener("click", (e) => {
       if (!e.target.classList.contains("selectBox")) {
@@ -81,16 +57,13 @@ function showDetails(c) {
     <b>Telepon:</b> ${c.telepon}<br>
     <b>Email:</b> ${c.email}<br>
     <b>Perusahaan:</b> ${c.perusahaan}<br>
-    <b>Catatan:</b> ${c.catatan || ""}`;
+    <b>Catatan:</b> ${c.catatan}`;
 
   detailModal.style.display = "block";
 
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
   document.getElementById("copyFromDetail").onclick = copyData;
-  document.getElementById("deleteFromDetail").onclick = async () => {
-    await deleteContact(c.id);
-    closeDetailModal();
-  };
+  document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.nama);
 }
 
 // === Open Edit Modal ===
@@ -100,7 +73,7 @@ function openEditForm(c) {
   document.getElementById("editEmail").value = c.email;
   document.getElementById("editPerusahaan").value = c.perusahaan;
   document.getElementById("editCatatan").value = c.catatan;
-  document.getElementById("editId").value = c.id;
+  document.getElementById("oldNama").value = c.nama;
   editModal.style.display = "block";
 }
 
@@ -112,138 +85,103 @@ function closeDetailModal() {
   detailModal.style.display = "none";
 }
 
-// === Save/Edit Contact ===
+// === Save Contact ===
 contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const id = document.getElementById("contactId").value;
-  const payload = {
-    action: id ? "update" : "create",
-    id,
-    nama: document.getElementById("nama").value,
-    telepon: document.getElementById("telepon").value,
-    email: document.getElementById("email").value,
-    perusahaan: document.getElementById("perusahaan").value,
-    catatan: document.getElementById("catatan").value,
-  };
+  const oldNama = document.getElementById("oldNama").value;
+  const action = oldNama ? "update" : "create";
 
-  showLoader(true);
+  const params = new URLSearchParams({
+    nama: contactForm.nama.value,
+    telepon: contactForm.telepon.value,
+    email: contactForm.email.value,
+    perusahaan: contactForm.perusahaan.value,
+    catatan: contactForm.catatan.value,
+    oldNama,
+    action,
+  });
+
   try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const res = await fetch(API_URL, { method: "POST", body: params });
     const result = await res.json();
 
     if (result.status === "success") {
-      showNotification(result.message, "success");
-      contactForm.reset();
-      document.getElementById("contactId").value = "";
-      await fetchData();
+      alert(result.message);
+      fetchData();
+      clearForm();
+      closeEditModal();
     } else {
-      showNotification(result.message, "error");
+      alert(result.message || "Terjadi kesalahan saat menyimpan data.");
     }
   } catch (err) {
-    console.error("Error saving contact:", err);
-    showNotification("Terjadi kesalahan saat menyimpan data", "error");
-  } finally {
-    showLoader(false);
+    console.error(err);
+    alert("Gagal menghubungi server!");
   }
 });
 
 // === Clear Form ===
 function clearForm() {
   contactForm.reset();
-  document.getElementById("contactId").value = "";
+  document.getElementById("oldNama").value = "";
 }
 
 // === Delete Contact ===
-async function deleteContact(id) {
-  if (!confirm("Hapus kontak ini?")) return;
-  showLoader(true);
-
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "delete", id }),
-    });
-    const result = await res.json();
-
-    if (result.status === "success") {
-      showNotification(result.message, "success");
-      await fetchData();
-    } else {
-      showNotification(result.message, "error");
-    }
-  } catch (err) {
-    console.error("Error deleting contact:", err);
-    showNotification("Gagal menghapus data!", "error");
-  } finally {
-    showLoader(false);
-  }
+async function deleteContact(nama) {
+  if (!confirm(`Hapus kontak '${nama}'?`)) return;
+  const params = new URLSearchParams({ action: "delete", nama });
+  const res = await fetch(API_URL, { method: "POST", body: params });
+  const result = await res.json();
+  alert(result.message);
+  fetchData();
 }
 
-// === Delete Selected Contacts ===
+// === Delete Selected ===
 async function deleteSelected() {
-  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map(b => b.dataset.id);
+  const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map(b => b.dataset.nama);
   if (selected.length === 0) return;
-  if (!confirm("Hapus semua kontak yang dipilih?")) return;
-  showLoader(true);
+  if (!confirm(`Hapus ${selected.length} kontak terpilih?`)) return;
 
-  try {
-    for (let id of selected) {
-      await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete", id }),
-      });
-    }
-    showNotification("Kontak terpilih dihapus", "success");
-    await fetchData();
-  } catch (err) {
-    console.error("Error deleting selected:", err);
-    showNotification("Gagal menghapus beberapa kontak!", "error");
-  } finally {
-    showLoader(false);
+  for (const nama of selected) {
+    await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", nama }) });
   }
+  fetchData();
 }
 
-// === Copy Data from Detail ===
+// === Copy Data ===
 function copyData() {
-  navigator.clipboard.writeText(detailText.innerText)
-    .then(() => showNotification("Kontak detail disalin!", "success"))
-    .catch(() => showNotification("Gagal menyalin!", "error"));
+  navigator.clipboard.writeText(detailText.innerText).then(() => {
+    alert("Kontak disalin ke clipboard!");
+  });
 }
 
-// === Select All / Unselect All ===
+// === Select All ===
 function toggleSelectAll(checkbox) {
   document.querySelectorAll(".selectBox").forEach(cb => cb.checked = checkbox.checked);
   toggleDeleteBtn();
 }
 
-// === Toggle Delete Button Visibility ===
+// === Toggle Delete Button ===
 function toggleDeleteBtn() {
   const selectedCount = document.querySelectorAll(".selectBox:checked").length;
   deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
 }
 
-// === Search Functionality ===
+// === Search ===
 searchInput.addEventListener("keyup", () => {
   const kw = searchInput.value.toLowerCase();
-  document.querySelectorAll("#contactsTable tr").forEach(row => {
+  document.querySelectorAll("#contactsTable tr").forEach((row) => {
     row.style.display = row.innerText.toLowerCase().includes(kw) ? "" : "none";
   });
 });
 
-// === Handle CSV File Upload ===
+// === CSV Import ===
 uploadCsvInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  if (!file || file.type !== "text/csv") return showNotification("File bukan format CSV!", "error");
+  if (!file || file.type !== "text/csv") return alert("File bukan format CSV!");
 
   const reader = new FileReader();
-  reader.onload = async function() {
+  reader.onload = async function () {
     const csvData = reader.result.split("\n").map(r => r.split(","));
     const data = csvData.slice(1).map(row => ({
       nama: row[0],
@@ -252,28 +190,9 @@ uploadCsvInput.addEventListener("change", (e) => {
       perusahaan: row[3],
       catatan: row[4],
     }));
-
-    showLoader(true);
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "import", data }),
-      });
-      const result = await res.json();
-
-      if (result.status === "success") {
-        showNotification(result.message, "success");
-        await fetchData();
-      } else {
-        showNotification(result.message, "error");
-      }
-    } catch (err) {
-      console.error("Error importing CSV:", err);
-      showNotification("Gagal mengimpor CSV!", "error");
-    } finally {
-      showLoader(false);
-    }
+    await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
+    alert("CSV berhasil diimpor!");
+    fetchData();
   };
   reader.readAsText(file);
 });
