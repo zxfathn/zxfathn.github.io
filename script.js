@@ -15,10 +15,10 @@ let contactsData = [];
 // === Fetch Data ===
 async function fetchData() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_URL + "?t=" + new Date().getTime()); // cache buster
     const data = await res.json();
     contactsData = data;
-    buildTable(data); // Update the table with the latest data
+    buildTable(data);
   } catch (err) {
     console.error("Error fetching data: ", err);
   }
@@ -29,7 +29,6 @@ function buildTable(data) {
   contactsTable.innerHTML = "";
   data.forEach((c, i) => {
     const row = document.createElement("tr");
-
     row.innerHTML = `
       <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleDeleteBtn()"></td>
       <td>${i + 1}</td>
@@ -37,30 +36,26 @@ function buildTable(data) {
       <td>${c.telepon}</td>
       <td>${c.email}</td>
       <td>${c.perusahaan}</td>
-      <td>${c.catatan}</td>
+      <td>${c.catatan || ""}</td>
     `;
-
     row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
     row.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("selectBox")) {
-        showDetails(c);
-      }
+      if (!e.target.classList.contains("selectBox")) showDetails(c);
     });
-
     contactsTable.appendChild(row);
   });
 }
 
-// === Show Details in Modal ===
+// === Show Details ===
 function showDetails(c) {
-  detailText.innerHTML = `<b>Nama:</b> ${c.nama}<br>
+  detailText.innerHTML = `
+    <b>Nama:</b> ${c.nama}<br>
     <b>Telepon:</b> ${c.telepon}<br>
     <b>Email:</b> ${c.email}<br>
     <b>Perusahaan:</b> ${c.perusahaan}<br>
-    <b>Catatan:</b> ${c.catatan}`;
-
+    <b>Catatan:</b> ${c.catatan || "-"}
+  `;
   detailModal.style.display = "block";
-
   document.getElementById("editFromDetail").onclick = () => openEditForm(c);
   document.getElementById("copyFromDetail").onclick = copyData;
   document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
@@ -77,35 +72,48 @@ function openEditForm(c) {
   editModal.style.display = "block";
 }
 
-// === Close Modal ===
+// === Close Modals ===
 function closeEditModal() {
   editModal.style.display = "none";
 }
-
 function closeDetailModal() {
   detailModal.style.display = "none";
 }
 
-// === Save/Edit Contact ===
+// === Save / Edit Contact ===
 contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const id = contactForm.contactId.value;
-  const params = new URLSearchParams({
+  const payload = {
+    action: id ? "update" : "create",
+    id,
     nama: contactForm.nama.value,
     telepon: contactForm.telepon.value,
     email: contactForm.email.value,
     perusahaan: contactForm.perusahaan.value,
     catatan: contactForm.catatan.value,
-    action: id ? "update" : "create",
-    id,
-  });
+  };
 
-  await fetch(API_URL, { method: "POST", body: params });
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
 
-  // After adding/updating, refresh the data
-  fetchData();
-  clearForm();
+    if (result.status === "success") {
+      alert(result.message);
+      fetchData();
+      clearForm();
+    } else {
+      alert("Gagal: " + result.message);
+    }
+  } catch (err) {
+    console.error("Error saving contact:", err);
+    alert("Terjadi kesalahan saat menyimpan data.");
+  }
 });
 
 // === Clear Form ===
@@ -118,51 +126,50 @@ function clearForm() {
 // === Delete Contact ===
 async function deleteContact(id) {
   if (!confirm("Hapus kontak ini?")) return;
-  await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
-
-  // After deleting, refresh the data
+  const payload = { action: "delete", id };
+  await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
   fetchData();
 }
 
-// === Delete Selected Contacts ===
+// === Delete Selected ===
 async function deleteSelected() {
   const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
   if (selected.length === 0) return;
-  
   if (!confirm("Hapus semua kontak yang dipilih?")) return;
 
-  // Loop over each selected id and delete
   for (let id of selected) {
-    await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", id }),
+    });
   }
-
-  // After deleting selected, refresh the data
   fetchData();
 }
 
-// === Copy Data from Detail Modal ===
+// === Copy Data ===
 function copyData() {
-  const text = detailText.innerText; // Take the exact text from the modal
-  navigator.clipboard.writeText(text)
-    .then(() => alert("Kontak detail telah disalin!"));
+  const text = detailText.innerText;
+  navigator.clipboard.writeText(text).then(() => alert("Kontak telah disalin!"));
 }
 
-// === Select All / Unselect All ===
+// === Select All ===
 function toggleSelectAll(checkbox) {
-  const checkboxes = document.querySelectorAll(".selectBox");
-  checkboxes.forEach((cb) => {
-    cb.checked = checkbox.checked;
-  });
+  document.querySelectorAll(".selectBox").forEach((cb) => (cb.checked = checkbox.checked));
   toggleDeleteBtn();
 }
 
-// === Toggle Delete Button Visibility ===
+// === Toggle Delete Button ===
 function toggleDeleteBtn() {
-  const selectedCount = document.querySelectorAll(".selectBox:checked").length;
-  deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
+  const count = document.querySelectorAll(".selectBox:checked").length;
+  deleteSelectedBtn.style.display = count > 0 ? "inline-block" : "none";
 }
 
-// === Search Functionality ===
+// === Search ===
 searchInput.addEventListener("keyup", () => {
   const kw = searchInput.value.toLowerCase();
   document.querySelectorAll("#contactsTable tr").forEach((row) => {
@@ -170,31 +177,32 @@ searchInput.addEventListener("keyup", () => {
   });
 });
 
-// === Handle CSV File Upload ===
+// === Upload CSV ===
 uploadCsvInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  if (file && file.type === "text/csv") {
-    const reader = new FileReader();
-    reader.onload = async function () {
-      const csvData = reader.result.split("\n").map((row) => row.split(","));
-      const data = csvData.slice(1).map((row) => ({
-        nama: row[0],
-        telepon: row[1],
-        email: row[2],
-        perusahaan: row[3],
-        catatan: row[4],
-      }));
-      await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "import", data: JSON.stringify(data) }) });
+  if (!file || file.type !== "text/csv") return alert("File bukan CSV!");
 
-      // After importing CSV, refresh the data
-      alert("CSV berhasil diimpor!");
-      fetchData();
-    };
-    reader.readAsText(file);
-  } else {
-    alert("File bukan format CSV!");
-  }
+  const reader = new FileReader();
+  reader.onload = async function () {
+    const csvData = reader.result.split("\n").map((r) => r.split(","));
+    const data = csvData.slice(1).map((r) => ({
+      nama: r[0],
+      telepon: r[1],
+      email: r[2],
+      perusahaan: r[3],
+      catatan: r[4],
+    }));
+    const payload = { action: "import", data };
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    alert("CSV berhasil diimpor!");
+    fetchData();
+  };
+  reader.readAsText(file);
 });
 
-// === Initialize ===
+// === Init ===
 window.addEventListener("load", fetchData);
