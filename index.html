@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengelola Kontak Client</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengelola Kontak Client</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container fade-in">
-  <h2>ðŸ“‡ PENGELOLA KONTAK CLIENT</h2>
+  <div class="container fade-in">
+    <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-  <!-- FORM TAMBAH KONTAK -->
-  <form id="contactForm">
-    <input type="hidden" id="contactId">
-    <input type="text" id="nama" placeholder="Nama" required maxlength="24">
-    <input type="text" id="telepon" placeholder="Telepon" required>
-    <input type="email" id="email" placeholder="Email" required maxlength="30">
-    <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
-    <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
-    <div class="form-buttons">
-      <button type="submit" class="btn-action">ðŸ’¾ Tambah Kontak</button>
-    </div>
-  </form>
-
-  <!-- SEARCH -->
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="ðŸ” Cari kontak...">
-  </div>
-
-  <!-- ACTIONS -->
-  <div class="actions">
-    <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">ðŸ—‘ï¸ Hapus yang Dipilih</button>
-    <button id="copySelectedBtn" onclick="copySelected()" style="display:none;" class="btn-action">ðŸ“‹ Salin yang Dipilih</button>
-    <input type="file" id="uploadCsv" accept=".csv" class="btn-action">
-  </div>
-
-  <!-- TABLE -->
-  <table>
-    <thead>
-      <tr>
-        <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Telepon</th>
-        <th>Email</th>
-        <th>Perusahaan</th>
-        <th>Catatan</th>
-      </tr>
-    </thead>
-    <tbody id="contactsTable"></tbody>
-  </table>
-</div>
-
-<!-- Modal Detail -->
-<div id="detailModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeDetailModal()">&times;</span>
-    <h3>Detail Kontak</h3>
-    <p id="detailText"></p>
-    <div class="modal-actions">
-      <button id="editFromDetail" class="btn-action">âœï¸ Edit</button>
-      <button id="copyFromDetail" class="btn-action">ðŸ“‹ Salin</button>
-      <button id="deleteFromDetail" class="btn-action">ðŸ—‘ï¸ Hapus</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Edit -->
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeEditModal()">&times;</span>
-    <h3>Edit Kontak</h3>
-    <form id="editForm">
-      <input type="hidden" id="editId">
-      <input type="text" id="editNama" placeholder="Nama" required maxlength="24">
-      <input type="text" id="editTelepon" placeholder="Telepon" required>
-      <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
-      <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
-      <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
+    <!-- FORM TAMBAH KONTAK + IMPORT CSV -->
+    <form id="contactForm">
+      <input type="hidden" id="contactId">
+      <input type="text" id="nama" placeholder="Nama" required maxlength="24">
+      <input type="text" id="telepon" placeholder="Telepon" required>
+      <input type="email" id="email" placeholder="Email" required maxlength="30">
+      <input type="text" id="perusahaan" placeholder="Perusahaan" maxlength="20">
+      <input type="text" id="catatan" placeholder="Catatan" maxlength="20">
       <div class="form-buttons">
-        <button type="submit" class="btn-action">ðŸ’¾ Simpan</button>
+        <button type="submit" class="btn-action">💾 Tambah Kontak</button>
+        <label for="uploadCsv" class="btn-action">⬆️ Import CSV</label>
+        <input type="file" id="uploadCsv" accept=".csv" style="display:none;">
       </div>
     </form>
-  </div>
-</div>
 
-<script src="script.js"></script>
+    <!-- SEARCH -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
+    </div>
+
+    <!-- TABLE -->
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Telepon</th>
+          <th>Email</th>
+          <th>Perusahaan</th>
+          <th>Catatan</th>
+        </tr>
+      </thead>
+      <tbody id="contactsTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal Detail -->
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeDetailModal()">&times;</span>
+      <h3>Detail Kontak</h3>
+      <p id="detailText"></p>
+      <div class="modal-actions">
+        <button id="editFromDetail" class="btn-action">✏️ Edit</button>
+        <button id="copyFromDetail" class="btn-action">📋 Salin</button>
+        <button id="deleteFromDetail" class="btn-action">🗑️ Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h3>Edit Kontak</h3>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <input type="text" id="editNama" placeholder="Nama" required maxlength="24">
+        <input type="text" id="editTelepon" placeholder="Telepon" required>
+        <input type="email" id="editEmail" placeholder="Email" required maxlength="30">
+        <input type="text" id="editPerusahaan" placeholder="Perusahaan" maxlength="20">
+        <input type="text" id="editCatatan" placeholder="Catatan" maxlength="20">
+        <div class="form-buttons">
+          <button type="submit" class="btn-action">💾 Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
