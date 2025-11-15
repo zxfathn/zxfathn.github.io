@@ -1,0 +1,73 @@
+<!DOCTYPE>
+
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale-1.0" />
+
+<title>PIV</title>
+
+<style>
+
+font-family: Arial, sans-serif;
+
+body(
+
+background: #f4f4f8;
+
+surgin: 0;
+
+header(
+
+background: #7c53c9;
+
+color: white;
+
+padding: 20px;
+
+text-align: center;
+
+font-size: 25px;
+
+font-weight: bold;
+
+.container{
+
+}
+
+max-width: 900px;
+
+margin: auto;
+
+padding: 20px;
+
+card (
+
+background: white;
+
+padding: 20px;
+
+margin-bottom: 20px;
+
+box-shadow: 0 7px 5px rgba(0,0,0,0.1);
+
+.code-box (
+
+bockground: #2b2b2b;
+
+color: white;
+
+padding: 15px;
+
+border-radius: 8px;
+
+white-space: pre-wrap;
+
+morgin-top: 10px;
+
+font-size: 14px;
+
+textarea
