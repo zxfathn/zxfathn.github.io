@@ -10,7 +10,6 @@
   <div class="container fade-in">
     <h2>📇 PENGELOLA KONTAK CLIENT</h2>
 
-    <!-- FORM TAMBAH KONTAK + IMPORT CSV -->
     <form id="contactForm">
       <input type="hidden" id="contactId">
       <input type="text" id="nama" placeholder="Nama" required maxlength="24">
@@ -25,17 +24,14 @@
       </div>
     </form>
 
-    <!-- SEARCH -->
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="🔍 Cari kontak...">
     </div>
 
-    <!-- ACTIONS -->
     <div class="actions">
       <button id="deleteSelectedBtn" onclick="deleteSelected()" style="display:none;" class="btn-action">🗑️ Hapus yang Dipilih</button>
     </div>
 
-    <!-- TABLE -->
     <table>
       <thead>
         <tr>
@@ -52,7 +48,6 @@
     </table>
   </div>
 
-  <!-- Modal Detail -->
   <div id="detailModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeDetailModal()">&times;</span>
@@ -66,7 +61,6 @@
     </div>
   </div>
 
-  <!-- Modal Edit -->
   <div id="editModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeEditModal()">&times;</span>
