@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemen DIV HTML</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f8;
+        }
+
+        header {
+            background: #7c53c9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .code-box {
+            background: #2b2b2b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .preview {
+            margin-top: 10px;
+            padding: 20px;
+            background: #fafafa;
+            border: 2px dashed #7c53c9;
+            border-radius: 10px;
+            min-height: 60px;
+        }
+
+        button {
+            background: #7c53c9;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>Elemen DIV HTML</header>
+
+    <div class="container">
+
+        <!-- 1 -->
+        <div class="card">
+            <h2>1. Pengertian &lt;div&gt;</h2>
+            <p>
+                Elemen <b>&lt;div&gt;</b> adalah elemen HTML berbentuk <i>block-level</i> yang digunakan untuk:
+            </p>
+            <ul>
+                <li>Mengelompokkan elemen-elemen HTML ke dalam satu blok.</li>
+                <li>Membuat struktur halaman (layout).</li>
+                <li>Menjadi wadah untuk CSS dan JavaScript.</li>
+            </ul>
+        </div>
+
+        <!-- 2 -->
+        <div class="card">
+            <h2>2. Contoh dasar &lt;div&gt;</h2>
+            <div class="code-box">
+&lt;div&gt;Ini adalah sebuah div sederhana.&lt;/div&gt;
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card">
+            <h2>3. Contoh DIV dengan Styling</h2>
+            <div class="code-box">
+&lt;div style="background:#7c53c9; color:white; padding:15px; border-radius:10px;"&gt;<br>
+&nbsp;&nbsp;Contoh div dengan style.<br>
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card">
+            <h2>4. Contoh DIV untuk Struktur Halaman</h2>
+            <div class="code-box">
+&lt;div id="header"&gt;Header&lt;/div&gt;<br>
+&lt;div id="menu"&gt;Menu&lt;/div&gt;<br>
+&lt;div id="content"&gt;Konten&lt;/div&gt;<br>
+&lt;div id="footer"&gt;Footer&lt;/div&gt;
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card">
+            <h2>5. Interaktif: Coba Edit Sendiri</h2>
+
+            <p>Edit kode di bawah lalu klik "Tampilkan".</p>
+
+            <textarea id="editor">
+<div style="background: rgb(124,83,201); color: white; padding: 20px; border-radius: 10px;">
+    Halo! Ini contoh div interaktif.
+</div>
+            </textarea>
+
+            <button onclick="render()">Tampilkan</button>
+
+            <div class="preview" id="preview">Hasil akan muncul di sini...</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="card">
+            <h2>6. Contoh DIV dalam Kondisi Berbeda</h2>
+
+            <h3>a. DIV sebagai Container Gambar</h3>
+            <div class="code-box">
+&lt;div style="padding:10px; border:1px solid #ccc; width:200px;"&gt;<br>
+&nbsp;&nbsp;&lt;img src="https://via.placeholder.com/180" width="180" /&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Gambar dalam div&lt;/p&gt;<br>
+&lt;/div&gt;
+            </div>
+
+            <div style="padding: 10px; border: 1px solid #ccc; width: 200px; text-align: center; background: #fafafa; border-radius: 8px;">
+                <img src="manchester-united.jpg" width="180">
+                <p>Gambar dalam div</p>
+            </div>
+
+            <h3>b. DIV Sebagai Kolom (Layout Samping)</h3>
+            <div class="code-box">
+&lt;div style="display:flex; gap:10px;"&gt;<br>
+&nbsp;&nbsp;&lt;div style="flex:1; background:#ddd; padding:10px;"&gt;Kolom 1&lt;/div&gt;<br>
+&nbsp;&nbsp;&lt;div style="flex:1; background:#eee; padding:10px;"&gt;Kolom 2&lt;/div&gt;<br>
+&lt;/div&gt;
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <div style="flex: 1; background: #ddd; padding: 10px; border-radius: 8px;">Kolom 1</div>
+                <div style="flex: 1; background: #eee; padding: 10px; border-radius: 8px;">Kolom 2</div>
+            </div>
+
+            <h3>c. DIV untuk Kartu Profil Mini</h3>
+            <div class="code-box">
+&lt;div style="width:220px; padding:15px; background:#f0f0f0; border-radius:10px; text-align:center;"&gt;<br>
+&nbsp;&nbsp;&lt;h3&gt;Octaviana&lt;/h3&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Teknik Informatika&lt;/p&gt;<br>
+&lt;/div&gt;
+            </div>
+
+            <div style="width: 220px; padding: 15px; background: #f0f0f0; border-radius: 10px; text-align: center;">
+                <h3 style="margin: 5px 0;">Octaviana</h3>
+                <p style="margin: 0;">Teknik Informatika</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function render() {
+            const code = document.getElementById("editor").value;
+            document.getElementById("preview").innerHTML = code;
+        }
+    </script>
+
+</body>
+</html>
