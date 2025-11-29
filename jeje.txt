@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pemesanan Tiket Bioskop</title>
+</head>
+<body>
+
+<script>
+    // Menampilkan salam pembuka
+    alert("SELAMAT DATANG DI BIOSKOP");
+
+    // Menampilkan daftar film
+    let daftar = "Pilih film: \n1. Venom 3 (Rp.35000)\n2. Inside Out 2 (Rp.40000)\n3. Transformer 8 (Rp.50000)\n4. Danur 5 (Rp.45000)";
+    let kode = prompt(daftar + "\nMasukkan kode film:");
+
+    // Validasi kode
+    if (kode == null || kode == "") {
+        alert("Pemilihan dibatalkan");
+    } else {
+        kode = kode.toUpperCase(); // Mengubah input menjadi huruf besar
+
+        // Menentukan film & harga
+        let film = "";
+        let harga = 0;
+
+        if (kode == "1" || kode == "V") {
+            film = "Venom 3";
+            harga = 35000;
+        } else if (kode == "2" || kode == "I") {
+            film = "Inside Out 2";
+            harga = 40000;
+        } else if (kode == "3" || kode == "T") {
+            film = "Transformer 8";
+            harga = 50000;
+        } else if (kode == "4" || kode == "D") {
+            film = "Danur 5";
+            harga = 45000;
+        } else {
+            alert("Kode tidak valid!");
+            film = null; // Set film ke null jika kode tidak valid
+        }
+
+        // Proses jumlah tiket jika kode valid
+        if (film != null) {
+            let jumlah = prompt("Berapa jumlah tiket yang ingin dibeli?");
+            jumlah = parseInt(jumlah); // Mengubah input menjadi integer
+
+            // Validasi jumlah tiket
+            if (isNaN(jumlah) || jumlah <= 0) {
+                alert("Jumlah tiket tidak valid!");
+            } else {
+                // Menghitung total
+                let total = jumlah * harga;
+                let diskon = 0;
+
+                // Diskon jika tiket > 5
+                if (jumlah > 5) {
+                    diskon = total * 0.10; // Diskon 10%
+                }
+
+                total = total - diskon;
+
+                // Menampilkan hasil
+                alert("Film: " + film + "\nHarga satuan: Rp." + harga.toLocaleString('id-ID') + 
+                      "\nJumlah tiket: " + jumlah + 
+                      "\nTotal sebelum diskon: Rp." + (jumlah * harga).toLocaleString('id-ID') +
+                      "\nDiskon (10%): Rp." + diskon.toLocaleString('id-ID') +
+                      "\nTOTAL BAYAR: Rp." + total.toLocaleString('id-ID'));
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
