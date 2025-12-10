@@ -1,0 +1,68 @@
+{
+  "title": "Blueharvest GrowMax – Gurame Cinematic Promo",
+  "duration": "40 seconds",
+  "style": {
+    "visual": "cinematic premium, clean, modern, gaya iklan Jepang/Korea",
+    "color_tone": "biru–aqua, natural outdoor",
+    "camera": "smooth slider, macro close-up, slow-motion, shallow depth of field"
+  },
+  "assets": {
+    "product_image": "use the provided GrowMax Blueharvest image",
+    "fish_reference": "ikan gurame budidaya (sirip lebar, gerakan anggun)"
+  },
+  "timeline": [
+    {
+      "segment": "0-8 seconds",
+      "title": "Opening – Macro Cinematic",
+      "visual": [
+        "Close-up air kolam gurame yang jernih di pagi hari",
+        "Pantulan cahaya matahari lembut di permukaan air",
+        "Slow-motion ikan gurame berenang anggun dengan sirip lebar bergelombang",
+        "Shallow depth of field, highlight biru-aqua natural outdoor"
+      ],
+      "narration": "Air kolam cepat keruh? Pertumbuhan gurame lambat? Tenang… Blueharvest GrowMax punya solusinya."
+    },
+    {
+      "segment": "8-16 seconds",
+      "title": "Masalah – Air Keruh & Ikan Stres",
+      "visual": [
+        "Transisi air kolam dari jernih menjadi keruh kecoklatan",
+        "Ikan gurame tampak pasif, berenang lebih lambat di permukaan",
+        "Cahaya redup, suasana gloomy low contrast"
+      ],
+      "narration": "Banyak pembudidaya gurame mengeluh… air cepat kotor, ikan mudah stres, dan makan tidak optimal."
+    },
+    {
+      "segment": "16-24 seconds",
+      "title": "Hero Shot Produk – GrowMax",
+      "visual": [
+        "Botol GrowMax tampil sebagai hero object di pinggir kolam gurame",
+        "Setup clean-premium outdoor, background blur profesional",
+        "Kamera melakukan orbital movement pelan mengitari botol",
+        "Silhouette ikan gurame tampak elegan di background dengan depth of field dangkal"
+      ],
+      "narration": "Kenalkan… GrowMax. Suplemen nutrisi dan perbaikan kualitas air khusus untuk budidaya ikan gurame."
+    },
+    {
+      "segment": "24-32 seconds",
+      "title": "Manfaat Utama – Before After",
+      "visual": [
+        "Slow-motion gurame makan pakan di permukaan air dengan gerakan lembut",
+        "Partikel pakan turun perlahan tanpa membuat air keruh",
+        "Transition before-after: kolam gurame keruh → kolam menjadi lebih jernih dan stabil",
+        "Tetesan GrowMax masuk air kolam dan efek kejernihan muncul secara natural"
+      ],
+      "narration": "GrowMax membantu gurame lebih aktif, cepat besar, dan nafsu makan meningkat. Air lebih bersih, bau hilang, bakteri buruk berkurang."
+    },
+    {
+      "segment": "32-40 seconds",
+      "title": "Closing – Hasil & Ajak Beli",
+      "visual": [
+        "Split screen: kolam gurame keruh sebelum penggunaan vs kolam gurame bening setelah penggunaan",
+        "Close-up gurame besar, sehat, sirip mengembang elegan, kulit mengkilap",
+        "Kamera push-in halus ke botol GrowMax dengan background kolam premium"
+      ],
+      "narration": "Rawat kolam gurame lebih mudah. Gunakan GrowMax dari Blueharvest… dan rasakan hasilnya."
+    }
+  ]
+}
