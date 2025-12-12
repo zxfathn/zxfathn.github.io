@@ -1,21 +1,167 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueHarvest Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BlueHarvest PRO</title>
+
+  <!-- Tailwind CDN for quick modern look -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Heroicons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800">
 
-  <h1>BlueHarvest Inventory Dashboard</h1>
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4">
+      <h1 class="text-xl font-semibold">BlueHarvest — PRO</h1>
+      <div class="ml-auto flex items-center gap-3">
+        <div id="apiHint" class="text-sm text-slate-500"></div>
+        <button id="btnLogin" class="rounded-md px-3 py-1 border">Login</button>
+        <button id="btnLogout" class="rounded-md px-3 py-1 border hidden">Logout</button>
+      </div>
+    </div>
+  </header>
 
-  <div class="card">
-    <h2>Cek Stok</h2>
-    <button onclick="loadStok()">Tampilkan Stok</button>
-    <pre id="output"></pre>
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <section class="grid md:grid-cols-4 gap-4">
+
+      <nav class="md:col-span-1 bg-white p-4 rounded shadow">
+        <h2 class="font-semibold mb-3">Menu</h2>
+        <ul class="space-y-2 text-sm">
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="dashboard">Dashboard</button></li>
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="bahanBaku">Bahan Baku</button></li>
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="bahanJadi">Bahan Jadi</button></li>
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="produksi">Produksi</button></li>
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="penjualan">Penjualan</button></li>
+          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="laporan">Laporan</button></li>
+        </ul>
+        <hr class="my-3">
+        <div>
+          <label class="text-xs text-slate-500">API Base URL</label>
+          <input id="api_base" class="w-full border rounded px-2 py-1 mt-1" placeholder="https://backend.example.com" />
+          <label class="text-xs text-slate-500 mt-2 block">API Key</label>
+          <input id="api_key" class="w-full border rounded px-2 py-1 mt-1" placeholder="X-API-Key value" />
+          <button id="saveCfg" class="mt-3 w-full bg-sky-600 text-white px-3 py-2 rounded">Simpan Konfigurasi</button>
+        </div>
+      </nav>
+
+      <div id="content" class="md:col-span-3 space-y-4">
+        <!-- Dashboard -->
+        <div id="page-dashboard" class="page card bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold mb-2">Dashboard</h3>
+          <div id="dash" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-3 border rounded">Bahan Baku: <span id="dash-bb">—</span></div>
+            <div class="p-3 border rounded">Bahan Jadi: <span id="dash-bj">—</span></div>
+            <div class="p-3 border rounded">Total Produksi: <span id="dash-prod">—</span></div>
+          </div>
+        </div>
+
+        <!-- Bahan Baku -->
+        <div id="page-bahanBaku" class="page card bg-white p-4 rounded shadow hidden">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-semibold">Bahan Baku</h3>
+            <div>
+              <button id="btnAddBahanBaku" class="bg-green-600 text-white px-3 py-1 rounded">Tambah</button>
+              <button id="btnReloadBB" class="ml-2 border px-3 py-1 rounded">Reload</button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table id="tblBahanBaku" class="w-full text-sm">
+              <thead class="bg-slate-50"><tr>
+                <th class="p-2">ID</th><th>Nama</th><th>Stok</th><th>Satuan</th><th>Aksi</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Bahan Jadi -->
+        <div id="page-bahanJadi" class="page card bg-white p-4 rounded shadow hidden">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-semibold">Bahan Jadi</h3>
+            <div>
+              <button id="btnAddBahanJadi" class="bg-green-600 text-white px-3 py-1 rounded">Tambah</button>
+              <button id="btnReloadBJ" class="ml-2 border px-3 py-1 rounded">Reload</button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table id="tblBahanJadi" class="w-full text-sm">
+              <thead class="bg-slate-50"><tr>
+                <th class="p-2">ID</th><th>Nama</th><th>Stok</th><th>Harga</th><th>Aksi</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Produksi -->
+        <div id="page-produksi" class="page card bg-white p-4 rounded shadow hidden">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-semibold">Produksi</h3>
+            <div>
+              <button id="btnNewProduksi" class="bg-sky-600 text-white px-3 py-1 rounded">Buat Produksi</button>
+              <button id="btnReloadProd" class="ml-2 border px-3 py-1 rounded">Reload</button>
+            </div>
+          </div>
+
+          <div id="produksiList" class="overflow-x-auto">
+            <table id="tblProduksi" class="w-full text-sm">
+              <thead class="bg-slate-50"><tr>
+                <th class="p-2">ID</th><th>Produk</th><th>Jumlah</th><th>Tanggal</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Penjualan -->
+        <div id="page-penjualan" class="page card bg-white p-4 rounded shadow hidden">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-semibold">Penjualan</h3>
+            <div>
+              <button id="btnNewPenjualan" class="bg-amber-600 text-white px-3 py-1 rounded">Tambah Penjualan</button>
+              <button id="btnReloadPen" class="ml-2 border px-3 py-1 rounded">Reload</button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table id="tblPenjualan" class="w-full text-sm">
+              <thead class="bg-slate-50"><tr>
+                <th class="p-2">ID</th><th>Produk</th><th>Jumlah</th><th>Harga</th><th>Tanggal</th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Laporan -->
+        <div id="page-laporan" class="page card bg-white p-4 rounded shadow hidden">
+          <h3 class="text-lg font-semibold mb-3">Laporan Stok</h3>
+          <pre id="laporanOut" class="whitespace-pre-wrap bg-slate-50 p-3 rounded"></pre>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal (single modal used for multiple forms) -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
+    <div class="bg-white rounded w-full max-w-2xl p-4">
+      <div class="flex justify-between items-center mb-3">
+        <h3 id="modalTitle" class="font-semibold">Form</h3>
+        <button id="modalClose" class="px-2 py-1 border rounded">Tutup</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
   </div>
 
-  <script src="app.js"></script>
+  <footer class="text-center text-sm text-slate-500 py-4">
+    © BlueHarvest — ready to deploy
+  </footer>
+
+  <script src="app.js" type="module"></script>
+  <script>feather.replace()</script>
 </body>
 </html>
