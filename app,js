@@ -1,23 +1,420 @@
-const API = "http://backendblueharvest.wuaze.com/api.php";
-const KEY = "BH-40662036_STATIC";
+// app.js - module
+const DEFAULT_API_BASE = "http://backendblueharvest.wuaze.com/api.php";
+const DEFAULT_API_KEY = "BH-40662036_STATIC";
 
-async function loadStok() {
-  document.getElementById("output").textContent = "Loading...";
+const C = {
+  api_base: localStorage.getItem('bh_api_base') || DEFAULT_API_BASE,
+  api_key: localStorage.getItem('bh_api_key') || DEFAULT_API_KEY,
+  logged: false
+};
 
-  try {
-    const response = await fetch(API + "?route=laporan/stok", {
-      headers: {
-        "X-API-Key": KEY
-      }
-    });
+// DOM
+const pages = document.querySelectorAll('.page');
+const apiHint = document.getElementById('apiHint');
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const modalTitle = document.getElementById('modalTitle');
 
-    const data = await response.json();
+document.getElementById('api_base').value = C.api_base;
+document.getElementById('api_key').value = C.api_key;
+apiHint.innerText = C.api_base;
 
-    document.getElementById("output").textContent =
-      JSON.stringify(data, null, 2);
+document.getElementById('saveCfg').addEventListener('click', ()=>{
+  C.api_base = document.getElementById('api_base').value.trim();
+  C.api_key = document.getElementById('api_key').value.trim();
+  localStorage.setItem('bh_api_base', C.api_base);
+  localStorage.setItem('bh_api_key', C.api_key);
+  apiHint.innerText = C.api_base;
+  toast('Konfigurasi disimpan');
+  loadAll();
+});
 
-  } catch (err) {
-    document.getElementById("output").textContent =
-      "Error: " + err;
+// nav handlers
+document.querySelectorAll('.nav-btn').forEach(b=>{
+  b.addEventListener('click', ()=> showPage(b.dataset.page));
+});
+
+// login
+document.getElementById('btnLogin').addEventListener('click', ()=> {
+  showLogin();
+});
+document.getElementById('btnLogout').addEventListener('click', ()=> {
+  C.logged = false; document.getElementById('btnLogout').classList.add('hidden');
+  document.getElementById('btnLogin').classList.remove('hidden');
+  toast('Logged out');
+});
+
+// modal helpers
+function openModal(title, html){
+  modalTitle.innerText = title;
+  modalBody.innerHTML = html;
+  modal.classList.add('show');
+  modal.style.display = 'flex';
+}
+function closeModal(){
+  modal.classList.remove('show');
+  modal.style.display = 'none';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+
+// small toast
+function toast(msg){
+  const el = document.createElement('div');
+  el.className = 'fixed bottom-6 right-6 bg-black text-white px-4 py-2 rounded';
+  el.innerText = msg;
+  document.body.appendChild(el);
+  setTimeout(()=> el.remove(), 2500);
+}
+
+// API wrapper
+async function apiFetch(route, opts = {}){
+  const url = `${C.api_base}?route=${route}`;
+  opts.headers = opts.headers || {};
+  opts.headers['X-API-Key'] = C.api_key;
+  if(opts.body && typeof opts.body === 'object') {
+    opts.headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(opts.body);
+  }
+  const res = await fetch(url, opts);
+  if(res.status === 401) { toast('Unauthorized - cek API key'); throw new Error('Unauthorized'); }
+  return res.json();
+}
+
+// show/hide pages
+function showPage(name){
+  pages.forEach(p=> p.classList.add('hidden'));
+  const el = document.getElementById('page-'+name);
+  if(el) el.classList.remove('hidden');
+  // load content depending page
+  if(name === 'dashboard') loadDashboard();
+  if(name === 'bahanBaku') loadBahanBaku();
+  if(name === 'bahanJadi') loadBahanJadi();
+  if(name === 'produksi') loadProduksi();
+  if(name === 'penjualan') loadPenjualan();
+  if(name === 'laporan') loadLaporan();
+}
+
+// INITIAL
+showPage('dashboard');
+loadAll();
+
+// Load everything summary
+function loadAll(){
+  loadDashboard();
+  // don't prefetch tables until page shown
+}
+
+// DASHBOARD
+async function loadDashboard(){
+  try{
+    const data = await apiFetch('laporan/stok', {method:'GET'});
+    document.getElementById('dash-bb').innerText = data.bahan_baku.length || 0;
+    document.getElementById('dash-bj').innerText = data.bahan_jadi.length || 0;
+    // quick production count (best-effort)
+    const p = await apiFetch('produksi/list', {method:'GET'}).catch(()=>[]);
+    document.getElementById('dash-prod').innerText = (p && p.length) || 0;
+  }catch(err){
+    console.error(err); toast('Gagal load dashboard');
   }
 }
+
+// BAHAN BAKU CRUD
+document.getElementById('btnAddBahanBaku').addEventListener('click', ()=> {
+  openModal('Tambah Bahan Baku', formBahanBaku());
+  initBahanBakuForm();
+});
+document.getElementById('btnReloadBB').addEventListener('click', loadBahanBaku);
+
+async function loadBahanBaku(){
+  try{
+    const rows = await apiFetch('bahan_baku/list', {method:'GET'});
+    const tbody = document.querySelector('#tblBahanBaku tbody');
+    tbody.innerHTML = '';
+    for(const r of rows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="p-2">${r.id}</td>
+        <td class="p-2">${r.nama}</td>
+        <td class="p-2">${r.stok}</td>
+        <td class="p-2">${r.satuan}</td>
+        <td class="p-2">
+          <button class="editBB mr-2 text-sm px-2 py-1 border rounded" data-id="${r.id}">Edit</button>
+          <button class="delBB text-sm px-2 py-1 border rounded" data-id="${r.id}">Hapus</button>
+        </td>`;
+      tbody.appendChild(tr);
+    }
+    // bind actions
+    document.querySelectorAll('.editBB').forEach(btn=> btn.addEventListener('click', async e=>{
+      const id = e.target.dataset.id;
+      const row = rows.find(x=> x.id == id);
+      openModal('Edit Bahan Baku', formBahanBaku(row));
+      initBahanBakuForm(id);
+    }));
+    document.querySelectorAll('.delBB').forEach(btn=> btn.addEventListener('click', async e=>{
+      if(!confirm('Hapus bahan baku?')) return;
+      const id = e.target.dataset.id;
+      await apiFetch(`bahan_baku/${id}`, {method:'DELETE'});
+      toast('Dihapus'); loadBahanBaku();
+    }));
+  }catch(err){ console.error(err); toast('Gagal load bahan baku'); }
+}
+
+function formBahanBaku(data = {}){
+  return `
+    <div>
+      <label class="block text-sm">Nama</label>
+      <input id="fb_nama" class="w-full border rounded px-2 py-1" value="${data.nama || ''}">
+      <label class="block text-sm mt-2">Satuan</label>
+      <input id="fb_satuan" class="w-full border rounded px-2 py-1" value="${data.satuan || 'pcs'}">
+      <label class="block text-sm mt-2">Stok</label>
+      <input id="fb_stok" type="number" step="0.001" class="w-full border rounded px-2 py-1" value="${data.stok || 0}">
+      <div class="mt-3 flex gap-2">
+        <button id="fb_save" class="bg-green-600 text-white px-3 py-1 rounded">Simpan</button>
+        <button id="fb_cancel" class="px-3 py-1 border rounded">Batal</button>
+      </div>
+    </div>
+  `;
+}
+
+function initBahanBakuForm(editId){
+  document.getElementById('fb_cancel').onclick = closeModal;
+  document.getElementById('fb_save').onclick = async ()=>{
+    const payload = {
+      nama: document.getElementById('fb_nama').value.trim(),
+      satuan: document.getElementById('fb_satuan').value.trim(),
+      stok: parseFloat(document.getElementById('fb_stok').value || 0)
+    };
+    if(editId){
+      await apiFetch(`bahan_baku/${editId}`, {method:'PUT', body: payload});
+      toast('Diupdate');
+    } else {
+      await apiFetch('bahan_baku/add', {method:'POST', body: payload});
+      toast('Ditambahkan');
+    }
+    closeModal(); loadBahanBaku();
+  };
+}
+
+// BAHAN JADI CRUD
+document.getElementById('btnAddBahanJadi').addEventListener('click', ()=> {
+  openModal('Tambah Bahan Jadi', formBahanJadi());
+  initBahanJadiForm();
+});
+document.getElementById('btnReloadBJ').addEventListener('click', loadBahanJadi);
+
+async function loadBahanJadi(){
+  try{
+    const rows = await apiFetch('bahan_jadi/list', {method:'GET'});
+    const tbody = document.querySelector('#tblBahanJadi tbody');
+    tbody.innerHTML = '';
+    for(const r of rows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="p-2">${r.id}</td>
+        <td class="p-2">${r.nama}</td>
+        <td class="p-2">${r.stok}</td>
+        <td class="p-2">${r.harga_satuan || 0}</td>
+        <td class="p-2">
+          <button class="editBJ mr-2 text-sm px-2 py-1 border rounded" data-id="${r.id}">Edit</button>
+          <button class="delBJ text-sm px-2 py-1 border rounded" data-id="${r.id}">Hapus</button>
+        </td>`;
+      tbody.appendChild(tr);
+    }
+    document.querySelectorAll('.editBJ').forEach(btn=> btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const row = rows.find(x=> x.id == id);
+      openModal('Edit Bahan Jadi', formBahanJadi(row));
+      initBahanJadiForm(id);
+    }));
+    document.querySelectorAll('.delBJ').forEach(btn=> btn.addEventListener('click', async e=>{
+      if(!confirm('Hapus bahan jadi?')) return;
+      await apiFetch(`bahan_jadi/${e.target.dataset.id}`, {method:'DELETE'});
+      toast('Dihapus'); loadBahanJadi();
+    }));
+  }catch(err){ console.error(err); toast('Gagal load bahan jadi'); }
+}
+
+function formBahanJadi(data = {}){
+  return `
+    <div>
+      <label class="block text-sm">Nama</label>
+      <input id="fj_nama" class="w-full border rounded px-2 py-1" value="${data.nama || ''}">
+      <label class="block text-sm mt-2">Satuan</label>
+      <input id="fj_satuan" class="w-full border rounded px-2 py-1" value="${data.satuan || 'pcs'}">
+      <label class="block text-sm mt-2">Stok Awal</label>
+      <input id="fj_stok" type="number" step="0.001" class="w-full border rounded px-2 py-1" value="${data.stok || 0}">
+      <label class="block text-sm mt-2">Harga Satuan</label>
+      <input id="fj_harga" type="number" step="0.01" class="w-full border rounded px-2 py-1" value="${data.harga_satuan || 0}">
+      <div class="mt-3 flex gap-2">
+        <button id="fj_save" class="bg-green-600 text-white px-3 py-1 rounded">Simpan</button>
+        <button id="fj_cancel" class="px-3 py-1 border rounded">Batal</button>
+      </div>
+    </div>
+  `;
+}
+
+function initBahanJadiForm(editId){
+  document.getElementById('fj_cancel').onclick = closeModal;
+  document.getElementById('fj_save').onclick = async ()=>{
+    const payload = {
+      nama: document.getElementById('fj_nama').value.trim(),
+      satuan: document.getElementById('fj_satuan').value.trim(),
+      stok: parseFloat(document.getElementById('fj_stok').value || 0),
+      harga_satuan: parseFloat(document.getElementById('fj_harga').value || 0)
+    };
+    if(editId){
+      await apiFetch(`bahan_jadi/${editId}`, {method:'PUT', body: payload});
+      toast('Diupdate');
+    } else {
+      await apiFetch('bahan_jadi/add', {method:'POST', body: payload});
+      toast('Ditambahkan');
+    }
+    closeModal(); loadBahanJadi();
+  };
+}
+
+// PRODUKSI create / list
+document.getElementById('btnNewProduksi').addEventListener('click', async ()=>{
+  // build produksi form dynamically: select produk & bahan with qty
+  const prods = await apiFetch('bahan_jadi/list', {method:'GET'});
+  const bahan = await apiFetch('bahan_baku/list', {method:'GET'});
+  let prodOptions = prods.map(p=> `<option value="${p.id}">${p.nama} (stok:${p.stok})</option>`).join('');
+  let materialInputs = bahan.map(b=>{
+    return `<div class="mt-2"><label>${b.nama} (${b.satuan})</label><input data-id="${b.id}" type="number" step="0.001" class="w-full border rounded px-2 py-1" value="0"></div>`;
+  }).join('');
+  const html = `
+    <div>
+      <label class="block text-sm">Pilih Produk (Bahan Jadi)</label>
+      <select id="prod_produk" class="w-full border rounded px-2 py-1">${prodOptions}</select>
+      <label class="block text-sm mt-2">Jumlah Produksi</label>
+      <input id="prod_jumlah" type="number" step="0.001" class="w-full border rounded px-2 py-1" value="1">
+      <h4 class="mt-3">Material Pemakaian</h4>
+      <div id="prod_materials">${materialInputs}</div>
+      <div class="mt-3 flex gap-2">
+        <button id="prod_save" class="bg-sky-600 text-white px-3 py-1 rounded">Proses</button>
+        <button id="prod_cancel" class="px-3 py-1 border rounded">Batal</button>
+      </div>
+    </div>
+  `;
+  openModal('Buat Produksi', html);
+  document.getElementById('prod_cancel').onclick = closeModal;
+  document.getElementById('prod_save').onclick = async ()=>{
+    const produk_id = parseInt(document.getElementById('prod_produk').value);
+    const jumlah_produksi = parseFloat(document.getElementById('prod_jumlah').value || 0);
+    const detail = Array.from(document.querySelectorAll('#prod_materials input[data-id]')).map(i=>({
+      bahan_baku_id: parseInt(i.dataset.id), jumlah_pakai: parseFloat(i.value || 0)
+    })).filter(x=> x.jumlah_pakai > 0);
+    if(!produk_id || !jumlah_produksi || detail.length==0) { toast('Lengkapi form produksi'); return; }
+    await apiFetch('produksi/create', {method:'POST', body: {produk_id, jumlah_produksi, detail}});
+    toast('Produksi berhasil'); closeModal(); loadProduksi(); loadBahanBaku(); loadBahanJadi();
+  };
+});
+
+document.getElementById('btnReloadProd').addEventListener('click', loadProduksi);
+async function loadProduksi(){
+  try{
+    const rows = await apiFetch('produksi/list', {method:'GET'});
+    const tbody = document.querySelector('#tblProduksi tbody');
+    tbody.innerHTML = '';
+    for(const r of rows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="p-2">${r.id}</td>
+        <td class="p-2">${r.produk_nama || r.produk_id}</td>
+        <td class="p-2">${r.jumlah_produksi}</td>
+        <td class="p-2">${r.created_at || ''}</td>`;
+      tbody.appendChild(tr);
+    }
+  }catch(e){ console.error(e); toast('Gagal load produksi'); }
+}
+
+// PENJUALAN create / list
+document.getElementById('btnNewPenjualan').addEventListener('click', async ()=>{
+  const prods = await apiFetch('bahan_jadi/list', {method:'GET'});
+  const prodOptions = prods.map(p=> `<option value="${p.id}">${p.nama} (stok:${p.stok})</option>`).join('');
+  openModal('Tambah Penjualan', `
+    <div>
+      <label class="block text-sm">Produk</label>
+      <select id="pen_produk" class="w-full border rounded px-2 py-1">${prodOptions}</select>
+      <label class="block text-sm mt-2">Jumlah</label>
+      <input id="pen_jumlah" type="number" step="0.001" class="w-full border rounded px-2 py-1" value="1">
+      <label class="block text-sm mt-2">Harga Total</label>
+      <input id="pen_harga" type="number" step="0.01" class="w-full border rounded px-2 py-1" value="0">
+      <label class="block text-sm mt-2">Customer</label>
+      <input id="pen_customer" class="w-full border rounded px-2 py-1" value="">
+      <div class="mt-3 flex gap-2">
+        <button id="pen_save" class="bg-amber-600 text-white px-3 py-1 rounded">Simpan</button>
+        <button id="pen_cancel" class="px-3 py-1 border rounded">Batal</button>
+      </div>
+    </div>
+  `);
+  document.getElementById('pen_cancel').onclick = closeModal;
+  document.getElementById('pen_save').onclick = async ()=>{
+    const produk_id = parseInt(document.getElementById('pen_produk').value);
+    const jumlah = parseFloat(document.getElementById('pen_jumlah').value || 0);
+    const harga_total = parseFloat(document.getElementById('pen_harga').value || 0);
+    const customer = document.getElementById('pen_customer').value;
+    if(!produk_id || !jumlah) { toast('Lengkapi form penjualan'); return; }
+    await apiFetch('penjualan/create', {method:'POST', body: {produk_id, jumlah, harga_total, customer}});
+    toast('Penjualan tersimpan'); closeModal(); loadPenjualan(); loadBahanJadi();
+  };
+});
+
+document.getElementById('btnReloadPen').addEventListener('click', loadPenjualan);
+async function loadPenjualan(){
+  try{
+    const rows = await apiFetch('penjualan/list', {method:'GET'});
+    const tbody = document.querySelector('#tblPenjualan tbody');
+    tbody.innerHTML = '';
+    for(const r of rows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="p-2">${r.id}</td>
+        <td class="p-2">${r.produk_nama || r.produk_id}</td>
+        <td class="p-2">${r.jumlah}</td>
+        <td class="p-2">${r.harga_total}</td>
+        <td class="p-2">${r.created_at || ''}</td>`;
+      tbody.appendChild(tr);
+    }
+  }catch(e){ console.error(e); toast('Gagal load penjualan'); }
+}
+
+// LAPORAN
+async function loadLaporan(){
+  try{
+    const data = await apiFetch('laporan/stok', {method:'GET'});
+    document.getElementById('laporanOut').innerText = JSON.stringify(data, null, 2);
+  }catch(e){ console.error(e); toast('Gagal load laporan'); }
+}
+
+// LOGIN (simple: just modal, no backend auth for now)
+function showLogin(){
+  openModal('Login (opsional)', `
+    <div>
+      <label class="block text-sm">API Key</label>
+      <input id="login_key" class="w-full border rounded px-2 py-1" value="${C.api_key}">
+      <div class="mt-3 flex gap-2">
+        <button id="login_save" class="bg-sky-600 text-white px-3 py-1 rounded">Simpan</button>
+        <button id="login_cancel" class="px-3 py-1 border rounded">Batal</button>
+      </div>
+    </div>
+  `);
+  document.getElementById('login_cancel').onclick = closeModal;
+  document.getElementById('login_save').onclick = ()=>{
+    const k = document.getElementById('login_key').value.trim();
+    if(!k) return toast('Masukkan API key');
+    C.api_key = k; localStorage.setItem('bh_api_key', k);
+    C.logged = true; document.getElementById('btnLogout').classList.remove('hidden'); document.getElementById('btnLogin').classList.add('hidden');
+    closeModal(); toast('API key disimpan');
+  };
+}
+
+// initial load helpers
+async function loadBahanJadi(){ return await apiFetch('bahan_jadi/list', {method:'GET'}).catch(()=>[]); }
+async function loadBahanBaku(){ return await apiFetch('bahan_baku/list', {method:'GET'}).catch(()=>[]); }
+
+// utility: safe initial load when switching pages
+async function loadBahanBaku(){ await loadBahanBaku; } // placeholder to avoid lint issue
+
+// small fix to ensure functions bound earlier are defined
+// NOTE: we load tables when page is shown
+
+// When a page becomes visible, call its loader (handled in showPage)
+
+console.log('BlueHarvest PRO frontend ready');
