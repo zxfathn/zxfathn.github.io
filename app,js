@@ -1,0 +1,23 @@
+const API = "http://backendblueharvest.wuaze.com/api.php";
+const KEY = "BH-40662036_STATIC";
+
+async function loadStok() {
+  document.getElementById("output").textContent = "Loading...";
+
+  try {
+    const response = await fetch(API + "?route=laporan/stok", {
+      headers: {
+        "X-API-Key": KEY
+      }
+    });
+
+    const data = await response.json();
+
+    document.getElementById("output").textContent =
+      JSON.stringify(data, null, 2);
+
+  } catch (err) {
+    document.getElementById("output").textContent =
+      "Error: " + err;
+  }
+}
