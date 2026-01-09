@@ -1,31 +1,128 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Pertemuan</title>
-    <link rel="stylesheet" href="http://zxfathn.github.io/style.css">
-</head>
-<body>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <header>
-        <h1>Tabel Pertemuan</h1>
-    </header>
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://zxfathn.github.io/hina.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 0 10px;
+    text-align: center;
+}
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Link ke Pertemuan</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Tabel ini akan diisi dengan link pertemuan -->
-            </tbody>
-        </table>
-    </div>
+header {
+    padding: 50px 0;
+}
 
-    <script src="http://zxfathn.github.io/script.js"></script>
+h1 {
+    font-size: 2.5em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
 
-</body>
-</html>
+.content {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+ul {
+    text-align: left;
+    list-style-type: square;
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid white;
+}
+
+th {
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 1.2em;
+}
+
+td {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+a {
+    color: #f4a300;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+footer {
+    margin-top: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 1em;
+        padding: 12px;
+    }
+}
