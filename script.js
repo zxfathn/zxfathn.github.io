@@ -1,5 +1,5 @@
 const links = [
-'http://localhost/fathan/pertemuan1.html', 
+'https://zxfathann.biz.id/pertemuan1.html',
 'https://zxfathann.biz.id/pertemuan2.html', 
 'https://zxfathann.biz.id/pertemuan3.html', 
 'https://zxfathann.biz.id/pertemuan4.html', 
