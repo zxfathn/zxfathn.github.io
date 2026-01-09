@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 11</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        .text-example {
+            margin-top: 20px;
+            font-family: "Times New Roman", serif;
+            font-size: 18px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .img-example {
+            float: right;
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 11</h1>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Penggunaan Atribut CSS untuk Font</h2>
+            <p>Berikut adalah beberapa atribut yang digunakan untuk pengaturan font dalam CSS:</p>
+            <pre>
+font-size: xx-large;
+font-family: "Arial", sans-serif;
+font-weight: bold;
+font-style: italic;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Penggunaan Font di CSS</h2>
+            <p>Contoh penggunaan pengaturan font pada elemen <b>h1</b>:</p>
+            <pre>
+h1 {
+    font-family: "Tahoma", sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    font-style: italic;
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>Pengaturan Teks</h2>
+            <p>Gunakan <b>text-align</b> untuk mengatur perataan teks:</p>
+            <pre>
+text-align: left; /* Mengatur teks rata kiri */
+text-align: center; /* Mengatur teks rata tengah */
+text-align: right; /* Mengatur teks rata kanan */
+text-align: justify; /* Mengatur teks agar rata kanan-kiri */
+            </pre>
+        </section>
+
+        <section>
+            <h2>Pengaturan Margin</h2>
+            <p>Atribut <b>margin</b> digunakan untuk memberikan jarak di sekitar elemen:</p>
+            <pre>
+margin-left: 20px;
+margin-right: 15px;
+margin-top: 10px;
+margin-bottom: 5px;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Posisi Gambar dengan CSS</h2>
+            <p>Berikut adalah contoh pengaturan posisi gambar dengan <b>CSS</b> menggunakan <b>float</b>:</p>
+            <img src="https://zxfathn.github.io/hina.jpeg" alt="Gambar" class="img-example">
+            <p class="text-example">Posisi gambar di bagian kanan teks.</p>
+            <pre>
+&lt;img src="image.jpg" style="float:right;width:50px;height:50px;"&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Pengaturan Warna dalam CSS</h2>
+            <p>Berikut adalah cara mendefinisikan warna teks dan latar belakang:</p>
+            <pre>
+color: red; /* Warna teks merah */
+background-color: #ffcc00; /* Warna latar belakang kuning */
+            </pre>
+        </section>
+
+        <section>
+            <h2>Latihan Penggunaan CSS</h2>
+            <p>Untuk mengatur tampilan website Anda, coba buatlah beberapa file CSS eksternal dan hubungkan dengan file HTML Anda menggunakan tag &lt;link&gt; atau gunakan tag style dalam elemen &lt;head&gt;.</p>
+            <pre>
+&lt;link rel="stylesheet" href="styles.css"&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

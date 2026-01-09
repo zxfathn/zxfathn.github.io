@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login dan Penjelasan Membuat Halaman Login</title>
+    <style>
+        /* Global settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Content styling for Pertemuan 1 */
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            color: white;
+            font-family: monospace;
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-top: 50px;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #667eea;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #5a6fdc;
+        }
+
+        /* Button styling for back to index */
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="login-form">
+    <h1>Login</h1>
+    <form onsubmit="return cekLogin()">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit" id="btnLogin">Login</button>
+    </form>
+    <div id="pesan"></div>
+</div>
+
+<div id="materi" class="content" style="display: none;">
+    <h2>Rangkuman Materi: Membuat Halaman Login dengan HTML, CSS, dan JavaScript</h2>
+    <p>Halaman login adalah bagian yang sangat penting dalam setiap aplikasi web. Di sini, kita akan membuat halaman login sederhana menggunakan **HTML**, **CSS**, dan **JavaScript**.</p>
+
+    <h3>Langkah-langkah Membuat Halaman Login:</h3>
+    <ul>
+        <li><strong>HTML:</strong> Membuat struktur form untuk input pengguna.</li>
+        <li><strong>CSS:</strong> Menata halaman agar tampak menarik, menggunakan background, form styling, dan responsivitas.</li>
+        <li><strong>JavaScript:</strong> Menambahkan fungsi validasi untuk mengecek username dan password, serta membatasi percobaan login.</li>
+    </ul>
+
+    <h3>Contoh HTML untuk Login Form:</h3>
+    <pre>
+<code>
+&lt;form onsubmit="return cekLogin()"&gt;
+    &lt;input type="text" id="username" placeholder="Username" required&gt;
+    &lt;input type="password" id="password" placeholder="Password" required&gt;
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+</code>
+    </pre>
+
+    <h3>Contoh CSS untuk Menata Form Login:</h3>
+    <pre>
+<code>
+.login-form {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+</code>
+    </pre>
+
+    <h3>Contoh JavaScript untuk Validasi Login:</h3>
+    <pre>
+<code>
+function cekLogin() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username === "admin" && password === "12345") {
+        alert("Login Berhasil!");
+        return true;
+    } else {
+        alert("Username atau password salah!");
+        return false;
+    }
+}
+</code>
+    </pre>
+
+    <!-- Kembali ke index -->
+    <a href="https://zxfathn.github.io/index.html" class="back-button">Kembali ke Index</a>
+</div>
+
+<footer>
+    <p>&copy; 2026 Pengenalan Web - Pertemuan 20</p>
+</footer>
+
+<script>
+    const users = [
+        {username: "admin", password: "12345", role: "Administrator"},
+        {username: "dosen", password: "dosen123", role: "Dosen"},
+        {username: "mahasiswa", password: "mhs123", role: "Mahasiswa"}
+    ];
+
+    let gagalLogin = 0;
+    const batasGagal = 3;
+
+    function cekLogin() {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let pesan = document.getElementById("pesan");
+
+        // Cek akun terkunci
+        if (gagalLogin >= batasGagal) {
+            pesan.innerHTML = "Akun dikunci karena 3 kali gagal login";
+            pesan.style.color = "red";
+            return false;
+        }
+
+        // Validasi input kosong
+        if (username === "" || password === "") {
+            pesan.innerHTML = "Username dan Password wajib diisi";
+            pesan.style.color = "orange";
+            return false;
+        }
+
+        // Cari user
+        let userDitemukan = users.find(
+            user => user.username === username && user.password === password
+        );
+
+        if (userDitemukan) {
+            pesan.innerHTML = "Login berhasil. Role: <b>" + userDitemukan.role + "</b>";
+            pesan.style.color = "green";
+            gagalLogin = 0; // reset jika berhasil
+
+            // Tampilkan materi setelah login berhasil
+            document.querySelector('.login-form').style.display = 'none';
+            document.getElementById('materi').style.display = 'block';
+        } else {
+            gagalLogin++;
+            let sisa = batasGagal - gagalLogin;
+
+            if (sisa > 0) {
+                pesan.innerHTML = "Login gagal. Sisa percobaan: " + sisa;
+                pesan.style.color = "red";
+            } else {
+                pesan.innerHTML = "Akun dikunci karena 3 kali gagal login";
+                pesan.style.color = "red";
+            }
+        }
+
+        return false; // mencegah reload halaman
+    }
+</script>
+
+</body>
+</html>

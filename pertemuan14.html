@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan JavaScript - Pertemuan 14</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan JavaScript - Pertemuan 14</h1>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Pengenalan JavaScript</h2>
+            <p>JavaScript pertama kali diperkenalkan oleh Netscape pada tahun 1995, dengan nama awal LiveScript. JavaScript berfungsi untuk memberikan interaktivitas dalam halaman web, dan dapat dijalankan langsung di browser.</p>
+        </section>
+
+        <section>
+            <h2>Perbedaan JavaScript dan Java</h2>
+            <p>Walaupun JavaScript dan Java memiliki nama yang serupa, keduanya memiliki perbedaan besar. JavaScript digunakan untuk menambahkan interaktivitas pada halaman web, sementara Java adalah bahasa pemrograman yang digunakan untuk pengembangan aplikasi yang lebih besar dan lebih kompleks.</p>
+        </section>
+
+        <section>
+            <h2>Variabel dalam JavaScript</h2>
+            <p>Dalam JavaScript, variabel digunakan untuk menyimpan data sementara dalam memori komputer. Variabel dapat dideklarasikan dengan kata kunci <b>var</b>, <b>let</b>, atau <b>const</b>. Berikut adalah cara mendeklarasikan dan menggunakan variabel:</p>
+            <pre>
+&lt;script type="text/javascript"&gt;
+    var myFirstVariable;
+    myFirstVariable = "Hello";
+    alert(myFirstVariable);
+    myFirstVariable = 54321;
+    alert(myFirstVariable);
+
+    var string1 = "Hai, bagaimana kabarmu?";
+    var string2 = "Goodbye";
+    string2 = string1;
+    alert(string2);
+
+    string1 = "Sekarang berbeda";
+    alert(string1);
+    alert(string2);
+&lt;/script&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Latihan</h2>
+            <p>Berikut adalah contoh sederhana yang akan menampilkan pesan menggunakan variabel dalam JavaScript:</p>
+            <pre>
+&lt;html&gt;
+    &lt;head&gt;&lt;/head&gt;
+    &lt;body&gt;
+        &lt;script language="JavaScript" type="text/javascript"&gt;
+            var message = "Selamat datang di belajar JavaScript!";
+            alert(message);
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

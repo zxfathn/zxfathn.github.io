@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 9</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 9</h1>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Struktur Tabel dengan Frameset</h2>
+            <p>HTML menyediakan elemen <b>frameset</b> untuk mengatur tata letak dengan membagi layar menjadi beberapa bagian berdasarkan baris dan kolom.</p>
+            <p>Struktur penulisan <b>frameset</b> adalah sebagai berikut:</p>
+            <pre>
+&lt;html&gt;
+    &lt;head&gt;--- bagian head ---&lt;/head&gt;
+    &lt;frameset&gt;--- bagian frame ---&lt;/frameset&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Layout Frame Berdasarkan Baris</h2>
+            <p>Contoh layout dengan menggunakan <b>frameset</b> untuk membagi layar menjadi beberapa bagian dalam baris:</p>
+            <pre>
+&lt;frameset rows="25%,65%,10%"&gt;
+    &lt;frame src="header.html" noresize&gt;
+    &lt;frameset cols="15%, 85%"&gt;
+        &lt;frame src="menu.html"&gt;
+        &lt;frame src="home.html" name="kanan"&gt;
+    &lt;/frameset&gt;
+    &lt;frame src="footer.html" noresize scrolling="no"&gt;
+&lt;/frameset&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Layout Frame Campuran</h2>
+            <p>Contoh layout frame campuran dengan baris dan kolom menggunakan <b>frameset</b>:</p>
+            <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Frame Campuran&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;frameset rows="25%, *"&gt;
+        &lt;frame name="frame1" src="frame1.html" scrolling="no" noresize&gt;
+        &lt;frameset cols="25%, *"&gt;
+            &lt;frame name="frame2" src="frame2.html"&gt;
+            &lt;frame name="frame3" src="frame3.html" scrolling="auto"&gt;
+        &lt;/frameset&gt;
+    &lt;/frameset&gt;
+    &lt;noframes&gt;
+        &lt;body&gt;
+            Maaf, browser Anda tidak mendukung penggunaan frame.
+        &lt;/body&gt;
+    &lt;/noframes&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Latihan</h2>
+            <p>Buat beberapa file HTML di dalam satu folder untuk membuat halaman website dengan berbagai file seperti <b>index.html</b>, <b>menu.html</b>, <b>home.html</b>, <b>profil.html</b>, <b>galery.html</b>, dan <b>kontak.html</b>.</p>
+            <p>Berikut adalah contoh script untuk file <b>index.html</b>:</p>
+            <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Membuat Frame Berdasarkan Baris dan Kolom&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;frameset rows="25%,65%,10%"&gt;
+        &lt;frame src="header.html" noresize&gt;
+        &lt;frameset cols="15%, 85%"&gt;
+            &lt;frame src="menu.html"&gt;
+            &lt;frame src="home.html" name="kanan"&gt;
+        &lt;/frameset&gt;
+        &lt;frame src="footer.html" noresize scrolling="no"&gt;
+    &lt;/frameset&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

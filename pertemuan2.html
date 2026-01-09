@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 2</title>
+    <style>
+        /* Global settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        /* Content styling for Pertemuan 2 */
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            text-align: left;
+            list-style-type: square;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali ke Tabel di atas halaman -->
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 2</h1>
+    </header>
+
+    <!-- Konten Pertemuan 2 -->
+    <div class="content">
+        <section>
+            <h2>Tag HTML Dasar</h2>
+            <p>HTML menggunakan tag untuk menandai elemen-elemen di halaman web. Tag HTML terdiri dari tag pembuka dan tag penutup. Struktur dasar penulisan tag HTML adalah seperti berikut:</p>
+            <pre>
+&lt;nama_tag&gt;konten&lt;/nama_tag&gt;
+            </pre>
+            <p>Contoh penggunaan tag HTML:</p>
+            <ul>
+                <li><b>&lt;h1&gt;...&lt;/h1&gt;</b> - Heading 1, digunakan untuk judul utama.</li>
+                <li><b>&lt;p&gt;...&lt;/p&gt;</b> - Paragraf, digunakan untuk teks paragraf.</li>
+                <li><b>&lt;br&gt;</b> - Line break, digunakan untuk membuat baris baru.</li>
+                <li><b>&lt;hr&gt;</b> - Horizontal rule, digunakan untuk membuat garis horizontal.</li>
+                <li><b>&lt;pre&gt;...&lt;/pre&gt;</b> - Preformatted text, menampilkan teks sesuai dengan format aslinya, termasuk spasi dan baris baru.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Bagian Head dalam HTML</h2>
+            <p>Bagian <b>&lt;head&gt;</b> dalam dokumen HTML berfungsi untuk menyimpan informasi meta tentang halaman web, seperti judul halaman, metadata, dan link ke file eksternal seperti CSS dan JavaScript. Contoh:</p>
+            <pre>
+&lt;head&gt;
+    &lt;title&gt;Judul Halaman&lt;/title&gt;
+    &lt;meta name="description" content="Deskripsi halaman web"&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+            </pre>
+            <p>Contoh penggunaan <b>&lt;meta&gt;</b> tag untuk menambahkan deskripsi dan pengaturan pencarian:</p>
+            <ul>
+                <li><b>&lt;meta name="description"&gt;</b> - Menyediakan deskripsi singkat tentang halaman web.</li>
+                <li><b>&lt;meta name="keywords"&gt;</b> - Menyediakan kata kunci untuk mesin pencari.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Bagian Body dalam HTML</h2>
+            <p>Bagian <b>&lt;body&gt;</b> berisi semua konten yang akan ditampilkan di halaman web. Elemen-elemen seperti teks, gambar, dan form diletakkan di dalam <b>&lt;body&gt;</b>. Contoh:</p>
+            <pre>
+&lt;body&gt;
+    &lt;h1&gt;Selamat datang di website kami!&lt;/h1&gt;
+    &lt;p&gt;Ini adalah halaman pertama saya.&lt;/p&gt;
+&lt;/body&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Penggunaan Tag HTML</h2>
+            <p>Berikut adalah contoh penggunaan tag HTML dasar pada sebuah halaman:</p>
+            <pre>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Website Film Terkenal&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Selamat datang pada website film terkenal&lt;/h1&gt;
+        &lt;p&gt;Website ini memberikan informasi tentang film-film terkenal.&lt;/p&gt;
+        &lt;br&gt;
+        &lt;hr&gt;
+        &lt;pre&gt;Teks ini akan ditampilkan dengan format yang sama&lt;/pre&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

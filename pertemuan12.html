@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 12</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        p.htebal {
+            font-family: "Tahoma", sans-serif;
+            font-weight: bold;
+            color: blue;
+            font-size: 16pt;
+            text-indent: 40pt;
+        }
+
+        p.hmiring {
+            font-family: "Tahoma", sans-serif;
+            font-weight: italic;
+            color: red;
+            font-size: 18pt;
+            text-indent: 55pt;
+        }
+
+        .main {
+            text-align: justify;
+            font-size: 125%;
+            color: red;
+        }
+
+        .date {
+            text-align: right;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 12</h1>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Penggunaan Class dalam CSS</h2>
+            <p>Class digunakan untuk memberikan nama kepada sekelompok gaya yang bisa diterapkan pada elemen tertentu. Berikut adalah contoh penggunaan <b>class</b> dalam CSS:</p>
+            <pre>
+p.htebal {
+    font-family: "Tahoma", sans-serif;
+    font-weight: bold;
+    color: blue;
+    font-size: 16pt;
+    text-indent: 40pt;
+}
+p.hmiring {
+    font-family: "Tahoma", sans-serif;
+    font-weight: italic;
+    color: red;
+    font-size: 18pt;
+    text-indent: 55pt;
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Penerapan Class</h2>
+            <p>Berikut adalah contoh penerapan class pada elemen <b>p</b>:</p>
+            <p class="htebal">Tampilan teks dalam paragraf dengan font tebal dan identasi 40pt.</p>
+            <p class="hmiring">Tampilan teks dalam paragraf dengan font miring dan identasi 55pt.</p>
+        </section>
+
+        <section>
+            <h2>Penggunaan Align pada CSS</h2>
+            <p>CSS memungkinkan kita untuk mengatur perataan teks dengan menggunakan <b>text-align</b>. Berikut adalah contohnya:</p>
+            <pre>
+h1 {
+    text-align: center;
+}
+
+p.date {
+    text-align: right;
+}
+
+p.main {
+    text-align: justify;
+    font-size: 125%;
+    color: red;
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>Contoh Layout dengan Align dan CSS</h2>
+            <p class="date">Oktober, 2010</p>
+            <p class="main">Ayah saya selalu memberi nasihat pada waktu saya masih muda dan masih sangat perlu pengawasan, "apabila kamu dikritik oleh seseorang ingatlah bahwa semua orang di dunia tidak ada yang memiliki kelebihanmu".</p>
+            <p><b>Note:</b> Ubahlah ukuran browser untuk melihat efek dari perataan justify.</p>
+        </section>
+    </div>
+
+</body>
+</html>

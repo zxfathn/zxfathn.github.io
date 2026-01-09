@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 4</title>
+    <style>
+        /* Global settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        /* Content styling for Pertemuan 4 */
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            text-align: left;
+            list-style-type: square;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 25%;  /* Mengurangi ukuran gambar */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .audio-container {
+            margin-top: 20px;
+        }
+
+        .audio-container embed {
+            width: 300px;
+            height: 60px;
+            border: 2px solid #f4a300;
+        }
+
+        .video-container {
+            margin-top: 20px;
+        }
+
+        .video-container video {
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali ke Tabel di atas halaman -->
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 4</h1>
+    </header>
+
+    <!-- Konten Pertemuan 4 -->
+    <div class="content">
+        <section>
+            <h2>Menampilkan Gambar di HTML</h2>
+            <p>Untuk menampilkan gambar di halaman web, kita menggunakan tag <b>&lt;img&gt;</b>. Berikut adalah contoh penggunaan gambar:</p>
+            <div class="image-container">
+                <img src="https://ella.janitorai.com/bot-avatars/5K-CX1Xs29BMqgYlB8Vbb.webp" alt="Avatar Gambar" />
+            </div>
+            <p>Gambar ini diambil dari sumber URL yang diberikan dan ditampilkan menggunakan tag <b>&lt;img&gt;</b> dengan atribut <b>src</b> sebagai sumber gambar dan <b>alt</b> untuk teks alternatifnya.</p>
+            <p><b>Contoh Source Code:</b></p>
+            <pre>
+&lt;img src="https://ella.janitorai.com/bot-avatars/5K-CX1Xs29BMqgYlB8Vbb.webp" alt="Avatar Gambar" /&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Menampilkan Suara di HTML</h2>
+            <p>Untuk menambahkan suara ke halaman web, kita menggunakan tag <b>&lt;embed&gt;</b>. Berikut adalah contoh penggunaan untuk menampilkan suara:</p>
+            <div class="audio-container">
+                <embed src="https://western-silver-cqkzgpufkm.edgeone.app/AUD-20230902-WA0379.mp3" loop="true" autoplay="false" width="300" height="60" />
+            </div>
+            <p>Gantilah URL sumber audio pada atribut <b>src</b> dengan file suara yang Anda miliki.</p>
+            <p><b>Contoh Source Code:</b></p>
+            <pre>
+&lt;embed src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop="true" autoplay="false" width="300" height="60" /&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Menampilkan Video di HTML</h2>
+            <p>Untuk menambahkan video ke halaman web, kita menggunakan tag <b>&lt;video&gt;</b>. Berikut adalah contoh penggunaan tag video untuk menampilkan video:</p>
+            <div class="video-container">
+                <video width="400" controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    <source src="https://www.w3schools.com/html/movie.ogg" type="video/ogg">
+                    Browser anda tidak mendukung video pada HTML5.
+                </video>
+            </div>
+            <p>Dengan menggunakan tag <b>&lt;video&gt;</b>, kita dapat mengontrol video melalui atribut <b>controls</b>.</p>
+            <p><b>Contoh Source Code:</b></p>
+            <pre>
+&lt;video width="400" controls&gt;
+    &lt;source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"&gt;
+    &lt;source src="https://www.w3schools.com/html/movie.ogg" type="video/ogg"&gt;
+    Browser anda tidak mendukung video pada HTML5.
+&lt;/video&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

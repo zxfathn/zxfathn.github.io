@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fungsi dan Array di JavaScript - Pertemuan 18</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+            font-family: monospace;
+            font-size: 1.1em;
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Fungsi dan Array di JavaScript</h1>
+        <p>Contoh penggunaan Fungsi dan Array dalam JavaScript</p>
+    </header>
+
+    <div class="content">
+        <!-- Fungsi -->
+        <section>
+            <h2>Contoh Fungsi di JavaScript</h2>
+            <pre>
+<code>
+function product(a, b) {
+    return a * b;
+}
+document.write("Hasil perkalian 4 dan 3 adalah: " + product(4, 3));
+</code>
+            </pre>
+        </section>
+
+        <!-- Fungsi Array -->
+        <section>
+            <h2>Contoh Fungsi Array di JavaScript</h2>
+            <pre>
+<code>
+var fruits = ["Apple", "Banana", "Mango"];
+document.write("Fruits: " + fruits[0] + ", " + fruits[1] + ", " + fruits[2]);
+</code>
+            </pre>
+        </section>
+
+        <!-- Contoh Array dan Fungsi Pengolahan Data -->
+        <section>
+            <h2>Contoh Penggunaan Array dalam Konversi Suhu</h2>
+            <pre>
+<code>
+function convertToCelsius(fahrenheit) {
+    return (5/9) * (fahrenheit - 32);
+}
+var fahrenheitTemps = [212, 32, -459.15];
+var celsiusTemps = [];
+for (var i = 0; i < fahrenheitTemps.length; i++) {
+    celsiusTemps[i] = convertToCelsius(fahrenheitTemps[i]);
+}
+document.write("Fahrenheit: " + fahrenheitTemps + "<br>Celsius: " + celsiusTemps);
+</code>
+            </pre>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pengenalan Web - Pertemuan 18</p>
+    </footer>
+
+</body>
+</html>

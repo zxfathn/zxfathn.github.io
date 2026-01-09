@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            text-align: left;
+            list-style-type: square;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 5</h1>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Link Relative</h2>
+            <p>Link ini digunakan untuk menautkan satu halaman ke halaman lain di website yang sama.</p>
+            <pre>
+&lt;a href="perpustakaan.html"&gt;Ruang Baca&lt;/a&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Link Absolute</h2>
+            <p>Link ini digunakan untuk menautkan ke halaman di website lain dengan menggunakan URL lengkap.</p>
+            <pre>
+&lt;a href="http://www.zxfathan.go.id"&gt;Fathan&lt;/a&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Link Anchor</h2>
+            <p>Link ini digunakan untuk navigasi dalam halaman yang panjang dengan melompat ke bagian tertentu.</p>
+            <pre>
+&lt;a href="#pengenalan"&gt;Pengenalan&lt;/a&gt;
+&lt;a name="pengenalan"&gt;&lt;/a&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Link Email</h2>
+            <p>Link ini digunakan untuk membuka aplikasi email dengan alamat penerima yang telah terisi.</p>
+            <pre>
+&lt;a href="zxfathan:aafathan2005@gmail.com"&gt;Kirim Email&lt;/a&gt;
+            </pre>
+        </section>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Web - Pertemuan 3</title>
+    <style>
+        /* Global settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://zxfathn.github.io/hina.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            color: #f4a300;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #f4a300;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #f4a300;
+            color: black;
+        }
+
+        /* Content styling for Pertemuan 3 */
+        .content {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            text-align: left;
+            list-style-type: square;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .back-button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali ke Tabel di atas halaman -->
+    <a href="https://zxfathn.github.io" class="back-button">Kembali ke Tabel</a>
+
+    <header>
+        <h1>Pengenalan Web - Pertemuan 3</h1>
+    </header>
+
+    <!-- Konten Pertemuan 3 -->
+    <div class="content">
+        <section>
+            <h2>Tag HTML untuk Format Teks</h2>
+            <p>HTML menggunakan tag untuk menandai elemen-elemen di halaman web. Berikut adalah beberapa tag untuk format teks:</p>
+            <ul>
+                <li><b>&lt;b&gt;</b>: Menebalkan teks</li>
+                <li><b>&lt;strong&gt;</b>: Menebalkan teks dengan makna semantik</li>
+                <li><b>&lt;i&gt;</b>: Memiringkan teks</li>
+                <li><b>&lt;em&gt;</b>: Menekankan teks</li>
+                <li><b>&lt;small&gt;</b>: Memperkecil ukuran teks</li>
+                <li><b>&lt;big&gt;</b>: Memperbesar ukuran teks</li>
+                <li><b>&lt;sub&gt;</b>: Menampilkan teks sebagai subscript</li>
+                <li><b>&lt;sup&gt;</b>: Menampilkan teks sebagai superscript</li>
+                <li><b>&lt;u&gt;</b>: Menambahkan garis bawah pada teks</li>
+                <li><b>&lt;s&gt;</b>: Mencoret teks</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Contoh Penggunaan Tag HTML</h2>
+            <p>Berikut adalah contoh penggunaan tag HTML untuk memformat teks:</p>
+            <pre>
+&lt;b&gt;Teks Tebal&lt;/b&gt;
+&lt;strong&gt;Teks Penting&lt;/strong&gt;
+&lt;i&gt;Teks Miring&lt;/i&gt;
+&lt;em&gt;Teks yang Ditekankan&lt;/em&gt;
+&lt;small&gt;Teks Kecil&lt;/small&gt;
+&lt;big&gt;Teks Besar&lt;/big&gt;
+&lt;sub&gt;H&lt;sub&gt;2&lt;/sub&gt;O&lt;/sub&gt;
+&lt;sup&gt;E=mc&lt;sup&gt;2&lt;/sup&gt;&lt;/sup&gt;
+            </pre>
+        </section>
+
+        <section>
+            <h2>Karakter Khusus dalam HTML</h2>
+            <p>HTML menggunakan entitas untuk menampilkan karakter khusus seperti simbol, tanda kutip, atau karakter lainnya. Berikut adalah beberapa entitas umum:</p>
+            <ul>
+                <li>&copy; untuk © (Copyright)</li>
+                <li>&reg; untuk ® (Registered Trademark)</li>
+                <li>&amp; untuk & (Ampersand)</li>
+                <li>&lt; untuk < (Less Than)</li>
+                <li>&gt; untuk > (Greater Than)</li>
+                <li>&quot; untuk " (Double Quote)</li>
+                <li>&nbsp; untuk (Non-breaking Space)</li>
+            </ul>
+        </section>
+    </div>
+
+</body>
+</html>
