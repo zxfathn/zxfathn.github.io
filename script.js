@@ -1,12 +1,26 @@
-// Daftar link pertemuan yang akan diisi di tabel
 const links = [
-    'http://localhost/fathan/pertemuan1.html', 'https://zxfathn.github.io/pertemuan2.html', 'https://zxfathn.github.io/3.html', 
-    'https://zxfathn.github.io/4.html', 'https://zxfathn.github.io/5.html', 'https://zxfathn.github.io/6.html', 
-    'https://zxfathn.github.io/7.html', 'https://zxfathn.github.io/8.html', 'https://zxfathn.github.io/9.html', 
-    'https://zxfathn.github.io/10.html', 'https://zxfathn.github.io/11.html', 'https://zxfathn.github.io/12.html', 
-    'https://zxfathn.github.io/13.html', 'https://zxfathn.github.io/14.html', 'https://zxfathn.github.io/15.html', 
-    'https://zxfathn.github.io/16.html', 'https://zxfathn.github.io/17.html', 'https://zxfathn.github.io/18.html', 
-    'https://zxfathn.github.io/19.html', 'https://zxfathn.github.io/20.html', 'https://zxfathn.github.io/21.html'
+'http://localhost/fathan/pertemuan1.html', 
+'https://zxfathann.biz.id/pertemuan2.html', 
+'https://zxfathann.biz.id/pertemuan3.html', 
+'https://zxfathann.biz.id/pertemuan4.html', 
+'https://zxfathann.biz.id/pertemuan5.html', 
+'https://zxfathann.biz.id/pertemuan6.html', 
+'https://zxfathann.biz.id/pertemuan7.html', 
+'https://zxfathann.biz.id/pertemuan8.html', 
+'https://zxfathann.biz.id/pertemuan9.html', 
+'https://zxfathann.biz.id/pertemuan10.html', 
+'https://zxfathann.biz.id/pertemuan11.html', 
+'https://zxfathann.biz.id/pertemuan12.html', 
+'https://zxfathann.biz.id/pertemuan13.html', 
+'https://zxfathann.biz.id/pertemuan14.html', 
+'https://zxfathann.biz.id/pertemuan15.html', 
+'https://zxfathann.biz.id/pertemuan16.html', 
+'https://zxfathann.biz.id/pertemuan17.html', 
+'https://zxfathann.biz.id/pertemuan18.html', 
+'https://zxfathann.biz.id/pertemuan19.html', 
+'https://zxfathann.biz.id/pertemuan20.html', 
+'https://zxfathann.biz.id/pertemuan21.html'
+
 ];
 
 // Mengambil elemen tbody untuk menambahkan link
