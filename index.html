@@ -1,167 +1,117 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BlueHarvest PRO</title>
-
-  <!-- Tailwind CDN for quick modern look -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Heroicons -->
-  <script src="https://unpkg.com/feather-icons"></script>
-
-  <link rel="stylesheet" href="app.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Form di HTML</title>
+    <link rel="stylesheet" href="http://localhost/form/style.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>Pembelajaran Form HTML</h1>
+            <p id="instructions">Isi form di bawah ini dan pelajari tentang cara penggunaan form HTML.</p>
+        </header>
 
-  <header class="bg-white shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4">
-      <h1 class="text-xl font-semibold">BlueHarvest — PRO</h1>
-      <div class="ml-auto flex items-center gap-3">
-        <div id="apiHint" class="text-sm text-slate-500"></div>
-        <button id="btnLogin" class="rounded-md px-3 py-1 border">Login</button>
-        <button id="btnLogout" class="rounded-md px-3 py-1 border hidden">Logout</button>
-      </div>
+        <!-- Main Content Section -->
+        <main>
+            <section class="form-section" id="form-section">
+                <h2>Form Registrasi</h2>
+                <p>Silakan isi form berikut untuk melanjutkan registrasi:</p>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap:</label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Kata Sandi:</label>
+                        <input type="password" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Konfirmasi Kata Sandi:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Konfirmasi kata sandi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Jenis Kelamin:</label>
+                        <select id="gender" name="gender">
+                            <option value="male">Laki-laki</option>
+                            <option value="female">Perempuan</option>
+                            <option value="other">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agreement">
+                            <input type="checkbox" id="agreement" name="agreement" required> Saya setuju dengan <a href="#">syarat dan ketentuan</a>
+                        </label>
+                    </div>
+
+                    <button type="submit">Daftar</button>
+                </form>
+            </section>
+
+            <!-- Result Section (Hidden Until Form Submission) -->
+            <section id="form-result" class="form-result" style="display: none;">
+                <h2>Hasil Form Registrasi</h2>
+                <div class="card">
+                    <p><strong>Nama:</strong> <span id="result-name"></span></p>
+                    <p><strong>Email:</strong> <span id="result-email"></span></p>
+                    <p><strong>Jenis Kelamin:</strong> <span id="result-gender"></span></p>
+                </div>
+
+                <!-- Materi Pembelajaran Form -->
+              
+                <p>Form di HTML digunakan untuk mengumpulkan data dari pengguna. Elemen form terdiri dari berbagai input seperti teks, email, password, radio buttons, checkbox, dan banyak lagi. Berikut adalah beberapa contoh penggunaannya.</p>
+
+                <h3>1. Contoh Dasar Form HTML</h3>
+                <pre>
+                &lt;form action="/submit" method="POST"&gt;
+                    &lt;input type="text" name="username" placeholder="Username"&gt;
+                    &lt;input type="password" name="password" placeholder="Password"&gt;
+                    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+                &lt;/form&gt;
+                </pre>
+
+                <h3>2. Penggunaan Input Type</h3>
+                <p>HTML menyediakan berbagai jenis input yang dapat digunakan di dalam form:</p>
+                <ul>
+                    <li><strong><code>type="text"</code></strong>: Digunakan untuk input teks biasa.</li>
+                    <li><strong><code>type="email"</code></strong>: Digunakan untuk input email.</li>
+                    <li><strong><code>type="password"</code></strong>: Digunakan untuk input kata sandi.</li>
+                    <li><strong><code>type="checkbox"</code></strong>: Digunakan untuk pilihan yang bisa dicentang.</li>
+                    <li><strong><code>type="radio"</code></strong>: Digunakan untuk memilih salah satu opsi dari beberapa pilihan.</li>
+                    <li><strong><code>select</code></strong>: Digunakan untuk memilih dari dropdown list.</li>
+                </ul>
+
+                <h3>3. Menangani Pengiriman Form</h3>
+                <p>Form dapat dikirim menggunakan berbagai metode seperti <code>POST</code> atau <code>GET</code>. Misalnya, ketika form disubmit, data akan dikirim ke server untuk diproses.</p>
+
+                <h4>Contoh Penggunaan Form Dengan POST:</h4>
+                <pre>
+                &lt;form action="/submit" method="POST"&gt;
+                    &lt;input type="text" name="username" placeholder="Username"&gt;
+                    &lt;input type="password" name="password" placeholder="Password"&gt;
+                    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+                &lt;/form&gt;
+                </pre>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; Fathan Fatahillah</p>
+        </footer>
     </div>
-  </header>
 
-  <main class="max-w-6xl mx-auto px-4 py-6">
-    <section class="grid md:grid-cols-4 gap-4">
-
-      <nav class="md:col-span-1 bg-white p-4 rounded shadow">
-        <h2 class="font-semibold mb-3">Menu</h2>
-        <ul class="space-y-2 text-sm">
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="dashboard">Dashboard</button></li>
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="bahanBaku">Bahan Baku</button></li>
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="bahanJadi">Bahan Jadi</button></li>
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="produksi">Produksi</button></li>
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="penjualan">Penjualan</button></li>
-          <li><button class="nav-btn w-full text-left p-2 rounded hover:bg-slate-50" data-page="laporan">Laporan</button></li>
-        </ul>
-        <hr class="my-3">
-        <div>
-          <label class="text-xs text-slate-500">API Base URL</label>
-          <input id="api_base" class="w-full border rounded px-2 py-1 mt-1" placeholder="https://backend.example.com" />
-          <label class="text-xs text-slate-500 mt-2 block">API Key</label>
-          <input id="api_key" class="w-full border rounded px-2 py-1 mt-1" placeholder="X-API-Key value" />
-          <button id="saveCfg" class="mt-3 w-full bg-sky-600 text-white px-3 py-2 rounded">Simpan Konfigurasi</button>
-        </div>
-      </nav>
-
-      <div id="content" class="md:col-span-3 space-y-4">
-        <!-- Dashboard -->
-        <div id="page-dashboard" class="page card bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold mb-2">Dashboard</h3>
-          <div id="dash" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="p-3 border rounded">Bahan Baku: <span id="dash-bb">—</span></div>
-            <div class="p-3 border rounded">Bahan Jadi: <span id="dash-bj">—</span></div>
-            <div class="p-3 border rounded">Total Produksi: <span id="dash-prod">—</span></div>
-          </div>
-        </div>
-
-        <!-- Bahan Baku -->
-        <div id="page-bahanBaku" class="page card bg-white p-4 rounded shadow hidden">
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="text-lg font-semibold">Bahan Baku</h3>
-            <div>
-              <button id="btnAddBahanBaku" class="bg-green-600 text-white px-3 py-1 rounded">Tambah</button>
-              <button id="btnReloadBB" class="ml-2 border px-3 py-1 rounded">Reload</button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table id="tblBahanBaku" class="w-full text-sm">
-              <thead class="bg-slate-50"><tr>
-                <th class="p-2">ID</th><th>Nama</th><th>Stok</th><th>Satuan</th><th>Aksi</th>
-              </tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Bahan Jadi -->
-        <div id="page-bahanJadi" class="page card bg-white p-4 rounded shadow hidden">
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="text-lg font-semibold">Bahan Jadi</h3>
-            <div>
-              <button id="btnAddBahanJadi" class="bg-green-600 text-white px-3 py-1 rounded">Tambah</button>
-              <button id="btnReloadBJ" class="ml-2 border px-3 py-1 rounded">Reload</button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table id="tblBahanJadi" class="w-full text-sm">
-              <thead class="bg-slate-50"><tr>
-                <th class="p-2">ID</th><th>Nama</th><th>Stok</th><th>Harga</th><th>Aksi</th>
-              </tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Produksi -->
-        <div id="page-produksi" class="page card bg-white p-4 rounded shadow hidden">
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="text-lg font-semibold">Produksi</h3>
-            <div>
-              <button id="btnNewProduksi" class="bg-sky-600 text-white px-3 py-1 rounded">Buat Produksi</button>
-              <button id="btnReloadProd" class="ml-2 border px-3 py-1 rounded">Reload</button>
-            </div>
-          </div>
-
-          <div id="produksiList" class="overflow-x-auto">
-            <table id="tblProduksi" class="w-full text-sm">
-              <thead class="bg-slate-50"><tr>
-                <th class="p-2">ID</th><th>Produk</th><th>Jumlah</th><th>Tanggal</th>
-              </tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Penjualan -->
-        <div id="page-penjualan" class="page card bg-white p-4 rounded shadow hidden">
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="text-lg font-semibold">Penjualan</h3>
-            <div>
-              <button id="btnNewPenjualan" class="bg-amber-600 text-white px-3 py-1 rounded">Tambah Penjualan</button>
-              <button id="btnReloadPen" class="ml-2 border px-3 py-1 rounded">Reload</button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table id="tblPenjualan" class="w-full text-sm">
-              <thead class="bg-slate-50"><tr>
-                <th class="p-2">ID</th><th>Produk</th><th>Jumlah</th><th>Harga</th><th>Tanggal</th>
-              </tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Laporan -->
-        <div id="page-laporan" class="page card bg-white p-4 rounded shadow hidden">
-          <h3 class="text-lg font-semibold mb-3">Laporan Stok</h3>
-          <pre id="laporanOut" class="whitespace-pre-wrap bg-slate-50 p-3 rounded"></pre>
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <!-- Modal (single modal used for multiple forms) -->
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/40">
-    <div class="bg-white rounded w-full max-w-2xl p-4">
-      <div class="flex justify-between items-center mb-3">
-        <h3 id="modalTitle" class="font-semibold">Form</h3>
-        <button id="modalClose" class="px-2 py-1 border rounded">Tutup</button>
-      </div>
-      <div id="modalBody"></div>
-    </div>
-  </div>
-
-  <footer class="text-center text-sm text-slate-500 py-4">
-    © BlueHarvest — ready to deploy
-  </footer>
-
-  <script src="app.js" type="module"></script>
-  <script>feather.replace()</script>
+    <script src="http://localhost/form/script.js"></script>
 </body>
 </html>
