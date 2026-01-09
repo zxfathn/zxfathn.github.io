@@ -1,182 +1,26 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxfsA5hIqfF_PNQm6GTBLvlVa774qvLzubgmgL-WiNoDQThqxP0swplHP4049oZbWXfEg/exec";
+// Daftar link pertemuan yang akan diisi di tabel
+const links = [
+    'http://localhost/fathan/pertemuan1.html', 'https://zxfathn.github.io/pertemuan2.html', 'https://zxfathn.github.io/3.html', 
+    'https://zxfathn.github.io/4.html', 'https://zxfathn.github.io/5.html', 'https://zxfathn.github.io/6.html', 
+    'https://zxfathn.github.io/7.html', 'https://zxfathn.github.io/8.html', 'https://zxfathn.github.io/9.html', 
+    'https://zxfathn.github.io/10.html', 'https://zxfathn.github.io/11.html', 'https://zxfathn.github.io/12.html', 
+    'https://zxfathn.github.io/13.html', 'https://zxfathn.github.io/14.html', 'https://zxfathn.github.io/15.html', 
+    'https://zxfathn.github.io/16.html', 'https://zxfathn.github.io/17.html', 'https://zxfathn.github.io/18.html', 
+    'https://zxfathn.github.io/19.html', 'https://zxfathn.github.io/20.html', 'https://zxfathn.github.io/21.html'
+];
 
-const contactsTable = document.getElementById("contactsTable");
-const contactForm = document.getElementById("contactForm");
-const searchInput = document.getElementById("searchInput");
-const selectAllCheckbox = document.getElementById("selectAll");
-const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
-const uploadCsvInput = document.getElementById("uploadCsv");
-const editModal = document.getElementById("editModal");
-const detailModal = document.getElementById("detailModal");
-const detailText = document.getElementById("detailText");
+// Mengambil elemen tbody untuk menambahkan link
+const tableBody = document.getElementById('table-body');
 
-let contactsData = [];
-
-async function fetchData() {
-    try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        contactsData = data;
-        buildTable(data);
-    } catch (err) {
-        console.error("Error fetching data: ", err);
-    }
-}
-
-function buildTable(data) {
-    contactsTable.innerHTML = "";
-    data.forEach((c, i) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td><input type="checkbox" class="selectBox" data-id="${c.id}" onclick="toggleDeleteBtn()"></td>
-            <td>${i + 1}</td>
-            <td>${c.nama}</td>
-            <td>${c.telepon}</td>
-            <td>${c.email}</td>
-            <td>${c.perusahaan}</td>
-            <td>${c.catatan}</td>
-        `;
-
-        row.querySelector(".selectBox").addEventListener("change", toggleDeleteBtn);
-        row.addEventListener("click", (e) => {
-            if (!e.target.classList.contains("selectBox")) {
-                showDetails(c);
-            }
-        });
-
-        contactsTable.appendChild(row);
-    });
-}
-
-function showDetails(c) {
-    detailText.innerHTML = `<b>Nama:</b> ${c.nama}<br>
-        <b>Telepon:</b> ${c.telepon}<br>
-        <b>Email:</b> ${c.email}<br>
-        <b>Perusahaan:</b> ${c.perusahaan}<br>
-        <b>Catatan:</b> ${c.catatan}`;
-
-    detailModal.style.display = "block";
-
-    document.getElementById("editFromDetail").onclick = () => openEditForm(c);
-    document.getElementById("copyFromDetail").onclick = copyData;
-    document.getElementById("deleteFromDetail").onclick = () => deleteContact(c.id);
-}
-
-function openEditForm(c) {
-    document.getElementById("editNama").value = c.nama;
-    document.getElementById("editTelepon").value = c.telepon;
-    document.getElementById("editEmail").value = c.email;
-    document.getElementById("editPerusahaan").value = c.perusahaan;
-    document.getElementById("editCatatan").value = c.catatan;
-    document.getElementById("editId").value = c.id;
-    editModal.style.display = "block";
-}
-
-function closeEditModal() {
-    editModal.style.display = "none";
-}
-
-function closeDetailModal() {
-    detailModal.style.display = "none";
-}
-
-contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const id = contactForm.contactId.value;
-    const params = new URLSearchParams({
-        nama: contactForm.nama.value,
-        telepon: contactForm.telepon.value,
-        email: contactForm.email.value,
-        perusahaan: contactForm.perusahaan.value,
-        catatan: contactForm.catatan.value,
-        action: id ? "update" : "create",
-        id,
-    });
-
-    await fetch(API_URL, { method: "POST", body: params });
-    fetchData();
-    clearForm();
+// Menambahkan baris ke tabel untuk setiap pertemuan
+links.forEach((link, index) => {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    const anchor = document.createElement('a');
+    
+    anchor.href = link;
+    anchor.textContent = `Pertemuan ${index + 1}`;  // Menambahkan nomor pertemuan
+    cell.appendChild(anchor);
+    row.appendChild(cell);
+    tableBody.appendChild(row);
 });
-
-function clearForm() {
-    contactForm.reset();
-    contactForm.contactId.value = "";
-    document.getElementById("btnCancel").style.display = "none";
-}
-
-async function deleteContact(id) {
-    if (!confirm("Hapus kontak ini?")) return;
-    await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
-    fetchData();
-}
-
-async function deleteSelected() {
-    const selected = Array.from(document.querySelectorAll(".selectBox:checked")).map((b) => b.dataset.id);
-    if (selected.length === 0) return;
-
-    if (!confirm("Hapus semua kontak yang dipilih?")) return;
-
-    for (let id of selected) {
-        await fetch(API_URL, { method: "POST", body: new URLSearchParams({ action: "delete", id }) });
-    }
-
-    fetchData();
-}
-
-function copyData() {
-    const text = detailText.innerText;
-    navigator.clipboard.writeText(text)
-        .then(() => alert("Kontak detail telah disalin!"));
-}
-
-function toggleSelectAll(checkbox) {
-    const checkboxes = document.querySelectorAll(".selectBox");
-    checkboxes.forEach((cb) => {
-        cb.checked = checkbox.checked;
-    });
-    toggleDeleteBtn();
-}
-
-function toggleDeleteBtn() {
-    const selectedCount = document.querySelectorAll(".selectBox:checked").length;
-    deleteSelectedBtn.style.display = selectedCount > 0 ? "inline-block" : "none";
-}
-
-searchInput.addEventListener("keyup", () => {
-    const kw = searchInput.value.toLowerCase();
-    document.querySelectorAll("#contactsTable tr").forEach((row) => {
-        row.style.display = row.innerText.toLowerCase().includes(kw) ? "" : "none";
-    });
-});
-
-uploadCsvInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "text/csv") {
-        const reader = new FileReader();
-        reader.onload = async function () {
-            const csvData = reader.result.split("\n").map((row) => row.split(","));
-            const data = csvData.slice(1).map((row) => ({
-                nama: row[0],
-                telepon: row[1],
-                email: row[2],
-                perusahaan: row[3],
-                catatan: row[4],
-            }));
-
-            await fetch(API_URL, {
-                method: "POST",
-                body: new URLSearchParams({ action: "import", data: JSON.stringify(data) })
-            });
-
-            alert("CSV berhasil diimpor!");
-            fetchData();
-        };
-        reader.readAsText(file);
-    } else {
-        alert("File bukan format CSV!");
-    }
-});
-
-window.addEventListener("load", fetchData);
