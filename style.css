@@ -1,5 +1,31 @@
-/* minimal overrides */
-.page { display: block; }
-.card { /* already Tailwind but keep compatibility */ }
-#modal { display: none; }
-#modal.show { display: flex; }
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Pertemuan</title>
+    <link rel="stylesheet" href="http://zxfathn.github.io/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Tabel Pertemuan</h1>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Link ke Pertemuan</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Tabel ini akan diisi dengan link pertemuan -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="http://zxfathn.github.io/script.js"></script>
+
+</body>
+</html>
