@@ -1,0 +1,184 @@
+/* Reset dasar */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f8fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+header.navbar {
+  background-color: #1565c0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-left {
+ .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.dosen-name,
+.instagram {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #e3f2fd;
+  margin-left: 10px;
+}
+
+.instagram a {
+  color: #fffde7;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.instagram a:hover {
+  text-decoration: underline;
+}
+
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: #ffd54f;
+}
+
+/* Container utama */
+.container {
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 0 20px 60px;
+}
+
+.container h2 {
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+  color: #222;
+}
+
+.container p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Accordion tombol */
+.accordion-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #1976d2, #0d47a1);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgb(25 118 210 / 0.4);
+  transition: background 0.3s ease;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-btn:hover {
+  background: linear-gradient(90deg, #0d47a1, #1976d2);
+}
+
+.accordion-btn::after {
+  content: '+';
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.accordion-btn.active::after {
+  content: '-';
+  transform: rotate(180deg);
+}
+
+/* Konten accordion */
+.accordion-content {
+  background: white;
+  border-radius: 0 0 8px 8px;
+  padding: 20px 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  display: none;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.accordion-content.open {
+  display: block;
+}
+
+/* Gambar logo UNPAM (hapus gambar 3d modul) */
+.materi-img {
+  display: none; /* gak dipakai */
+}
+
+/* Heading dalam materi */
+.accordion-content h3 {
+  color: #1565c0;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Paragraph isi materi */
+.accordion-content p {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px 10px;
+  background-color: #1565c0;
+  color: white;
+  font-weight: 600;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

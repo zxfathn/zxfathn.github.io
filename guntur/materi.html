@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Materi Teknik Riset Operasional - Universitas Pamulang</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-left">
+    <img src="unpam.png" alt="Logo UNPAM" class="logo">
+    <h1>Teknik Riset Operasional</h1>
+    <span class="dosen-name">Dosen: Octaviana Anugrah Ade Purnama</span>
+    <span class="instagram">IG: <a href="https://instagram.com/gunturrivaldi21" target="_blank">@gunturrivaldi21</a></span>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Materi.html" class="active">Materi</a>
+    <a href="tentang.html">Tentang</a>
+  </nav>
+</header>
+
+<section class="container">
+<h2>Modul Perkuliahan Lengkap</h2>
+<p>Berikut adalah rangkuman materi, contoh kasus, dan pembahasan untuk persiapan UAS.</p>
+
+<button class="accordion-btn">Pertemuan 1: Konsep Dasar Riset Operasional</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Riset Operasional (Operations Research) adalah aplikasi metode ilmiah, teknik, dan alat-alat matematika terhadap masalah-masalah yang berkaitan dengan operasi sebuah sistem. Tujuannya adalah memberikan solusi optimal bagi pengambil keputusan. Tiga elemen kunci model TRO adalah:
+  <br>1. <strong>Variabel Keputusan (x):</strong> Unsur yang dapat dikendalikan.
+  <br>2. <strong>Fungsi Tujuan (Z):</strong> Target yang ingin dicapai (Max/Min).
+  <br>3. <strong>Fungsi Kendala:</strong> Batasan sumber daya yang tersedia.</p>
+  <h3>Studi Kasus</h3>
+  <p>PT. Tekstil Jaya memproduksi Kain Sutra (X1) dan Kain Wol (X2). Keuntungan per meter: Sutra Rp 50.000, Wol Rp 40.000.
+  <br>- Mesin Tenun: Sutra 3 jam, Wol 2 jam (Max 60 jam).
+  <br>- Bahan Baku: Sutra 2 kg, Wol 4 kg (Max 80 kg).
+  <br><strong>Soal:</strong> Tentukan model matematisnya.</p>
+  <h3>Pembahasan</h3>
+  <p><strong>Fungsi Tujuan:</strong>
+  <br>Max Z = 50.000 X1 + 40.000 X2
+  <br><strong>Fungsi Kendala:</strong>
+  <br>1. 3 X1 + 2 X2 &le; 60 (Jam Tenun)
+  <br>2. 2 X1 + 4 X2 &le; 80 (Bahan Baku)
+  <br>3. X1, X2 &ge; 0 (Syarat Non-negatif)</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 2: Sejarah & Metodologi TRO</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>TRO bermula saat Perang Dunia II di Inggris ("Military Operations Research") untuk mengoptimalkan penggunaan radar dan logistik militer. Pasca perang, George Dantzig (1947) menemukan metode Simplex, membawa TRO ke dunia industri. Tahapan metodologi TRO meliputi: Observasi, Definisi Masalah, Konstruksi Model, Solusi Model, dan Validasi.</p>
+  <h3>Studi Kasus</h3>
+  <p>Manajer logistik harus mendistribusikan bantuan bencana ke 3 titik lokasi dengan biaya minimum dan waktu tercepat.
+  <br><strong>Soal:</strong> Klasifikasikan jenis permasalahan ini dalam ruang lingkup TRO.</p>
+  <h3>Pembahasan</h3>
+  <p>Masalah ini masuk dalam kategori <strong>Model Transportasi (Transportation Model)</strong> dan <strong>Analisis Jaringan (Network Analysis)</strong>. Variabel keputusannya adalah jumlah barang yang dikirim dari gudang i ke titik j, dengan tujuan meminimalkan fungsi biaya total (Cost Minimization).</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 3: Formulasi Model Masalah</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Pemodelan adalah proses abstraksi dunia nyata ke dalam simbol matematis. Model yang baik harus memenuhi kriteria: Sederhana namun representatif, Dapat dimengerti, dan Robust (tahan uji). Kesalahan umum dalam pemodelan adalah mengabaikan kendala implisit.</p>
+  <h3>Studi Kasus</h3>
+  <p>Petani memiliki lahan 100 Ha. Ingin menanam Jagung (X) dan Padi (Y).
+  <br>- Modal tersedia: Rp 500 Juta.
+  <br>- Biaya tanam: Jagung Rp 4 Juta/Ha, Padi Rp 6 Juta/Ha.
+  <br>- Tenaga kerja max: 1200 HOK (Hari Orang Kerja).
+  <br>- Jagung butuh 10 HOK/Ha, Padi 15 HOK/Ha.
+  <br><strong>Soal:</strong> Formulasikan kendalanya.</p>
+  <h3>Pembahasan</h3>
+  <p>1. Kendala Lahan: <code>X + Y &le; 100</code>
+  <br>2. Kendala Modal: <code>4X + 6Y &le; 500</code> (dalam Juta)
+  <br>3. Kendala Tenaga: <code>10X + 15Y &le; 1200</code>
+  <br>4. Non-negatif: <code>X, Y &ge; 0</code></p>
+</div>
+
+<button class="accordion-btn">Pertemuan 4: Asumsi Dasar Linear Programming</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Agar masalah dapat diselesaikan dengan Linear Programming (LP), 4 asumsi dasar harus terpenuhi:
+  <br>1. <strong>Linearity (Proporsionalitas):</strong> Naik turunnya output sebanding input.
+  <br>2. <strong>Additivity (Penjumlahan):</strong> Total nilai adalah jumlah dari bagian-bagiannya.
+  <br>3. <strong>Divisibility (Keterbagian):</strong> Nilai variabel boleh pecahan.
+  <br>4. <strong>Deterministic (Kepastian):</strong> Parameter diketahui dengan pasti.</p>
+  <h3>Studi Kasus</h3>
+  <p>Sebuah pabrik memberikan diskon harga bahan baku sebesar 10% jika pembelian melebihi 1.000 unit. Apakah kasus ini bisa menggunakan LP standar?</p>
+  <h3>Pembahasan</h3>
+  <p><strong>Tidak bisa.</strong> Hal ini melanggar asumsi <strong>Linearity/Proporsionalitas</strong>. Fungsi biaya menjadi tidak linear (ada patahan harga setelah unit ke-1000). Kasus ini harus diselesaikan dengan metode <em>Non-Linear Programming</em> atau <em>Piecewise Linear</em>.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 5: Linear Programming (Metode Grafik)</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Metode Grafik digunakan untuk menyelesaikan masalah LP yang hanya memiliki <strong>2 variabel keputusan</strong>. Solusi optimal selalu terletak pada salah satu titik pojok (corner point) dari daerah penyelesaian yang layak (Feasible Region).</p>
+  <h3>Studi Kasus</h3>
+  <p>Max Z = 3X + 2Y
+  <br>Kendala:
+  <br>1. X + Y &le; 5
+  <br>2. X &ge; 0, Y &ge; 0
+  <br><strong>Soal:</strong> Tentukan nilai X dan Y optimal.</p>
+  <h3>Pembahasan</h3>
+  <p>Garis X + Y = 5 memotong sumbu di (0,5) dan (5,0).
+  <br>Area feasible adalah segitiga (0,0), (5,0), dan (0,5).
+  <br>Uji Titik Pojok:
+  <br>- Titik (0,0) &rarr; Z = 0
+  <br>- Titik (5,0) &rarr; Z = 3(5) + 0 = 15
+  <br>- Titik (0,5) &rarr; Z = 0 + 2(5) = 10
+  <br><strong>Solusi Optimal:</strong> X=5, Y=0 dengan Z max = 15.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 6: Analisis Titik Potong</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Dalam metode grafik, seringkali titik optimal bukan di sumbu, melainkan di perpotongan dua garis kendala. Hal ini dicari menggunakan metode eliminasi atau substitusi sistem persamaan linear.</p>
+  <h3>Studi Kasus</h3>
+  <p>Kendala 1: 2X + Y = 10
+  <br>Kendala 2: X + 3Y = 15
+  <br><strong>Soal:</strong> Cari titik potong kedua garis tersebut.</p>
+  <h3>Pembahasan</h3>
+  <p>Dari Kendala 1: Y = 10 - 2X.
+  <br>Substitusi ke Kendala 2:
+  <br>X + 3(10 - 2X) = 15
+  <br>X + 30 - 6X = 15
+  <br>-5X = -15 &rarr; <strong>X = 3</strong>
+  <br>Cari Y: Y = 10 - 2(3) = 4.
+  <br><strong>Titik Potong: (3, 4)</strong>.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 7: Metode Simplex (Pengantar)</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Metode Simplex adalah algoritma aljabar iteratif untuk menyelesaikan masalah LP dengan lebih dari 2 variabel. Langkah pertamanya adalah mengubah pertidaksamaan (&le;) menjadi persamaan (=) dengan menambahkan <strong>Slack Variable (S)</strong>. Slack variable merepresentasikan kapasitas yang tidak terpakai.</p>
+  <h3>Studi Kasus</h3>
+  <p>Ubah ke Bentuk Baku Simplex:
+  <br>Max Z = 5X1 + 7X2
+  <br>Kendala: 2X1 + 3X2 &le; 12</p>
+  <h3>Pembahasan</h3>
+  <p>1. Fungsi Tujuan (Nol-kan ruas kanan):
+  <br><code>Z - 5X1 - 7X2 = 0</code>
+  <br>2. Fungsi Kendala (Tambah Slack):
+  <br><code>2X1 + 3X2 + S1 = 12</code>
+  <br>Variabel S1 ini yang akan masuk ke tabel awal Simplex.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 8: Konsep Dualitas</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Setiap masalah LP (Primal) memiliki bayangan masalah (Dual). Jika Primal adalah Maksimasi Keuntungan, maka Dual adalah Minimasi Biaya Sumber Daya. Solusi optimal Primal sama dengan solusi optimal Dual. Variabel dual mengindikasikan <em>Shadow Price</em> (harga bayangan).</p>
+  <h3>Studi Kasus</h3>
+  <p><strong>Primal:</strong> Max Z = 3X1 + 4X2
+  <br>Kendala: X1 + 2X2 &le; 10
+  <br><strong>Soal:</strong> Tentukan fungsi tujuan Dual-nya.</p>
+  <h3>Pembahasan</h3>
+  <p>Nilai Ruas Kanan (RHS) Primal menjadi Koefisien Tujuan Dual.
+  <br><strong>Dual:</strong> Min W = 10Y1
+  <br>Kendala Dual diambil dari kolom Primal:
+  <br>1. 1Y1 &ge; 3
+  <br>2. 2Y1 &ge; 4</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 9: Analisis Sensitivitas</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Analisis Sensitivitas (Post-Optimality Analysis) mengukur dampak perubahan parameter input (koefisien fungsi tujuan atau ketersediaan sumber daya) terhadap solusi optimal. Ini menjawab pertanyaan "What-If" tanpa perlu menghitung ulang dari awal.</p>
+  <h3>Studi Kasus</h3>
+  <p>Solusi optimal produksi adalah 50 unit. Range of Optimality untuk keuntungan per unit adalah Rp 4.000 - Rp 6.000. Saat ini keuntungan Rp 5.000.
+  <br><strong>Soal:</strong> Jika keuntungan naik menjadi Rp 5.500, apakah jumlah produksi optimal berubah?</p>
+  <h3>Pembahasan</h3>
+  <p><strong>Tidak Berubah.</strong> Karena Rp 5.500 masih berada di dalam rentang sensitivitas (Range of Optimality), maka keputusan produksi tetap 50 unit. Hanya total keuntungan (Z) yang akan meningkat.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 10: Model Transportasi (NWC)</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Model Transportasi bertujuan mendistribusikan barang dari beberapa sumber ke beberapa tujuan dengan biaya minimum. Salah satu metode solusi awal adalah <strong>North West Corner (NWC)</strong>, yaitu mengisi alokasi mulai dari pojok kiri atas matriks.</p>
+  <h3>Studi Kasus</h3>
+  <p>Gudang A (Supply 50), Gudang B (Supply 50).
+  <br>Toko 1 (Demand 40), Toko 2 (Demand 60).
+  <br><strong>Soal:</strong> Alokasi tahap pertama dengan NWC.</p>
+  <h3>Pembahasan</h3>
+  <p>1. Mulai Pojok Kiri Atas (Gudang A &rarr; Toko 1).
+  <br>2. Supply A = 50, Demand T1 = 40. Penuhi Demand T1.
+  <br>3. Alokasi: 40 unit dari A ke T1. Sisa Supply A = 10.
+  <br>4. Geser ke Kanan (Gudang A &rarr; Toko 2). Alokasikan sisa 10 unit A.
+  <br>5. Sisanya dipenuhi oleh Gudang B.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 11: Model Penugasan (Assignment)</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Model Penugasan adalah kasus khusus model transportasi dimana Supply=1 dan Demand=1 (satu orang satu tugas). Metode penyelesaiannya adalah <strong>Metode Hungarian</strong>, yang berbasis pada pengurangan matriks biaya (Row reduction & Column reduction).</p>
+  <h3>Studi Kasus</h3>
+  <p>Biaya:
+  <br>A: [10, 15]
+  <br>B: [12, 14]
+  <br><strong>Soal:</strong> Lakukan reduksi baris.</p>
+  <h3>Pembahasan</h3>
+  <p>Kurangi setiap baris dengan angka terkecil di baris tersebut.
+  <br>Baris A (min 10): [10-10, 15-10] &rarr; [0, 5]
+  <br>Baris B (min 12): [12-12, 14-12] &rarr; [0, 2]
+  <br>Matriks hasil reduksi baris siap untuk reduksi kolom.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 12: Integer Programming</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Integer Programming (IP) digunakan ketika variabel keputusan harus bernilai bulat (diskrit), seperti jumlah manusia atau mesin. Metode penyelesaiannya menggunakan <strong>Branch and Bound</strong>.</p>
+  <h3>Studi Kasus</h3>
+  <p>Hasil perhitungan LP untuk jumlah produksi mobil adalah 3,6 unit. Mengapa kita tidak boleh langsung membulatkan ke 4?</p>
+  <h3>Pembahasan</h3>
+  <p>Pembulatan ke atas (4 unit) berisiko <strong>Infeasible</strong> (melanggar kendala sumber daya, misal bahan baku kurang). Pembulatan ke bawah (3 unit) mungkin <strong>Sub-optimal</strong> (keuntungan tidak maksimal). Maka harus dicari dengan algoritma IP yang tepat.</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 13: Teori Antrian</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Teori Antrian menganalisis kinerja sistem layanan. Komponen utama: Pola kedatangan (Poisson), Pola layanan (Eksponensial), dan Jumlah server. Rumus dasar sistem M/M/1 untuk rata-rata jumlah dalam sistem ($L_s$):
+  <br><code>Ls = &lambda; / (&mu; - &lambda;)</code></p>
+  <h3>Studi Kasus</h3>
+  <p>Nasabah datang rata-rata 10/jam (&lambda;). Teller mampu melayani 15/jam (&mu;).
+  <br><strong>Soal:</strong> Berapa rata-rata jumlah nasabah di bank?</p>
+  <h3>Pembahasan</h3>
+  <p>Ls = 10 / (15 - 10)
+  <br>Ls = 10 / 5 = <strong>2 Nasabah</strong>.
+  <br>Artinya rata-rata ada 2 orang di bank (1 dilayani, 1 antri).</p>
+</div>
+
+<button class="accordion-btn">Pertemuan 14: Teori Keputusan</button>
+<div class="accordion-content">
+  <h3>Teori Akademis</h3>
+  <p>Pengambilan keputusan dalam kondisi ketidakpastian. Kriteria umum:
+  <br>1. <strong>Maximax (Optimis):</strong> Pilih hasil maksimal dari yang maksimal.
+  <br>2. <strong>Maximin (Pesimis):</strong> Pilih hasil maksimal dari kondisi terburuk (aman).</p>
+  <h3>Studi Kasus</h3>
+  <p>Investasi A: Untung 100 (Bagus), Rugi 50 (Buruk).
+  <br>Investasi B: Untung 40 (Bagus), Untung 10 (Buruk).
+  <br><strong>Soal:</strong> Apa keputusan investor tipe Maximin?</p>
+  <h3>Pembahasan</h3>
+  <p>1. Cari nilai terburuk tiap opsi:
+  <br>- A: -50
+  <br>- B: 10
+  <br>2. Pilih yang terbaik dari yang terburuk:
+  <br>Max(-50, 10) = 10.
+  <br><strong>Keputusan:</strong> Pilih Investasi B (Lebih aman).</p>
+</div>
+
+<button class="accordion-btn">UTS: Evaluasi Tengah Semester</button>
+<div class="accordion-content">
+  <h3>Deskripsi Ujian</h3>
+  <p>UTS mencakup materi Pertemuan 1 s.d. 7. Fokus pada formulasi model matematis dari soal cerita dan penyelesaian menggunakan Metode Grafik.</p>
+  <h3>Contoh Soal Esai</h3>
+  <p>PT. Pangan Sehat memproduksi Roti (X) dan Kue (Y).
+  <br>- Tepung: Roti 200g, Kue 100g (Stok 10kg).
+  <br>- Gula: Roti 50g, Kue 50g (Stok 4kg).
+  <br>- Profit: Roti Rp 2k, Kue Rp 3k.
+  <br><strong>Pertanyaan:</strong> Tentukan kombinasi produksi optimal.</p>
+  <h3>Kunci Jawaban Singkat</h3>
+  <p>1. 2X + Y &le; 100 (Tepung dlm ons)
+  <br>2. 0.5X + 0.5Y &le; 40 (Gula dlm ons)
+  <br>Cari titik potong dan uji ke Z = 2000X + 3000Y.</p>
+</div>
+
+<button class="accordion-btn">UAS: Evaluasi Akhir Semester</button>
+<div class="accordion-content">
+  <h3>Deskripsi Ujian</h3>
+  <p>UAS bersifat komprehensif, mencakup Simplex Lanjutan, Transportasi, Penugasan, dan Teori Keputusan.</p>
+  <h3>Contoh Soal Analisis</h3>
+  <p>Sebuah proyek memiliki biaya pengiriman awal Rp 50 Juta (Metode NWC). Setelah dioptimasi dengan Stepping Stone, biaya turun menjadi Rp 42 Juta.
+  <br><strong>Pertanyaan:</strong> Jelaskan secara manajerial mengapa terjadi penurunan biaya tersebut?</p>
+  <h3>Kunci Jawaban Singkat</h3>
+  <p>Metode NWC hanya mengisi alokasi berdasarkan posisi geografis matriks tanpa melihat efisiensi biaya. Metode optimasi (Stepping Stone) mengevaluasi <em>Opportunity Cost</em> dan memindahkan alokasi ke rute yang lebih murah hingga mencapai efisiensi maksimal (Global Optimum).</p>
+</div>
+
+</section>
+
+<footer>
+<p>UAS Web Programming 1 | Muhamad Guntur Rivaldi | 231011400509</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
