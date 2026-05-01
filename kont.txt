@@ -1,0 +1,58 @@
+-- 1. Membuat Tabel tbkaryawan
+CREATE TABLE `tbkaryawan` (
+    `ktp` VARCHAR(20) NOT NULL PRIMARY KEY,
+    `nama` VARCHAR(100) DEFAULT NULL,
+    `jabatan` VARCHAR(100) DEFAULT NULL,
+    `jenis_kelamin` VARCHAR(20) DEFAULT NULL,
+    `agama` VARCHAR(20) DEFAULT NULL,
+    `status` VARCHAR(30) DEFAULT NULL,
+    `alamat` TEXT DEFAULT NULL,
+    `password` VARCHAR(100) DEFAULT NULL
+);
+
+-- 2. Membuat Tabel tbpekerjaan
+CREATE TABLE `tbpekerjaan` (
+    `kodepekerjaan` VARCHAR(10) NOT NULL PRIMARY KEY,
+    `namapekerjaan` VARCHAR(100) DEFAULT NULL,
+    `jumlahtugas` INT(11) DEFAULT NULL
+);
+
+-- 3. Membuat Tabel tbgaji
+CREATE TABLE `tbgaji` (
+    `ktp` VARCHAR(20) DEFAULT NULL,
+    `kode_pekerjaan` VARCHAR(10) DEFAULT NULL,
+    `gaji_bersih` DOUBLE DEFAULT NULL,
+    `gaji_kotor` DOUBLE DEFAULT NULL,
+    `tunjangan` DOUBLE DEFAULT NULL,
+    FOREIGN KEY (`ktp`) REFERENCES `tbkaryawan`(`ktp`),
+    FOREIGN KEY (`kode_pekerjaan`) REFERENCES `tbpekerjaan`(`kodepekerjaan`)
+);
+
+-- 4. Menambahkan Data ke Tabel tbkaryawan
+INSERT INTO `tbkaryawan` (`ktp`, `nama`, `jabatan`, `jenis_kelamin`, `agama`, `status`, `alamat`, `password`)
+VALUES 
+('1234567890', 'John Doe', 'Manager', 'Laki-laki', 'Islam', 'Menikah', 'Jl. Raya No. 10', 'password123'),
+('0987654321', 'Jane Smith', 'Staff', 'Perempuan', 'Kristen', 'Belum Menikah', 'Jl. Merdeka No. 5', 'password456');
+
+-- 5. Menambahkan Data ke Tabel tbpekerjaan
+INSERT INTO `tbpekerjaan` (`kodepekerjaan`, `namapekerjaan`, `jumlahtugas`)
+VALUES
+('001', 'Software Engineer', 5),
+('002', 'Project Manager', 7);
+
+-- 6. Menambahkan Data ke Tabel tbgaji
+INSERT INTO `tbgaji` (`ktp`, `kode_pekerjaan`, `gaji_bersih`, `gaji_kotor`, `tunjangan`)
+VALUES 
+('1234567890', '001', 5000000, 6000000, 1000000),
+('0987654321', '002', 8000000, 9000000, 1500000);
+
+-- 7. Query JOIN untuk mengambil data gabungan dari tbkaryawan, tbpekerjaan, dan tbgaji
+SELECT 
+    k.ktp, k.nama, k.jabatan, k.status, 
+    p.namapekerjaan, g.gaji_bersih, g.gaji_kotor, g.tunjangan
+FROM 
+    tbkaryawan k
+JOIN 
+    tbgaji g ON k.ktp = g.ktp
+JOIN 
+    tbpekerjaan p ON g.kode_pekerjaan = p.kodepekerjaan;
